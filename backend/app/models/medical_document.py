@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime, timezone
+from typing import TYPE_CHECKING
 
 from sqlalchemy import (
     CheckConstraint,
@@ -10,6 +13,10 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
+
+if TYPE_CHECKING:
+    from app.models.observation import Observation
+    from app.models.patient import Patient
 
 
 def utc_now() -> datetime:
@@ -46,6 +53,10 @@ class MedicalDocument(Base):
         String(100),
         nullable=True,
     )
+    file_path: Mapped[str | None] = mapped_column(
+        String(1024),
+        nullable=True,
+    )
     processing_status: Mapped[str] = mapped_column(
         String(20),
         default="uploaded",
@@ -57,10 +68,10 @@ class MedicalDocument(Base):
         nullable=False,
     )
 
-    patient: Mapped["Patient"] = relationship(
+    patient: Mapped[Patient] = relationship(
         back_populates="documents",
     )
-    observations: Mapped[list["Observation"]] = relationship(
+    observations: Mapped[list[Observation]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
     )

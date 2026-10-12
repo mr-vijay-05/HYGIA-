@@ -1,10 +1,16 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime, timezone
+from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
+
+if TYPE_CHECKING:
+    from app.models.medical_document import MedicalDocument
 
 
 def utc_now() -> datetime:
@@ -29,7 +35,7 @@ class Patient(Base):
         nullable=False,
     )
 
-    documents: Mapped[list["MedicalDocument"]] = relationship(
+    documents: Mapped[list[MedicalDocument]] = relationship(
         back_populates="patient",
         cascade="all, delete-orphan",
     )
