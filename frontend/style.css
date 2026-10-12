@@ -121,17 +121,17 @@ body {
 
 .brand-title {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 700;
-  color: #1E293B;
+  color: #0B2545;
   letter-spacing: -0.3px;
   line-height: 1.1;
 }
 
 .brand-tagline {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #3E526B;
   letter-spacing: -0.1px;
 }
 
@@ -621,12 +621,14 @@ body {
   background: #E2E8F044;
 }
 
-.user-avatar-img {
+.user-avatar-img,
+.avatar-img {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
   border: 1.5px solid #E2E8F0;
+  display: block;
 }
 
 .user-meta {

@@ -1,0 +1,44 @@
+<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leafGradTopRight" x1="18" y1="20" x2="38" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F05A28"/>
+      <stop offset="60%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+    <linearGradient id="leafGradTopLeft" x1="18" y1="20" x2="5" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EA580C"/>
+      <stop offset="60%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+    <linearGradient id="leafGradBottom" x1="18" y1="20" x2="10" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C2410C"/>
+      <stop offset="50%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <filter id="centerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Top-Right Leaf -->
+  <path d="M18 20C19.5 13 26 6.5 36 6C38 15 31.5 22.5 18 20Z" fill="url(#leafGradTopRight)"/>
+
+  <!-- Top-Left Leaf -->
+  <path d="M18 20C11.5 17.5 5 11 6 3.5C14.5 4 21 11.5 18 20Z" fill="url(#leafGradTopLeft)"/>
+
+  <!-- Bottom-Left Leaf -->
+  <path d="M18 20C14.5 27 8.5 35 1.5 33.5C1 24.5 8 18 18 20Z" fill="url(#leafGradBottom)"/>
+
+  <!-- Vein lines extending from center sparkle -->
+  <path d="M18 20L31.5 10.5" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.9"/>
+  <path d="M18 20L9.5 7.5" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.9"/>
+  <path d="M18 20L7 30" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.9"/>
+
+  <!-- Central White Sparkle Star -->
+  <path d="M18 15.5C18 18 16.5 20 13.5 20C16.5 20 18 22 18 24.5C18 22 19.5 20 22.5 20C19.5 20 18 18 18 15.5Z" fill="#FFFFFF" filter="url(#centerGlow)"/>
+  <circle cx="18" cy="20" r="1.2" fill="#FFFFFF"/>
+</svg>
