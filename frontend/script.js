@@ -384,24 +384,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAskAI = document.getElementById('btnAskAI');
   const btnGetInsights = document.getElementById('btnGetInsights');
   const openChatBtn = document.getElementById('openChatBtn');
+  const navAiAssistant = document.getElementById('navAiAssistant');
   const aiChatModal = document.getElementById('aiChatModal');
   const closeAiChatModal = document.getElementById('closeAiChatModal');
   const aiChatThread = document.getElementById('aiChatThread');
   const modalAiInput = document.getElementById('modalAiInput');
   const modalAiSendBtn = document.getElementById('modalAiSendBtn');
 
-  function triggerAiChat() {
-    openModal(aiChatModal);
-    if (aiChatThread && aiChatThread.children.length === 0) {
-      const bubble = document.createElement('div');
-      bubble.className = 'chat-bubble bot';
-      bubble.innerHTML = `Hello Kavin! I have analyzed your entire timeline from 12 Sep 2017 to 24 Jun 2018 (9 visits, 8 treatments, and 8 consultation notes). What questions do you have about your health journey?`;
-      aiChatThread.appendChild(bubble);
+  // AI responses dictionary for intelligent realistic simulation
+  const aiAnswers = {
+    priya: "Priya S (Wife, 28 yrs): Recent records include Doctor's Notes (20 Jun 2024) from Salem Hospital for seasonal asthma consultation. Prescribed Levocetirizine 5mg and Budecort inhaler as needed. Next review in 3 months.",
+    advik: "Advik (Son, 8 yrs): Vaccination completed on 18 Jun 2024 (DTaP Booster & Typhoid vaccine) at City Clinic. Upcoming: Annual routine pediatric checkup on 28 Jun 2024 at 11:30 AM.",
+    lakshmi: "Lakshmi (Mother, 54 yrs): Blood test completed on 12 Jun 2024 at Apollo Diagnostics (HbA1c: 6.2%, Fasting Blood Sugar: 118 mg/dL). Next follow-up blood test scheduled on 02 Jul 2024 at 09:00 AM.",
+    appointments: "Upcoming family appointments: 1) Kavin S: Allergy Follow-up on 26 Jun 10:00 AM. 2) Advik: Routine Checkup on 28 Jun 11:30 AM. 3) Lakshmi: Blood Test on 02 Jul 09:00 AM.",
+    recurring: "Family Health Insights: 1 recurring pattern identified — Seasonal allergic rhinitis / dust sensitivity shared across Kavin S and Priya S during June monsoon transition. Preventative air purification recommended.",
+    default: "I have analyzed your family health records. All recent vaccinations, appointments, and diagnostic reports are organized and verified."
+  };
+
+  function triggerAiChat(initialUserQuery) {
+    if (aiChatModal) {
+      openModal(aiChatModal);
+      if (aiChatThread && aiChatThread.children.length === 0) {
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble bot';
+        bubble.innerHTML = `Hello Kavin! I am your Hygia Health Assistant. I have indexed records for your whole family (Kavin, Priya, Advik, Lakshmi). How can I assist you today?`;
+        aiChatThread.appendChild(bubble);
+      }
+
+      if (initialUserQuery && typeof initialUserQuery === 'string' && initialUserQuery.trim()) {
+        sendChatMessage(initialUserQuery.trim());
+      }
     }
   }
 
-  [btnAskAI, btnGetInsights, openChatBtn].forEach(btn => {
-    if (btn) btn.addEventListener('click', triggerAiChat);
+  [btnAskAI, btnGetInsights, openChatBtn, navAiAssistant].forEach(btn => {
+    if (btn) btn.addEventListener('click', () => triggerAiChat());
   });
 
   if (closeAiChatModal) closeAiChatModal.addEventListener('click', () => closeModal(aiChatModal));
@@ -411,30 +428,253 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function sendChatMessage() {
-    if (!modalAiInput || !aiChatThread) return;
-    const text = modalAiInput.value.trim();
+  function sendChatMessage(customText) {
+    if (!aiChatThread) return;
+    const text = customText || (modalAiInput ? modalAiInput.value.trim() : '');
     if (!text) return;
+
     const userBubble = document.createElement('div');
     userBubble.className = 'chat-bubble user';
     userBubble.innerText = text;
     aiChatThread.appendChild(userBubble);
-    modalAiInput.value = '';
+    if (modalAiInput) modalAiInput.value = '';
+
+    const lower = text.toLowerCase();
+    let reply = aiAnswers.default;
+    if (lower.includes('priya')) reply = aiAnswers.priya;
+    else if (lower.includes('advik') || lower.includes('vaccin')) reply = aiAnswers.advik;
+    else if (lower.includes('lakshmi') || lower.includes('blood')) reply = aiAnswers.lakshmi;
+    else if (lower.includes('appoint')) reply = aiAnswers.appointments;
+    else if (lower.includes('recur')) reply = aiAnswers.recurring;
+    else if (lower.includes('immuno') || lower.includes('allergy')) {
+      reply = "Immunotherapy Desensitization: Allergen extracts are given in escalating doses to train your immune system. Your 9 completed injection cycles have reduced peak allergen sensitivity by approx. 70%.";
+    } else if (lower.includes('summar')) {
+      reply = "Health History Summary: You have 9 clinic visits, 8 completed subcutaneous immunotherapy treatments at Salem Hospital, with resolved viral sinusitis in 2018. Vital signs and compliance remain optimal.";
+    }
 
     setTimeout(() => {
       const botBubble = document.createElement('div');
       botBubble.className = 'chat-bubble bot';
-      botBubble.innerHTML = `Timeline Summary:
-Your allergy immunotherapy schedule at Salem Hospital is progressing on track with consistent compliance. No new adverse events or medications conflict across your clinical timeline.`;
+      botBubble.innerHTML = reply;
       aiChatThread.appendChild(botBubble);
       aiChatThread.scrollTop = aiChatThread.scrollHeight;
-    }, 600);
+    }, 450);
   }
 
-  if (modalAiSendBtn) modalAiSendBtn.addEventListener('click', sendChatMessage);
+  if (modalAiSendBtn) modalAiSendBtn.addEventListener('click', () => sendChatMessage());
   if (modalAiInput) {
     modalAiInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') sendChatMessage();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Home Page AI Assistant Widget Logic
+  // ---------------------------------------------------------------------------
+  const homeAiForm = document.getElementById('aiChatForm');
+  const homeAiInput = document.getElementById('aiChatInput');
+  const homePromptChips = document.querySelectorAll('.prompt-chip');
+  const attachFileBtn = document.getElementById('attachFileBtn');
+
+  if (homePromptChips.length > 0) {
+    homePromptChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const query = chip.dataset.query || chip.innerText.trim();
+        if (homeAiInput) {
+          homeAiInput.value = query;
+          homeAiInput.focus();
+        }
+        triggerAiChat(query);
+      });
+    });
+  }
+
+  if (homeAiForm) {
+    homeAiForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = homeAiInput ? homeAiInput.value.trim() : '';
+      if (val) {
+        triggerAiChat(val);
+        if (homeAiInput) homeAiInput.value = '';
+      }
+    });
+  }
+
+  if (attachFileBtn) {
+    attachFileBtn.addEventListener('click', () => {
+      const uploadModal = document.getElementById('uploadModal');
+      if (uploadModal) openModal(uploadModal);
+      else alert('Please select a PDF report or medical record image to attach.');
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Family Members Dashboard Logic
+  // ---------------------------------------------------------------------------
+  const familyCards = document.querySelectorAll('.family-member-card');
+  const openAddFamilyModalBtn = document.getElementById('openAddFamilyModalBtn');
+  const addFamilyModal = document.getElementById('addFamilyModal');
+  const closeAddFamilyModal = document.getElementById('closeAddFamilyModal');
+  const cancelAddFamily = document.getElementById('cancelAddFamily');
+  const addFamilyForm = document.getElementById('addFamilyForm');
+  const familyAiForm = document.getElementById('familyAiForm');
+  const familyAiInput = document.getElementById('familyAiInput');
+  const familyAiChips = document.querySelectorAll('.family-ai-prompts-row .ai-chip-btn');
+  const familyAttachBtn = document.querySelector('.family-attach-btn');
+
+  // Toggle active family member card
+  if (familyCards.length > 0) {
+    familyCards.forEach(card => {
+      card.addEventListener('click', () => {
+        familyCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const name = card.querySelector('.member-name')?.textContent || 'Family member';
+        console.log(`Active profile switched to: ${name}`);
+      });
+    });
+  }
+
+  // Add Family Member Modal
+  if (openAddFamilyModalBtn && addFamilyModal) {
+    openAddFamilyModalBtn.addEventListener('click', () => openModal(addFamilyModal));
+  }
+  if (closeAddFamilyModal && addFamilyModal) {
+    closeAddFamilyModal.addEventListener('click', () => closeModal(addFamilyModal));
+  }
+  if (cancelAddFamily && addFamilyModal) {
+    cancelAddFamily.addEventListener('click', () => closeModal(addFamilyModal));
+  }
+  if (addFamilyModal) {
+    addFamilyModal.addEventListener('click', (e) => {
+      if (e.target === addFamilyModal) closeModal(addFamilyModal);
+    });
+  }
+
+  // Add Family Member Submission
+  if (addFamilyForm) {
+    addFamilyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('fmName')?.value.trim();
+      const relation = document.getElementById('fmRelation')?.value || 'Member';
+      const gender = document.getElementById('fmGender')?.value || 'Other';
+      const age = document.getElementById('fmAge')?.value || '30';
+
+      if (!name) return;
+
+      const grid = document.querySelector('.family-cards-grid');
+      if (grid) {
+        const newCard = document.createElement('div');
+        newCard.className = 'family-member-card';
+        newCard.innerHTML = `
+          <div class="member-card-left">
+            <div class="member-avatar-img" style="background: linear-gradient(135deg, #FFEDD5, #FED7AA); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #EA580C; font-size: 15px;">
+              ${name.charAt(0)}
+            </div>
+            <div class="member-info-col">
+              <h4 class="member-name">${name}</h4>
+              <p class="member-relation-role">${relation}</p>
+              <p class="member-meta-text">${gender} <span class="bullet">•</span> ${age} yrs</p>
+            </div>
+          </div>
+          <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        `;
+
+        newCard.addEventListener('click', () => {
+          document.querySelectorAll('.family-member-card').forEach(c => c.classList.remove('active'));
+          newCard.classList.add('active');
+        });
+
+        grid.appendChild(newCard);
+
+        // Update count header
+        const total = document.querySelectorAll('.family-member-card').length;
+        const countHeader = document.querySelector('.family-section-header .section-title');
+        if (countHeader) countHeader.textContent = `Family Members (${total})`;
+      }
+
+      addFamilyForm.reset();
+      closeModal(addFamilyModal);
+    });
+  }
+
+  // Family AI Prompts Chips
+  if (familyAiChips.length > 0) {
+    familyAiChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const query = chip.dataset.query || chip.innerText.trim();
+        if (familyAiInput) familyAiInput.value = query;
+        triggerAiChat(query);
+      });
+    });
+  }
+
+  // Family AI Input Form
+  if (familyAiForm) {
+    familyAiForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = familyAiInput ? familyAiInput.value.trim() : '';
+      if (val) {
+        triggerAiChat(val);
+        if (familyAiInput) familyAiInput.value = '';
+      }
+    });
+  }
+
+  if (familyAttachBtn) {
+    familyAttachBtn.addEventListener('click', () => {
+      alert('Attach medical document or lab report for family health analysis.');
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 6. Login Page Logic (Role Switching & Password Visibility Toggle)
+  // ---------------------------------------------------------------------------
+  const roleSwitcher = document.getElementById('roleSwitcher');
+  const roleTabs = document.querySelectorAll('.role-tab');
+  const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+  const loginPassword = document.getElementById('loginPassword');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  if (roleSwitcher && roleTabs.length > 0) {
+    roleTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        roleTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const role = tab.dataset.role;
+        const emailInput = document.getElementById('loginEmail');
+        if (emailInput) {
+          if (role === 'family') {
+            emailInput.placeholder = 'Enter family member email or mobile';
+            emailInput.value = 'family.member@example.com';
+          } else {
+            emailInput.placeholder = 'Enter your email or phone number';
+            emailInput.value = 'kavin.s@example.com';
+          }
+        }
+      });
+    });
+  }
+
+  if (togglePasswordBtn && loginPassword) {
+    togglePasswordBtn.addEventListener('click', () => {
+      const isPassword = loginPassword.type === 'password';
+      loginPassword.type = isPassword ? 'text' : 'password';
+      if (eyeIcon) {
+        if (isPassword) {
+          eyeIcon.innerHTML = `
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          `;
+        } else {
+          eyeIcon.innerHTML = `
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          `;
+        }
+      }
     });
   }
 });
