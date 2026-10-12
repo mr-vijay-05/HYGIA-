@@ -1122,5 +1122,310 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ==========================================================================
+     9. APPOINTMENTS PAGE CONTROLLER (appointments.html)
+     ========================================================================== */
+  function initAppointmentsPage() {
+    const doctorCardsList = document.getElementById('doctorCardsList');
+    if (!doctorCardsList) return; // Not on appointments page
+
+    const doctorsData = {
+      'priya-raman': {
+        name: 'Dr. Priya Raman',
+        specialty: 'Allergist & Immunologist',
+        hospital: 'Salem Multispeciality Hospital',
+        experience: '12 years',
+        rating: '4.8',
+        reviews: '(320 reviews)',
+        distance: '2.4 km',
+        focus: 'Allergy Treatment, Immunotherapy',
+        bio: 'Dr. Priya Raman specializes in the diagnosis and treatment of allergies, asthma, and immunological conditions. She has extensive experience in allergy immunotherapy and personalized treatment plans.'
+      },
+      'aravind-kumar': {
+        name: 'Dr. Aravind Kumar',
+        specialty: 'ENT Specialist (Allergy Care)',
+        hospital: 'KMCH Salem',
+        experience: '10 years',
+        rating: '4.6',
+        reviews: '(210 reviews)',
+        distance: '4.1 km',
+        focus: 'Chronic Rhinitis, Sinusitis & Allergy Management',
+        bio: 'Dr. Aravind Kumar is a senior ENT surgeon specializing in allergic rhinitis, endoscopic sinus procedures, and comprehensive airway allergy care.'
+      },
+      'nithya-s': {
+        name: 'Dr. Nithya S',
+        specialty: 'Pulmonologist (Allergy & Asthma)',
+        hospital: 'Sri Ramakrishna Hospital, Salem',
+        experience: '15 years',
+        rating: '4.5',
+        reviews: '(189 reviews)',
+        distance: '5.8 km',
+        focus: 'Adult & Pediatric Asthma, Lung Function Testing',
+        bio: 'Dr. Nithya S is a specialist in respiratory medicine, allergic bronchopulmonary conditions, and spirometry diagnostics with over 15 years of clinical practice.'
+      },
+      'karthik-subramanian': {
+        name: 'Dr. Karthik Subramanian',
+        specialty: 'General Physician (Allergy Treatment)',
+        hospital: 'Salem Government Hospital',
+        experience: '8 years',
+        rating: '4.3',
+        reviews: '(142 reviews)',
+        distance: '3.1 km',
+        focus: 'Preventive Healthcare, Seasonal Allergies & Primary Care',
+        bio: 'Dr. Karthik Subramanian provides evidence-based primary medical care, focusing on prompt diagnosis and management of seasonal allergies and immune health.'
+      },
+      'meena-lakshmi': {
+        name: 'Dr. Meena Lakshmi',
+        specialty: 'Dermatologist (Allergy & Skin)',
+        hospital: 'Apollo Clinic, Salem',
+        experience: '11 years',
+        rating: '4.4',
+        reviews: '(178 reviews)',
+        distance: '6.2 km',
+        focus: 'Contact Dermatitis, Urticaria & Skin Patch Testing',
+        bio: 'Dr. Meena Lakshmi is a consultant dermatologist focusing on allergic skin reactions, eczema, hives, and advanced patch testing for allergen identification.'
+      }
+    };
+
+    let selectedDoctorId = 'priya-raman';
+    let selectedDate = 'Tuesday, Oct 13, 2026';
+    let selectedSlot = '09:00 AM';
+
+    const panelDoctorName = document.getElementById('panelDoctorName');
+    const panelDoctorSpecialty = document.getElementById('panelDoctorSpecialty');
+    const panelDoctorHospital = document.getElementById('panelDoctorHospital');
+    const panelDoctorRating = document.getElementById('panelDoctorRating');
+    const panelDoctorReviews = document.getElementById('panelDoctorReviews');
+    const panelDoctorExp = document.getElementById('panelDoctorExp');
+    const panelDoctorFocus = document.getElementById('panelDoctorFocus');
+    const panelDoctorDist = document.getElementById('panelDoctorDist');
+    const panelDoctorBio = document.getElementById('panelDoctorBio');
+
+    function updateDoctorPanel(docId) {
+      const doc = doctorsData[docId];
+      if (!doc) return;
+      selectedDoctorId = docId;
+
+      if (panelDoctorName) panelDoctorName.textContent = doc.name;
+      if (panelDoctorSpecialty) panelDoctorSpecialty.textContent = doc.specialty;
+      if (panelDoctorHospital) {
+        panelDoctorHospital.innerHTML = `
+          <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M9 3v18"></path>
+            <path d="M15 3v18"></path>
+            <path d="M3 9h18"></path>
+            <path d="M3 15h18"></path>
+          </svg>
+          <span>${doc.hospital}</span>
+        `;
+      }
+      if (panelDoctorRating) panelDoctorRating.textContent = doc.rating;
+      if (panelDoctorReviews) panelDoctorReviews.textContent = doc.reviews;
+      if (panelDoctorExp) panelDoctorExp.textContent = doc.experience;
+      if (panelDoctorFocus) panelDoctorFocus.textContent = doc.focus;
+      if (panelDoctorDist) panelDoctorDist.textContent = doc.distance;
+      if (panelDoctorBio) panelDoctorBio.textContent = doc.bio;
+
+      // Update card active classes
+      const allCards = doctorCardsList.querySelectorAll('.doctor-card');
+      allCards.forEach(card => {
+        const isCurrent = card.getAttribute('data-doctor-id') === docId;
+        card.classList.toggle('selected', isCurrent);
+        const bookBtn = card.querySelector('.btn-card-book');
+        if (bookBtn) {
+          bookBtn.classList.toggle('active-card-btn', isCurrent);
+        }
+      });
+    }
+
+    // Card click events
+    doctorCardsList.addEventListener('click', (e) => {
+      const card = e.target.closest('.doctor-card');
+      if (card) {
+        const docId = card.getAttribute('data-doctor-id');
+        updateDoctorPanel(docId);
+      }
+    });
+
+    // Detail tabs switching
+    const tabLinks = document.querySelectorAll('.doctor-detail-tabs .tab-link');
+    tabLinks.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabLinks.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const tabType = tab.getAttribute('data-tab');
+        const doc = doctorsData[selectedDoctorId];
+        if (panelDoctorBio && doc) {
+          if (tabType === 'about') {
+            panelDoctorBio.textContent = doc.bio;
+          } else if (tabType === 'services') {
+            panelDoctorBio.textContent = `Specialized clinical services offered by ${doc.name}: Comprehensive allergy profile blood panels, Sublingual/Subcutaneous Immunotherapy (SCIT), Spirometry airway diagnostics, Skin prick tests, and custom desensitization protocols.`;
+          } else if (tabType === 'reviews') {
+            panelDoctorBio.textContent = `“Dr. Priya Raman provided the clearest explanation of my IgE antibody levels and allergy immunotherapy schedule. Symptoms improved remarkably in 4 weeks!” — Patient Review (Verified)`;
+          } else if (tabType === 'location') {
+            panelDoctorBio.textContent = `Consultation OPD located at ${doc.hospital}, 2nd Floor Diagnostic Wing. Ample parking, dedicated allergy assessment lab, and wheel-chair accessible entry.`;
+          }
+        }
+      });
+    });
+
+    // Day slot picker
+    const daySlotBtns = document.querySelectorAll('.day-slot-btn');
+    daySlotBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        daySlotBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const dayName = btn.getAttribute('data-day-name') || 'Tuesday';
+        const dayNum = btn.getAttribute('data-day-num') || '13';
+        selectedDate = `${dayName}, Oct ${dayNum}, 2026`;
+      });
+    });
+
+    // Time slot picker
+    const timeSlotBtns = document.querySelectorAll('.time-slot-btn');
+    timeSlotBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        timeSlotBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSlot = btn.getAttribute('data-slot') || '09:00 AM';
+      });
+    });
+
+    // Search query input live filter
+    const treatmentQueryInput = document.getElementById('treatmentQueryInput');
+    const clearSearchQuery = document.getElementById('clearSearchQuery');
+    if (treatmentQueryInput) {
+      treatmentQueryInput.addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase().trim();
+        const allCards = doctorCardsList.querySelectorAll('.doctor-card');
+        allCards.forEach(card => {
+          const docId = card.getAttribute('data-doctor-id');
+          const doc = doctorsData[docId];
+          if (!doc) return;
+          const match = doc.name.toLowerCase().includes(val) || 
+                        doc.specialty.toLowerCase().includes(val) || 
+                        doc.focus.toLowerCase().includes(val) || 
+                        doc.hospital.toLowerCase().includes(val);
+          card.style.display = match ? 'flex' : 'none';
+        });
+      });
+    }
+
+    if (clearSearchQuery && treatmentQueryInput) {
+      clearSearchQuery.addEventListener('click', () => {
+        treatmentQueryInput.value = '';
+        treatmentQueryInput.dispatchEvent(new Event('input'));
+        treatmentQueryInput.focus();
+      });
+    }
+
+    // Dropdown filters (Location, Radius, Date)
+    function setupDropdown(btnId, menuId, textId) {
+      const btn = document.getElementById(btnId);
+      const menu = document.getElementById(menuId);
+      const text = document.getElementById(textId);
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isShow = menu.classList.contains('show');
+        document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.filter-dropdown-btn').forEach(b => b.classList.remove('active'));
+        if (!isShow) {
+          menu.classList.add('show');
+          btn.classList.add('active');
+        }
+      });
+
+      menu.querySelectorAll('.filter-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          menu.querySelectorAll('.filter-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          if (text) text.textContent = opt.textContent;
+          menu.classList.remove('show');
+          btn.classList.remove('active');
+        });
+      });
+    }
+
+    setupDropdown('locationFilterBtn', 'locationMenu', 'selectedLocationText');
+    setupDropdown('radiusFilterBtn', 'radiusMenu', 'selectedRadiusText');
+    setupDropdown('dateFilterBtn', 'dateMenu', 'selectedDateFilterText');
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+      document.querySelectorAll('.filter-dropdown-btn').forEach(b => b.classList.remove('active'));
+    });
+
+    // Booking Confirmation Modal
+    const btnConfirmBooking = document.getElementById('btnConfirmBooking');
+    const bookingConfirmModal = document.getElementById('bookingConfirmModal');
+    const closeConfirmModal = document.getElementById('closeConfirmModal');
+    const btnAddToCalendar = document.getElementById('btnAddToCalendar');
+
+    if (btnConfirmBooking && bookingConfirmModal) {
+      btnConfirmBooking.addEventListener('click', () => {
+        const doc = doctorsData[selectedDoctorId] || doctorsData['priya-raman'];
+        const ticketDoctorName = document.getElementById('ticketDoctorName');
+        const ticketDoctorSpecialty = document.getElementById('ticketDoctorSpecialty');
+        const ticketHospital = document.getElementById('ticketHospital');
+        const ticketDate = document.getElementById('ticketDate');
+        const ticketTime = document.getElementById('ticketTime');
+        const ticketBookingId = document.getElementById('ticketBookingId');
+
+        if (ticketDoctorName) ticketDoctorName.textContent = doc.name;
+        if (ticketDoctorSpecialty) ticketDoctorSpecialty.textContent = doc.specialty;
+        if (ticketHospital) ticketHospital.textContent = doc.hospital;
+        if (ticketDate) ticketDate.textContent = selectedDate;
+        if (ticketTime) ticketTime.textContent = selectedSlot;
+        if (ticketBookingId) {
+          const randNum = Math.floor(1000 + Math.random() * 9000);
+          ticketBookingId.textContent = `HYG-APT-${randNum}`;
+        }
+
+        bookingConfirmModal.style.display = 'flex';
+      });
+    }
+
+    if (closeConfirmModal && bookingConfirmModal) {
+      closeConfirmModal.addEventListener('click', () => {
+        bookingConfirmModal.style.display = 'none';
+      });
+    }
+
+    if (bookingConfirmModal) {
+      bookingConfirmModal.addEventListener('click', (e) => {
+        if (e.target === bookingConfirmModal) {
+          bookingConfirmModal.style.display = 'none';
+        }
+      });
+    }
+
+    if (btnAddToCalendar) {
+      btnAddToCalendar.addEventListener('click', () => {
+        btnAddToCalendar.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Added to Calendar!</span>
+        `;
+        setTimeout(() => {
+          btnAddToCalendar.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Add to Calendar</span>
+          `;
+        }, 2200);
+      });
+    }
+  }
+
   initFloatingChatbot();
+  initAppointmentsPage();
 });
+
