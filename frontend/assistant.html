@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hygia - AI Assistant</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <svg class="brand-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 28C10 24 9 18 15 12C20 7 28 6 32 6C32 10 31 18 26 23C21 28 15 28 12 28Z" fill="#F05A28"/>
+            <path d="M11 28C8 25 7 19 12 15C16 11 22 10 25 10C24 14 22 20 18 24C15 27 12 28 11 28Z" fill="#FB923C" fill-opacity="0.9"/>
+            <path d="M16 31C13 29 12 25 15 22C18 19 22 19 25 19C24 22 22 26 19 29C17.5 30.5 16.5 31 16 31Z" fill="#F97316"/>
+          </svg>
+          <div class="brand-text">
+            <h1 class="brand-title">Hygia</h1>
+            <span class="brand-tagline">Your Health, Clearly.</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="records.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>My Records</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#appointments" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Appointments</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="timeline.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>Health Timeline</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="family.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Family Members</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="assistant.html" class="nav-link active">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>
+              </svg>
+              <span>AI Assistant</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#settings" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-content">
+      <!-- TOP HEADER -->
+      <header class="top-header">
+        <div class="search-container">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="globalSearchInput" 
+            placeholder="Search your records, appointments or ask anything..."
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="header-actions">
+          <!-- Language Selector -->
+          <div class="header-lang-wrapper" id="langWrapper">
+            <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
+              <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="lang-current-label" id="currentLangLabel">EN</span>
+              <svg class="lang-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+              <div class="dropdown-header">
+                <h6>Language</h6>
+              </div>
+              <ul class="dropdown-list lang-list">
+                <li class="dropdown-item lang-item active" data-lang="en">
+                  <span class="lang-native">English</span>
+                  <span class="lang-code-pill">EN</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="es">
+                  <span class="lang-native">Español</span>
+                  <span class="lang-code-pill">ES</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="fr">
+                  <span class="lang-native">Français</span>
+                  <span class="lang-code-pill">FR</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="ta">
+                  <span class="lang-native">தமிழ்</span>
+                  <span class="lang-code-pill">TA</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="hi">
+                  <span class="lang-native">हिन्दी</span>
+                  <span class="lang-code-pill">HI</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="de">
+                  <span class="lang-native">Deutsch</span>
+                  <span class="lang-code-pill">DE</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="header-notification-wrapper" id="notifWrapper">
+            <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-badge"></span>
+            </button>
+            <div class="notification-dropdown" id="notifDropdown">
+              <div class="dropdown-header">
+                <h6>Notifications</h6>
+                <span class="badge-count">2 New</span>
+              </div>
+              <ul class="dropdown-list">
+                <li class="dropdown-item unread">
+                  <span class="notif-dot"></span>
+                  <div class="notif-content">
+                    <p class="notif-text"><strong>Allergy Immunotherapy</strong> completed on 24 Jun 2018.</p>
+                    <span class="notif-time">2 hours ago</span>
+                  </div>
+                </li>
+                <li class="dropdown-item unread">
+                  <span class="notif-dot"></span>
+                  <div class="notif-content">
+                    <p class="notif-text"><strong>Doctor's Notes</strong> uploaded by Dr. Sarah Jenkins.</p>
+                    <span class="notif-time">1 day ago</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- User Profile -->
+          <div class="user-profile-wrapper" id="userProfileWrapper">
+            <button class="user-profile-btn" id="userProfileBtn">
+              <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
+              <div class="user-meta">
+                <span class="user-name">Kavin S</span>
+                <span class="user-role">Personal Account</span>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <a href="#profile" class="profile-item">Account Details</a>
+              <a href="family.html" class="profile-item">Family Profiles (4)</a>
+              <a href="#security" class="profile-item">Privacy & Data</a>
+              <hr class="dropdown-divider">
+              <a href="login.html" class="profile-item text-danger">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <div class="page-body">
+        <div class="ai-page-layout">
+          <!-- MAIN CENTER WORKSPACE -->
+          <div class="ai-main-card">
+            <!-- HERO WELCOME & ACTIONS (Default State) -->
+            <div class="ai-workspace-content" id="aiWorkspaceDefault">
+              <!-- Halo Icon Badge -->
+              <div class="ai-halo-badge-container">
+                <div class="ai-halo-glow-bg"></div>
+                <div class="ai-halo-circle">
+                  <svg viewBox="0 0 24 24" fill="#F05A28" class="ai-halo-star-svg">
+                    <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <h2 class="ai-hub-title">Hi Kavin, I'm Hygia AI</h2>
+              <p class="ai-hub-subtitle">Ask anything about your health records, get simple explanations, track your health and make better decisions.</p>
+
+              <!-- 4 Quick-Action Action Cards -->
+              <div class="ai-quick-cards-grid">
+                <!-- Action 1 -->
+                <button class="ai-quick-card" data-prompt="Summarize my health records and medical history so far.">
+                  <div class="ai-card-icon-box blue-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                  </div>
+                  <div class="ai-card-label">
+                    <span>Summarize</span>
+                    <span>my records</span>
+                  </div>
+                </button>
+
+                <!-- Action 2 -->
+                <button class="ai-quick-card" data-prompt="Explain my ongoing diagnosed conditions in simple words.">
+                  <div class="ai-card-icon-box coral-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </div>
+                  <div class="ai-card-label">
+                    <span>Explain my</span>
+                    <span>health condition</span>
+                  </div>
+                </button>
+
+                <!-- Action 3 -->
+                <button class="ai-quick-card" data-prompt="Show my health trends and allergy immunotherapy progress over time.">
+                  <div class="ai-card-icon-box purple-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </div>
+                  <div class="ai-card-label">
+                    <span>Show my</span>
+                    <span>health trends</span>
+                  </div>
+                </button>
+
+                <!-- Action 4 -->
+                <button class="ai-quick-card" data-prompt="What are my upcoming appointments and follow-up schedules?">
+                  <div class="ai-card-icon-box orange-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </div>
+                  <div class="ai-card-label">
+                    <span>What are my</span>
+                    <span>upcoming appointments?</span>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Upload Drag & Drop Zone -->
+              <div class="ai-dropzone-box" id="aiDropzone">
+                <input type="file" id="aiFileUploadInput" multiple style="display: none;" accept=".pdf,.jpg,.jpeg,.png,.dcm">
+                <div class="ai-folder-icon">
+                  <svg viewBox="0 0 24 24" fill="#F05A28">
+                    <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                  </svg>
+                </div>
+                <h4 class="ai-dropzone-heading">Drop files or folders here</h4>
+                <p class="ai-dropzone-subheading">Upload medical records, reports, prescriptions, or an entire folder</p>
+                <p class="ai-dropzone-meta">Supports PDF, JPG, PNG, DICOM and more</p>
+
+                <button type="button" class="btn-choose-files" id="btnBrowseFiles">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Choose Files or Folder</span>
+                </button>
+
+                <div class="uploaded-chips-row" id="uploadedChipsRow"></div>
+              </div>
+            </div>
+
+            <!-- LIVE CHAT THREAD (Shown when chatting) -->
+            <div class="ai-chat-conversation" id="aiConversationThread" style="display: none;"></div>
+
+            <!-- BOTTOM CHAT INPUT BAR -->
+            <form class="ai-composer-form" id="aiComposerForm">
+              <button type="button" class="composer-attach-btn" id="composerAttachBtn" title="Attach file or report">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+              </button>
+              <input 
+                type="text" 
+                class="composer-text-input" 
+                id="composerTextInput" 
+                placeholder="Ask your question or give instructions..." 
+                autocomplete="off"
+              >
+              <button type="submit" class="composer-send-btn" id="composerSendBtn" aria-label="Send query">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <!-- RIGHT SIDEBAR COLUMN -->
+          <div class="ai-sidebar-column">
+            <!-- 1. TRY THESE EXAMPLES -->
+            <section class="content-card ai-examples-panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Try these examples</h3>
+                <button class="btn-refresh-pill" id="btnRefreshPrompts" title="Refresh examples" aria-label="Refresh examples">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="examples-list" id="examplesContainer">
+                <!-- Example 1 -->
+                <button class="example-quote-card" data-prompt="Summarize my last 3 doctor visits.">
+                  <div class="example-icon-box doc-blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                  </div>
+                  <span class="example-quote-text">“Summarize my last 3 doctor visits.”</span>
+                </button>
+
+                <!-- Example 2 -->
+                <button class="example-quote-card" data-prompt="Explain this prescription in simple words.">
+                  <div class="example-icon-box pill-green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m18 2 4 4"></path>
+                      <path d="m17 7 3-3"></path>
+                      <path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-1.6-1.6c-1-1-1-2.5 0-3.4L14 4"></path>
+                      <path d="m9 11 4 4"></path>
+                    </svg>
+                  </div>
+                  <span class="example-quote-text">“Explain this prescription in simple words.”</span>
+                </button>
+
+                <!-- Example 3 -->
+                <button class="example-quote-card" data-prompt="Show my allergy treatment history.">
+                  <div class="example-icon-box chart-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </div>
+                  <span class="example-quote-text">“Show my allergy treatment history.”</span>
+                </button>
+
+                <!-- Example 4 -->
+                <button class="example-quote-card" data-prompt="What are my upcoming appointments?">
+                  <div class="example-icon-box cal-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </div>
+                  <span class="example-quote-text">“What are my upcoming appointments?”</span>
+                </button>
+              </div>
+            </section>
+
+            <!-- 2. RECENT FILES -->
+            <section class="content-card ai-recent-files-panel">
+              <div class="panel-header">
+                <h3 class="panel-title">Recent Files</h3>
+                <a href="records.html" class="view-all-link">View All <span>→</span></a>
+              </div>
+
+              <div class="recent-files-list">
+                <!-- File 1: Lab Report -->
+                <div class="recent-file-item" data-filename="Lab Report (12 Jun 2024)">
+                  <div class="file-icon-box red-file-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                  </div>
+                  <div class="file-item-info">
+                    <h5 class="file-item-name">Lab Report</h5>
+                    <p class="file-item-meta">12 Jun 2024 <span class="bullet">•</span> 2.4 MB</p>
+                  </div>
+                  <button class="file-menu-btn" title="More options" aria-label="File options">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="5" r="1.75"/>
+                      <circle cx="12" cy="12" r="1.75"/>
+                      <circle cx="12" cy="19" r="1.75"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- File 2: Prescription -->
+                <div class="recent-file-item" data-filename="Prescription (05 Jun 2024)">
+                  <div class="file-icon-box green-file-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <div class="file-item-info">
+                    <h5 class="file-item-name">Prescription</h5>
+                    <p class="file-item-meta">05 Jun 2024 <span class="bullet">•</span> 1.2 MB</p>
+                  </div>
+                  <button class="file-menu-btn" title="More options" aria-label="File options">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="5" r="1.75"/>
+                      <circle cx="12" cy="12" r="1.75"/>
+                      <circle cx="12" cy="19" r="1.75"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- File 3: Doctor Note -->
+                <div class="recent-file-item" data-filename="Doctor Note (01 Jun 2024)">
+                  <div class="file-icon-box blue-file-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                  </div>
+                  <div class="file-item-info">
+                    <h5 class="file-item-name">Doctor Note</h5>
+                    <p class="file-item-meta">01 Jun 2024 <span class="bullet">•</span> 856 KB</p>
+                  </div>
+                  <button class="file-menu-btn" title="More options" aria-label="File options">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="5" r="1.75"/>
+                      <circle cx="12" cy="12" r="1.75"/>
+                      <circle cx="12" cy="19" r="1.75"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- File 4: Allergy Reports Folder -->
+                <div class="recent-file-item" data-filename="Allergy Reports Folder (5 files)">
+                  <div class="file-icon-box orange-file-box">
+                    <svg viewBox="0 0 24 24" fill="#EA580C">
+                      <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                    </svg>
+                  </div>
+                  <div class="file-item-info">
+                    <h5 class="file-item-name">Allergy Reports</h5>
+                    <p class="file-item-meta">5 files <span class="bullet">•</span> 6.8 MB</p>
+                  </div>
+                  <button class="file-menu-btn" title="More options" aria-label="File options">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="5" r="1.75"/>
+                      <circle cx="12" cy="12" r="1.75"/>
+                      <circle cx="12" cy="19" r="1.75"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3. DATA PRIVACY CALLOUT -->
+            <div class="ai-privacy-box">
+              <div class="privacy-bulb-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6"></path>
+                  <path d="M10 22h4"></path>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+                </svg>
+              </div>
+              <div class="privacy-text-wrap">
+                <h4 class="privacy-heading">Your data stays private</h4>
+                <p class="privacy-body">Your files are securely processed and never shared. Hygia AI only uses your data to provide personalized insights.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js?v=9"></script>
+</body>
+</html>
