@@ -3,6 +3,8 @@
  * Supports Home (index.html), My Records (records.html), and Health Timeline (timeline.html)
  */
 
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
+
 document.addEventListener('DOMContentLoaded', () => {
   // ---------------------------------------------------------------------------
   // 1. Dropdowns (Notifications & User Profile)
@@ -356,27 +358,102 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // Store the selected files for the upload action.
+  let selectedFiles = [];
+
   if (dropZone && fileUploadInput) {
     dropZone.addEventListener('click', () => fileUploadInput.click());
-    fileUploadInput.addEventListener('change', (e) => {
-      if (!filesPreview) return;
-      Array.from(e.target.files).forEach(f => {
-        const el = document.createElement('div');
-        el.className = 'file-preview-item';
-        el.innerHTML = `<span>📄 ${f.name}</span> <span style="color:#15803D; font-weight:600;">Ready</span>`;
-        filesPreview.appendChild(el);
-      });
+
+    fileUploadInput.addEventListener('change', (event) => {
+      selectedFiles = Array.from(event.target.files || []);
+
+      if (filesPreview) {
+        filesPreview.innerHTML = '';
+
+        selectedFiles.forEach((file) => {
+          const item = document.createElement('div');
+          item.className = 'file-preview-item';
+
+          const name = document.createElement('span');
+          name.textContent = `📄 ${file.name}`;
+
+          const status = document.createElement('span');
+          status.textContent = 'Ready';
+          status.style.color = '#15803D';
+          status.style.fontWeight = '600';
+
+          item.append(name, status);
+          filesPreview.appendChild(item);
+        });
+      }
     });
   }
 
   if (confirmUploadBtn) {
-    confirmUploadBtn.addEventListener('click', () => {
-      confirmUploadBtn.innerText = 'Analyzing with Hygia AI...';
-      setTimeout(() => {
-        confirmUploadBtn.innerText = 'Upload & Analyze';
+    confirmUploadBtn.addEventListener('click', async () => {
+      if (!selectedFiles.length) {
+        alert('Please select a PDF or image first.');
+        return;
+      }
+
+      // Use a real patient ID from your HYGIA database.
+      // This is a temporary development setting.
+      const patientId = window.HYGIA_PATIENT_ID;
+
+      if (!patientId) {
+        alert('Patient ID is not configured yet.');
+        return;
+      }
+
+      const originalText = confirmUploadBtn.textContent;
+      confirmUploadBtn.disabled = true;
+      confirmUploadBtn.textContent = 'Uploading...';
+
+      try {
+        const uploadedDocuments = [];
+
+        for (const file of selectedFiles) {
+          const formData = new FormData();
+          formData.append('patient_id', patientId);
+          formData.append('file', file);
+
+          const response = await fetch(
+            'http://127.0.0.1:8000/api/v1/documents/upload',
+            {
+              method: 'POST',
+              body: formData
+            }
+          );
+
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(
+              result.detail || `Upload failed (${response.status})`
+            );
+          }
+
+          uploadedDocuments.push(result);
+        }
+
+        alert(
+          `Successfully uploaded ${uploadedDocuments.length} document(s).`
+        );
+
+        selectedFiles = [];
+        fileUploadInput.value = '';
+        if (filesPreview) filesPreview.innerHTML = '';
         closeModal(uploadModal);
-        alert('Record added to your medical records timeline!');
-      }, 700);
+
+        console.log('Uploaded documents:', uploadedDocuments);
+      } catch (error) {
+        console.error('HYGIA upload error:', error);
+        alert(`Upload failed: ${error.message}`);
+      } finally {
+        confirmUploadBtn.disabled = false;
+        confirmUploadBtn.textContent = originalText;
+      }
     });
   }
 
