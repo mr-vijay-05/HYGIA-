@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hygia - My Records</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <svg class="brand-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 28C10 24 9 18 15 12C20 7 28 6 32 6C32 10 31 18 26 23C21 28 15 28 12 28Z" fill="#F05A28"/>
+            <path d="M11 28C8 25 7 19 12 15C16 11 22 10 25 10C24 14 22 20 18 24C15 27 12 28 11 28Z" fill="#FB923C" fill-opacity="0.9"/>
+            <path d="M16 31C13 29 12 25 15 22C18 19 22 19 25 19C24 22 22 26 19 29C17.5 30.5 16.5 31 16 31Z" fill="#F97316"/>
+          </svg>
+          <div class="brand-text">
+            <h1 class="brand-title">Hygia</h1>
+            <span class="brand-tagline">Your Health, Clearly.</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="records.html" class="nav-link active">
+              <svg class="nav-icon active-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" fill="#F05A28"/>
+              </svg>
+              <span>My Records</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#appointments" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Appointments</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="timeline.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>Health Timeline</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#family" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Family</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#ai-assistant" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <line x1="12" y1="8" x2="12" y2="14"></line>
+                <line x1="9" y1="11" x2="15" y2="11"></line>
+              </svg>
+              <span>AI Assistant</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#settings" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Promo Card: Keep health records organized -->
+      <div class="sidebar-promo-card">
+        <div class="promo-image-container">
+          <img src="assets/records_organizer.jpg" alt="Organize Health Records" class="promo-doctor-img">
+        </div>
+        <h4 class="promo-title">Keep your health records organized</h4>
+        <p class="promo-desc">Upload reports, view past visits and get useful insights all in one place.</p>
+        <button class="promo-cta-btn" id="sidebarUploadBtn">
+          Upload Records <span>→</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="main-content">
+      <!-- TOP HEADER BAR -->
+      <header class="top-header">
+        <div class="search-container">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="globalSearchInput" 
+            placeholder="Search your records, e.g. doctor visits, treatments, allergies..."
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="header-actions">
+          <!-- Language Selector -->
+          <div class="header-lang-wrapper" id="langWrapper">
+            <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
+              <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="lang-current-label" id="currentLangLabel">EN</span>
+              <svg class="lang-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="lang-dropdown" id="langDropdown">
+              <div class="dropdown-header">
+                <h6>Language</h6>
+              </div>
+              <ul class="dropdown-list lang-list">
+                <li class="dropdown-item lang-item active" data-lang="en">
+                  <span class="lang-native">English</span>
+                  <span class="lang-code-pill">EN</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="es">
+                  <span class="lang-native">Español</span>
+                  <span class="lang-code-pill">ES</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="fr">
+                  <span class="lang-native">Français</span>
+                  <span class="lang-code-pill">FR</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="ta">
+                  <span class="lang-native">தமிழ்</span>
+                  <span class="lang-code-pill">TA</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="hi">
+                  <span class="lang-native">हिन्दी</span>
+                  <span class="lang-code-pill">HI</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="de">
+                  <span class="lang-native">Deutsch</span>
+                  <span class="lang-code-pill">DE</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="header-notification-wrapper" id="notifWrapper">
+            <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-badge"></span>
+            </button>
+            <div class="notification-dropdown" id="notifDropdown">
+              <div class="dropdown-header">
+                <h6>Notifications</h6>
+                <span class="badge-count">2 New</span>
+              </div>
+              <ul class="dropdown-list">
+                <li class="dropdown-item unread">
+                  <span class="dot-unread"></span>
+                  <div class="notif-content">
+                    <p class="notif-text">Lab results for <strong>Allergy Panel</strong> uploaded.</p>
+                    <span class="notif-time">10 mins ago</span>
+                  </div>
+                </li>
+                <li class="dropdown-item unread">
+                  <span class="dot-unread"></span>
+                  <div class="notif-content">
+                    <p class="notif-text">Upcoming appointment with <strong>Dr. Sarah</strong>.</p>
+                    <span class="notif-time">Yesterday</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- User Profile Dropdown -->
+          <div class="user-profile-wrapper" id="userProfileWrapper">
+            <button class="user-profile-btn" id="userProfileBtn">
+              <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
+              <div class="user-meta">
+                <span class="user-name">Kavin S</span>
+                <span class="user-role">Personal Account</span>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <a href="#profile" class="profile-item">Account Details</a>
+              <a href="#family" class="profile-item">Family Profiles (3)</a>
+              <a href="#security" class="profile-item">Privacy & Data</a>
+              <hr class="dropdown-divider">
+              <a href="#logout" class="profile-item text-danger">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY SCROLLER -->
+      <div class="page-body">
+        <!-- HERO BANNER: MY RECORDS -->
+        <section class="hero-banner-card records-hero">
+          <div class="hero-bg-cover" style="background-image: url('assets/hero_banner.jpg');"></div>
+          <div class="hero-content">
+            <h2 class="hero-page-title">My Records</h2>
+            <p class="hero-page-desc">All your doctor visits, treatments, reports and notes in one place.</p>
+          </div>
+
+          <!-- 4 QUICK ACTION TILES -->
+          <div class="quick-actions-grid">
+            <!-- Action 1: Upload Records -->
+            <button class="quick-action-card" id="btnUploadRecords">
+              <div class="action-icon-box orange-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+                  <path d="M12 12v9"></path>
+                  <path d="m16 16-4-4-4 4"></path>
+                </svg>
+              </div>
+              <div class="action-text">
+                <h5 class="action-title">Upload Records</h5>
+                <span class="action-sub">Add reports, prescriptions, etc.</span>
+              </div>
+              <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Action 2: Scan with Camera -->
+            <button class="quick-action-card" id="btnScanCamera">
+              <div class="action-icon-box orange-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </div>
+              <div class="action-text">
+                <h5 class="action-title">Scan with Camera</h5>
+                <span class="action-sub">Scan and save your records</span>
+              </div>
+              <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Action 3: Get Health Insights -->
+            <button class="quick-action-card" id="btnGetInsights">
+              <div class="action-icon-box purple-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>
+                </svg>
+              </div>
+              <div class="action-text">
+                <h5 class="action-title">Get Health Insights</h5>
+                <span class="action-sub">Understand your records</span>
+              </div>
+              <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Action 4: Add Family Member -->
+            <button class="quick-action-card" id="btnAddFamily">
+              <div class="action-icon-box orange-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <line x1="19" y1="8" x2="19" y2="14"></line>
+                  <line x1="22" y1="11" x2="16" y2="11"></line>
+                </svg>
+              </div>
+              <div class="action-text">
+                <h5 class="action-title">Add Family Member</h5>
+                <span class="action-sub">Manage your loved ones' records</span>
+              </div>
+              <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- HORIZONTAL FILTER BAR & CONTROLS -->
+        <div class="records-filter-toolbar">
+          <div class="filter-pills-group">
+            <button class="filter-pill active" data-category="all">All Records</button>
+            <button class="filter-pill" data-category="visit">Doctor Visits</button>
+            <button class="filter-pill" data-category="treatment">Treatments</button>
+            <button class="filter-pill" data-category="notes">Doctor's Notes</button>
+          </div>
+          <div class="filter-actions-group">
+            <button class="filter-tool-btn icon-only" title="Quick Search" aria-label="Quick Search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+            <button class="filter-tool-btn" id="filterDropdownBtn">
+              <span>Filter</span>
+              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <button class="filter-tool-btn" id="sortDropdownBtn">
+              <span>Sort by</span>
+              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2-COLUMN GRID: RECENT RECORDS (LEFT) & RECORD INSPECTOR (RIGHT) -->
+        <div class="records-main-grid">
+          <!-- LEFT COLUMN: RECENT RECORDS TIMELINE -->
+          <div class="records-timeline-card">
+            <div class="records-card-header">
+              <h3 class="records-title">Recent Records</h3>
+              <span class="records-count-text">92 records</span>
+            </div>
+
+            <!-- TIMELINE LIST -->
+            <div class="timeline-container" id="timelineList">
+              <!-- GROUP 1: 24 Jun 2018 -->
+              <div class="timeline-group">
+                <!-- Row 1: Doctor Visit (Selected by default) -->
+                <div class="timeline-row active-record" data-id="visit-24jun" data-type="visit">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">24 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box orange-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <path d="m9 16 2 2 4-4"></path>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Doctor Visit</h4>
+                      <p class="timeline-event-sub">Clinic visit <span class="bullet">•</span> Salem Hospital</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-visit-completed">Visit Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 2: Allergy Treatment (Injection) -->
+                <div class="timeline-row" data-id="treatment-24jun" data-type="treatment">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">24 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box green-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 2 4 4"></path>
+                        <path d="m17 7 3-3"></path>
+                        <path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-1.6-1.6c-1-1-1-2.5 0-3.4L14 4"></path>
+                        <path d="m9 11 4 4"></path>
+                        <path d="m5 19-3 3"></path>
+                        <path d="m14 4 6 6"></path>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Allergy Treatment (Injection)</h4>
+                      <p class="timeline-event-sub">Allergy treatment given by injection</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-completed-blue">Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 3: Doctor's Notes -->
+                <div class="timeline-row" data-id="notes-24jun" data-type="notes">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">24 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box purple-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Doctor's Notes</h4>
+                      <p class="timeline-event-sub">Details about your visit and examination</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-final-report">Final Report</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- GROUP 2: 01 Jun 2018 -->
+              <div class="timeline-group">
+                <!-- Row 1: Doctor Visit -->
+                <div class="timeline-row" data-id="visit-01jun" data-type="visit">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">01 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box orange-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Doctor Visit</h4>
+                      <p class="timeline-event-sub">Clinic visit <span class="bullet">•</span> Salem Hospital</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-visit-completed">Visit Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 2: Allergy Treatment (Injection) -->
+                <div class="timeline-row" data-id="treatment-01jun" data-type="treatment">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">01 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box green-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 2 4 4"></path>
+                        <path d="m17 7 3-3"></path>
+                        <path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-1.6-1.6c-1-1-1-2.5 0-3.4L14 4"></path>
+                        <path d="m9 11 4 4"></path>
+                        <path d="m5 19-3 3"></path>
+                        <path d="m14 4 6 6"></path>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Allergy Treatment (Injection)</h4>
+                      <p class="timeline-event-sub">Allergy treatment given by injection</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-completed-blue">Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 3: Doctor's Notes -->
+                <div class="timeline-row" data-id="notes-01jun" data-type="notes">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">01 Jun 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box purple-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Doctor's Notes</h4>
+                      <p class="timeline-event-sub">Details about your visit and examination</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-final-report">Final Report</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- GROUP 3: 05 May 2018 -->
+              <div class="timeline-group">
+                <!-- Row 1: Doctor Visit -->
+                <div class="timeline-row" data-id="visit-05may" data-type="visit">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">05 May 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box orange-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Doctor Visit</h4>
+                      <p class="timeline-event-sub">Clinic visit <span class="bullet">•</span> Salem Hospital</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-visit-completed">Visit Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Row 2: Allergy Treatment (Injection) -->
+                <div class="timeline-row" data-id="treatment-05may" data-type="treatment">
+                  <div class="timeline-date-col">
+                    <span class="timeline-date">05 May 2018</span>
+                  </div>
+                  <div class="timeline-line-track">
+                    <span class="timeline-dot"></span>
+                    <div class="timeline-vertical-line"></div>
+                  </div>
+                  <div class="timeline-item-body">
+                    <div class="timeline-icon-box green-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 2 4 4"></path>
+                        <path d="m17 7 3-3"></path>
+                        <path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-1.6-1.6c-1-1-1-2.5 0-3.4L14 4"></path>
+                        <path d="m9 11 4 4"></path>
+                        <path d="m5 19-3 3"></path>
+                        <path d="m14 4 6 6"></path>
+                      </svg>
+                    </div>
+                    <div class="timeline-info">
+                      <h4 class="timeline-event-title">Allergy Treatment (Injection)</h4>
+                      <p class="timeline-event-sub">Allergy treatment given by injection</p>
+                    </div>
+                    <div class="timeline-actions">
+                      <span class="badge badge-completed-blue">Completed</span>
+                      <svg class="chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEW MORE BUTTON -->
+            <div class="timeline-footer">
+              <button class="load-more-btn" id="loadMoreBtn">
+                View More Records <span class="arrow-down">↓</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: RECORD DETAIL INSPECTOR -->
+          <div class="record-detail-panel" id="recordInspector">
+            <!-- Inspector Top Nav -->
+            <div class="inspector-header">
+              <a href="#back" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Back to Records</span>
+              </a>
+              <div class="inspector-tools">
+                <button class="tool-btn" id="btnDownloadRecord" title="Download record PDF">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download</span>
+                </button>
+                <button class="tool-btn icon-only" title="More options">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Active Record Header Banner -->
+            <div class="record-banner-box">
+              <div class="record-banner-main">
+                <div class="record-avatar-icon" id="inspectorIcon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#F05A28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </div>
+                <div class="record-banner-titles">
+                  <h3 class="record-name" id="inspectorTitle">Doctor Visit</h3>
+                  <p class="record-meta-sub" id="inspectorSubtitle">24 Jun 2018 <span class="bullet">•</span> Salem Hospital</p>
+                </div>
+              </div>
+              <span class="badge badge-visit-completed" id="inspectorBadge">Visit Completed</span>
+            </div>
+
+            <!-- Inspector Tab Bar -->
+            <div class="inspector-tabs">
+              <button class="inspector-tab active" data-tab="overview">Overview</button>
+              <button class="inspector-tab" data-tab="documents">Documents (2)</button>
+              <button class="inspector-tab" data-tab="related">Related Records</button>
+            </div>
+
+            <!-- Tab Content: Overview -->
+            <div class="tab-pane active" id="paneOverview">
+              <!-- About this visit card -->
+              <div class="about-visit-card">
+                <div class="about-visit-img-box">
+                  <img src="assets/doctor_consultation.jpg" alt="Doctor Consultation" class="about-doctor-img">
+                </div>
+                <div class="about-visit-text">
+                  <h4 class="about-title">About this visit</h4>
+                  <p class="about-desc" id="inspectorAboutDesc">
+                    You visited the doctor for allergy-related symptoms. The doctor examined you and recorded your medical history.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 2x2 Info Attributes Grid -->
+              <div class="info-attributes-grid">
+                <!-- Attribute 1: Reason for visit -->
+                <div class="attribute-box">
+                  <div class="attribute-icon orange-attr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                    </svg>
+                  </div>
+                  <div class="attribute-meta">
+                    <span class="attr-label">Reason for visit</span>
+                    <span class="attr-value" id="attrReason">Allergy-related symptoms</span>
+                  </div>
+                </div>
+
+                <!-- Attribute 2: Location -->
+                <div class="attribute-box">
+                  <div class="attribute-icon orange-attr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div class="attribute-meta">
+                    <span class="attr-label">Location</span>
+                    <span class="attr-value" id="attrLocation">Salem Hospital</span>
+                  </div>
+                </div>
+
+                <!-- Attribute 3: Status -->
+                <div class="attribute-box">
+                  <div class="attribute-icon green-attr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  </div>
+                  <div class="attribute-meta">
+                    <span class="attr-label">Status</span>
+                    <span class="attr-value" id="attrStatus">Visit Completed</span>
+                  </div>
+                </div>
+
+                <!-- Attribute 4: Visit Type -->
+                <div class="attribute-box">
+                  <div class="attribute-icon orange-attr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <div class="attribute-meta">
+                    <span class="attr-label">Visit type</span>
+                    <span class="attr-value" id="attrType">Clinic visit (Outpatient)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Blue Medical Explanation Box -->
+              <div class="medical-explanation-box">
+                <div class="explanation-icon-col">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <div class="explanation-content">
+                  <h5 class="explanation-title">Original Medical Term in Record</h5>
+                  <p class="explanation-term" id="expTerm">Encounter (Outpatient procedure)</p>
+                  <p class="explanation-clarity" id="expClarity">
+                    This means a record of your visit to the hospital or clinic as an outpatient (you did not stay overnight).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Content: Documents -->
+            <div class="tab-pane" id="paneDocuments">
+              <div class="documents-list">
+                <div class="document-item">
+                  <div class="doc-file-icon">📄</div>
+                  <div class="doc-file-info">
+                    <span class="doc-title">Encounter_Summary_24Jun2018.pdf</span>
+                    <span class="doc-size">1.4 MB • Verified by Salem Hospital</span>
+                  </div>
+                  <button class="doc-view-btn">View</button>
+                </div>
+                <div class="document-item">
+                  <div class="doc-file-icon">📋</div>
+                  <div class="doc-file-info">
+                    <span class="doc-title">Allergy_Evaluation_Prescription.pdf</span>
+                    <span class="doc-size">840 KB • Dr. Sarah Jenkins</span>
+                  </div>
+                  <button class="doc-view-btn">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Content: Related Records -->
+            <div class="tab-pane" id="paneRelated">
+              <div class="related-list">
+                <div class="related-item">
+                  <span>💉 Subcutaneous Allergen Immunotherapy (Dose 14)</span>
+                  <span class="badge badge-completed-blue">Completed</span>
+                </div>
+                <div class="related-item">
+                  <span>📝 Consultation Follow-up Notes</span>
+                  <span class="badge badge-final-report">Final Report</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- INTERACTIVE MODAL: UPLOAD FILE -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Upload Medical Records</h3>
+        <button class="modal-close-btn" id="closeUploadModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon-circle">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#F05A28" stroke-width="2">
+              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+              <path d="M12 12v9"></path>
+              <path d="m16 16-4-4-4 4"></path>
+            </svg>
+          </div>
+          <p class="drop-title">Drag & drop your files here or <span class="browse-link">browse</span></p>
+          <span class="drop-hint">Supports PDF, JPG, PNG, DICOM (up to 25MB)</span>
+          <input type="file" id="fileUploadInput" multiple style="display: none;">
+        </div>
+        <div class="uploaded-files-preview" id="filesPreview"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelUploadBtn">Cancel</button>
+        <button class="btn btn-primary" id="confirmUploadBtn">Upload & Analyze</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE MODAL: AI HEALTH COPILOT CHAT -->
+  <div class="modal-backdrop" id="aiChatModal">
+    <div class="modal-box ai-chat-modal-box">
+      <div class="modal-header">
+        <div class="ai-modal-header-meta">
+          <span class="ai-sparkle-icon">✦</span>
+          <div>
+            <h3>Hygia Health Copilot</h3>
+            <p>Direct medical intelligence on your personal timeline</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeAiChatModal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="ai-chat-thread" id="aiChatThread"></div>
+      <div class="ai-chat-modal-footer">
+        <div class="ai-input-form modal-chat-input-form">
+          <input type="text" class="ai-text-input" id="modalAiInput" placeholder="Ask a question about your records...">
+          <button type="button" class="ai-send-btn" id="modalAiSendBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
