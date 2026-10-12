@@ -677,4 +677,235 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ---------------------------------------------------------------------------
+  // 7. Dedicated AI Assistant Page Controller (assistant.html)
+  // ---------------------------------------------------------------------------
+  const aiWorkspaceDefault = document.getElementById('aiWorkspaceDefault');
+  const aiConversationThread = document.getElementById('aiConversationThread');
+  const aiComposerForm = document.getElementById('aiComposerForm');
+  const composerTextInput = document.getElementById('composerTextInput');
+  const composerSendBtn = document.getElementById('composerSendBtn');
+  const composerAttachBtn = document.getElementById('composerAttachBtn');
+  const aiDropzone = document.getElementById('aiDropzone');
+  const btnBrowseFiles = document.getElementById('btnBrowseFiles');
+  const aiFileUploadInput = document.getElementById('aiFileUploadInput');
+  const uploadedChipsRow = document.getElementById('uploadedChipsRow');
+  const btnRefreshPrompts = document.getElementById('btnRefreshPrompts');
+  const examplesContainer = document.getElementById('examplesContainer');
+  const aiQuickCards = document.querySelectorAll('.ai-quick-card');
+  const exampleQuoteCards = document.querySelectorAll('.example-quote-card');
+  const recentFileItems = document.querySelectorAll('.recent-file-item');
+
+  const assistantKnowledge = {
+    summary: "📋 **Health Records Summary (Kavin S)**:\n\n• **Total Events**: 9 clinic encounters & 8 completed immunotherapy injection procedures at Salem Hospital (Sep 2017 – Jun 2018).\n• **Primary Diagnosis**: Allergic rhinitis & environmental hypersensitivity.\n• **Status**: Immunotherapy course successfully completed with optimal compliance. Viral sinusitis episode in Feb 2018 is fully resolved.",
+    condition: "❤️ **Health Condition Explanation**:\n\n• **Allergic Rhinitis**: Inflammation of the nasal membranes triggered by environmental allergens (dust mites, grass pollen).\n• **Mechanism**: Your immune system produces IgE antibodies causing histamine release, leading to congestion and sneezing.\n• **Management**: Allergen immunotherapy gradually desensitizes your response over time.",
+    trends: "📈 **Health Trends & Immunotherapy Progress**:\n\n• **Treatment Adherence**: 100% attendance across 8 SCIT injection sessions.\n• **Symptom Score**: Reduced by ~68% between Oct 2017 and Jun 2018.\n• **Vitals Stability**: Resting blood pressure (118/76 mmHg) and pulse (72 bpm) consistently normal at all appointments.",
+    appointments: "📅 **Upcoming Appointments & Follow-ups**:\n\n1. **Kavin S**: Allergy Follow-up at Salem Hospital — 26 Jun 2024 at 10:00 AM.\n2. **Advik (Son)**: Routine Pediatric Checkup at City Clinic — 28 Jun 2024 at 11:30 AM.\n3. **Lakshmi (Mother)**: Fasting Blood Test at Apollo Diagnostics — 02 Jul 2024 at 09:00 AM.",
+    prescription: "💊 **Prescription in Plain English**:\n\n• **Levocetirizine (5mg)**: Once daily at bedtime. Non-drowsy antihistamine that blocks allergic reactions.\n• **Budecort Inhaler (100mcg)**: 1 puff twice daily after meals. Corticosteroid that reduces airway inflammation without systemic side-effects.",
+    visits: "🩺 **Summary of Last 3 Doctor Visits**:\n\n1. **24 Jun 2018**: Outpatient follow-up with Dr. Sarah Jenkins. Lungs clear, completed 8th injection cycle.\n2. **01 Jun 2018**: Routine clinic consultation and vitals check.\n3. **05 May 2018**: Allergen immunotherapy maintenance administration.",
+    allergy: "🌿 **Allergy Treatment History**:\n\nInitiated on 12 Sep 2017 following skin prick test confirmation for house dust and grass allergens. 8 subcutaneous injection doses administered at Salem Hospital without adverse local reactions.",
+    default: "Thank you for asking! Based on your verified health records and diagnostic files, your vital markers are healthy and your allergy treatment milestones are up to date. How else can I assist your health care today?"
+  };
+
+  function sendAssistantPageQuery(userQuery) {
+    if (!userQuery || !userQuery.trim()) return;
+    const cleanText = userQuery.trim();
+
+    // Transition workspace from hero to conversation
+    if (aiWorkspaceDefault && aiConversationThread) {
+      aiWorkspaceDefault.style.display = 'none';
+      aiConversationThread.style.display = 'flex';
+    }
+
+    // Append user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'ai-chat-msg user';
+    userMsg.innerText = cleanText;
+    aiConversationThread.appendChild(userMsg);
+    if (composerTextInput) composerTextInput.value = '';
+    if (composerSendBtn) composerSendBtn.classList.remove('active');
+
+    aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
+
+    // Simulate AI clinical reasoning
+    setTimeout(() => {
+      const lower = cleanText.toLowerCase();
+      let answer = assistantKnowledge.default;
+      if (lower.includes('summar') && (lower.includes('record') || lower.includes('health') || lower.includes('history'))) {
+        answer = assistantKnowledge.summary;
+      } else if (lower.includes('last 3') || lower.includes('visits')) {
+        answer = assistantKnowledge.visits;
+      } else if (lower.includes('condition') || lower.includes('explain')) {
+        answer = assistantKnowledge.condition;
+      } else if (lower.includes('trend')) {
+        answer = assistantKnowledge.trends;
+      } else if (lower.includes('appoint')) {
+        answer = assistantKnowledge.appointments;
+      } else if (lower.includes('prescript')) {
+        answer = assistantKnowledge.prescription;
+      } else if (lower.includes('allergy') || lower.includes('immuno')) {
+        answer = assistantKnowledge.allergy;
+      } else if (lower.includes('lab') || lower.includes('file') || lower.includes('report') || lower.includes('doctor note')) {
+        answer = "📄 **Analysis of Selected Medical Record**:\n• Document status: Verified by Hospital Health Information System.\n• Key finding: All normal baseline ranges observed. Compliance score is optimal.";
+      }
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'ai-chat-msg bot';
+      botMsg.innerHTML = answer.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      aiConversationThread.appendChild(botMsg);
+      aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
+    }, 450);
+  }
+
+  // Quick Action Cards
+  if (aiQuickCards.length > 0) {
+    aiQuickCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const prompt = card.dataset.prompt;
+        sendAssistantPageQuery(prompt);
+      });
+    });
+  }
+
+  // Example Quotes
+  if (exampleQuoteCards.length > 0) {
+    exampleQuoteCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const prompt = card.dataset.prompt || card.innerText.replace(/[“”"]/g, '').trim();
+        sendAssistantPageQuery(prompt);
+      });
+    });
+  }
+
+  // Recent Files Clicks
+  if (recentFileItems.length > 0) {
+    recentFileItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const filename = item.dataset.filename || item.querySelector('.file-item-name')?.textContent || 'Medical File';
+        sendAssistantPageQuery(`Please analyze and summarize ${filename}`);
+      });
+    });
+  }
+
+  // Composer Form
+  if (aiComposerForm) {
+    aiComposerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = composerTextInput ? composerTextInput.value : '';
+      sendAssistantPageQuery(text);
+    });
+  }
+
+  if (composerTextInput) {
+    composerTextInput.addEventListener('input', () => {
+      if (composerSendBtn) {
+        if (composerTextInput.value.trim().length > 0) {
+          composerSendBtn.classList.add('active');
+        } else {
+          composerSendBtn.classList.remove('active');
+        }
+      }
+    });
+  }
+
+  if (composerAttachBtn) {
+    composerAttachBtn.addEventListener('click', () => {
+      if (aiFileUploadInput) aiFileUploadInput.click();
+    });
+  }
+
+  // File Upload Handlers
+  function handleUploadedAiFiles(fileList) {
+    if (!fileList || fileList.length === 0) return;
+    if (uploadedChipsRow) {
+      Array.from(fileList).forEach(f => {
+        const chip = document.createElement('span');
+        chip.className = 'uploaded-file-chip';
+        chip.innerHTML = `📄 ${f.name} <span style="font-weight:700; color:#16A34A;">✓</span>`;
+        uploadedChipsRow.appendChild(chip);
+      });
+    }
+
+    setTimeout(() => {
+      const fileName = fileList[0].name;
+      sendAssistantPageQuery(`I have uploaded: ${fileName}. Please summarize findings and highlight any abnormalities.`);
+    }, 600);
+  }
+
+  if (btnBrowseFiles && aiFileUploadInput) {
+    btnBrowseFiles.addEventListener('click', (e) => {
+      e.stopPropagation();
+      aiFileUploadInput.click();
+    });
+  }
+
+  if (aiDropzone && aiFileUploadInput) {
+    aiDropzone.addEventListener('click', () => aiFileUploadInput.click());
+    aiDropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      aiDropzone.classList.add('dragover');
+    });
+    aiDropzone.addEventListener('dragleave', () => aiDropzone.classList.remove('dragover'));
+    aiDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      aiDropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleUploadedAiFiles(e.dataTransfer.files);
+      }
+    });
+
+    aiFileUploadInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleUploadedAiFiles(e.target.files);
+      }
+    });
+  }
+
+  // Refresh Examples Rotator
+  const promptBatches = [
+    [
+      { icon: 'doc-blue', text: '“Summarize my last 3 doctor visits.”', prompt: 'Summarize my last 3 doctor visits.' },
+      { icon: 'pill-green', text: '“Explain this prescription in simple words.”', prompt: 'Explain this prescription in simple words.' },
+      { icon: 'chart-orange', text: '“Show my allergy treatment history.”', prompt: 'Show my allergy treatment history.' },
+      { icon: 'cal-orange', text: '“What are my upcoming appointments?”', prompt: 'What are my upcoming appointments?' }
+    ],
+    [
+      { icon: 'doc-blue', text: '“Are there any drug interactions with Levocetirizine?”', prompt: 'Are there any drug interactions with Levocetirizine?' },
+      { icon: 'chart-orange', text: '“How have my allergy symptoms improved this year?”', prompt: 'How have my allergy symptoms improved this year?' },
+      { icon: 'pill-green', text: '“What should I do if I miss an injection dose?”', prompt: 'What should I do if I miss an injection dose?' },
+      { icon: 'cal-orange', text: '“When is my next immunotherapy review scheduled?”', prompt: 'When is my next immunotherapy review scheduled?' }
+    ],
+    [
+      { icon: 'doc-blue', text: '“List all lab reports from June 2024.”', prompt: 'List all lab reports from June 2024.' },
+      { icon: 'pill-green', text: '“Compare my latest blood test with baseline.”', prompt: 'Compare my latest blood test with baseline.' },
+      { icon: 'cal-orange', text: '“Summarize my son Advik’s vaccine record.”', prompt: 'Summarize my son Advik’s vaccine record.' },
+      { icon: 'chart-orange', text: '“Explain my sinus infection recovery timeline.”', prompt: 'Explain my sinus infection recovery timeline.' }
+    ]
+  ];
+  let currentBatchIndex = 0;
+
+  if (btnRefreshPrompts && examplesContainer) {
+    btnRefreshPrompts.addEventListener('click', () => {
+      currentBatchIndex = (currentBatchIndex + 1) % promptBatches.length;
+      const batch = promptBatches[currentBatchIndex];
+      examplesContainer.innerHTML = '';
+      batch.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'example-quote-card';
+        btn.dataset.prompt = item.prompt;
+        btn.innerHTML = `
+          <div class="example-icon-box ${item.icon}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+          </div>
+          <span class="example-quote-text">${item.text}</span>
+        `;
+        btn.addEventListener('click', () => sendAssistantPageQuery(item.prompt));
+        examplesContainer.appendChild(btn);
+      });
+    });
+  }
 });
