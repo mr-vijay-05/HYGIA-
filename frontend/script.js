@@ -908,4 +908,219 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ---------------------------------------------------------------------------
+  // 8. Universal Floating Corner AI Chatbot Widget (Always Available on All Pages)
+  // ---------------------------------------------------------------------------
+  function initFloatingChatbot() {
+    let wrapper = document.getElementById('floatingChatbotWrapper');
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.id = 'floatingChatbotWrapper';
+      wrapper.className = 'floating-chatbot-wrapper';
+      wrapper.innerHTML = `
+        <!-- Floating Chat Window -->
+        <div class="floating-chatbot-window" id="floatingChatWindow">
+          <div class="floating-chat-header">
+            <div class="floating-chat-brand">
+              <div class="floating-chat-avatar-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+                </svg>
+              </div>
+              <div class="floating-chat-title-group">
+                <span class="floating-chat-title">Hygia AI Assistant</span>
+                <span class="floating-chat-status">
+                  <span class="floating-status-dot"></span> Online &amp; Ready
+                </span>
+              </div>
+            </div>
+            <button class="floating-chat-close-btn" id="floatingChatCloseBtn" aria-label="Close Chat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Quick Suggestion Pills -->
+          <div class="floating-chat-quick-prompts">
+            <button class="floating-chat-pill" data-query="Summarize my health records">Summarize records</button>
+            <button class="floating-chat-pill" data-query="Explain my allergy condition">Explain condition</button>
+            <button class="floating-chat-pill" data-query="What are my upcoming appointments?">Appointments</button>
+            <button class="floating-chat-pill" data-query="Show Advik's vaccinations">Advik's vaccines</button>
+            <button class="floating-chat-pill" data-query="Explain this prescription in simple words">Prescriptions</button>
+          </div>
+
+          <!-- Scrollable Chat Stream -->
+          <div class="floating-chat-messages" id="floatingChatMessages">
+            <div class="floating-bubble bot">
+              👋 Hi Kavin! I'm your Hygia AI Assistant. Ask me anything about your clinic visits, prescriptions, appointments, or family health records!
+            </div>
+          </div>
+
+          <!-- Input Composer Bar -->
+          <div class="floating-chat-footer">
+            <form class="floating-chat-input-bar" id="floatingChatForm">
+              <button type="button" class="floating-chat-attach-btn" id="floatingAttachBtn" title="Attach file or report">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+              </button>
+              <input type="text" class="floating-chat-input" id="floatingChatInput" placeholder="Ask a health question..." autocomplete="off">
+              <button type="submit" class="floating-chat-send-btn" id="floatingSendBtn" aria-label="Send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Pulsing Floating Circular Button -->
+        <button class="floating-chatbot-trigger" id="floatingChatbotTrigger" aria-label="Open AI Assistant">
+          <div class="floating-chatbot-pulse"></div>
+          <!-- 4-Point Star Sparkle Icon -->
+          <svg class="floating-chatbot-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+          </svg>
+          <!-- Close Icon when open -->
+          <svg class="floating-chatbot-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span class="floating-chatbot-tooltip">Ask Hygia AI ✦</span>
+        </button>
+      `;
+      document.body.appendChild(wrapper);
+    }
+
+    const triggerBtn = document.getElementById('floatingChatbotTrigger');
+    const closeBtn = document.getElementById('floatingChatCloseBtn');
+    const chatMessages = document.getElementById('floatingChatMessages');
+    const chatForm = document.getElementById('floatingChatForm');
+    const chatInput = document.getElementById('floatingChatInput');
+    const chatPills = wrapper.querySelectorAll('.floating-chat-pill');
+    const attachBtn = document.getElementById('floatingAttachBtn');
+
+    function toggleChat(forceOpen) {
+      const isOpen = wrapper.classList.contains('open');
+      if (forceOpen === true || (!isOpen && forceOpen !== false)) {
+        wrapper.classList.add('open');
+        setTimeout(() => {
+          if (chatInput) chatInput.focus();
+        }, 150);
+      } else {
+        wrapper.classList.remove('open');
+      }
+    }
+
+    if (triggerBtn) {
+      triggerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleChat();
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleChat(false);
+      });
+    }
+
+    // Quick prompt pills
+    chatPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const query = pill.dataset.query || pill.innerText.trim();
+        sendFloatingMessage(query);
+      });
+    });
+
+    // Form submit
+    if (chatForm) {
+      chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = chatInput ? chatInput.value.trim() : '';
+        if (val) {
+          sendFloatingMessage(val);
+          if (chatInput) chatInput.value = '';
+        }
+      });
+    }
+
+    if (attachBtn) {
+      attachBtn.addEventListener('click', () => {
+        alert('Attach medical file or report for instant AI analysis.');
+      });
+    }
+
+    function sendFloatingMessage(text) {
+      if (!text || !chatMessages) return;
+
+      // Append user bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'floating-bubble user';
+      userBubble.innerText = text;
+      chatMessages.appendChild(userBubble);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Add typing indicator
+      const typingInd = document.createElement('div');
+      typingInd.className = 'floating-typing-indicator';
+      typingInd.innerHTML = `
+        <span class="floating-typing-dot"></span>
+        <span class="floating-typing-dot"></span>
+        <span class="floating-typing-dot"></span>
+      `;
+      chatMessages.appendChild(typingInd);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Determine response from knowledge dictionary
+      const lower = text.toLowerCase();
+      let reply = "I have analyzed your medical records. Everything is on schedule, and no critical contraindications were detected across your history.";
+
+      if (lower.includes('summar') || lower.includes('history')) {
+        reply = "You have 9 clinic visits and 8 completed immunotherapy sessions at Salem Hospital. Your viral sinus infection from Feb 2018 is fully resolved, and compliance is 100%.";
+      } else if (lower.includes('condition') || lower.includes('allergy')) {
+        reply = "Diagnosed with Allergic Rhinitis (dust and pollen sensitivity). The subcutaneous immunotherapy course desensitizes your immune system to minimize inflammatory symptoms.";
+      } else if (lower.includes('appoint')) {
+        reply = "Upcoming appointments: 1) Kavin S: Allergy follow-up on 26 Jun 10:00 AM. 2) Advik: Pediatric checkup on 28 Jun 11:30 AM. 3) Lakshmi: Fasting blood test on 02 Jul 09:00 AM.";
+      } else if (lower.includes('advik') || lower.includes('vaccin')) {
+        reply = "Advik completed his DTaP Booster and Typhoid vaccinations on 18 Jun 2024 at City Clinic. Routine pediatric exam scheduled on 28 Jun at 11:30 AM.";
+      } else if (lower.includes('prescript') || lower.includes('med')) {
+        reply = "Current guidance: Levocetirizine 5mg at bedtime as an antihistamine, plus Budecort inhaler 100mcg twice daily for respiratory airway protection.";
+      }
+
+      setTimeout(() => {
+        if (typingInd.parentNode) typingInd.parentNode.removeChild(typingInd);
+        const botBubble = document.createElement('div');
+        botBubble.className = 'floating-bubble bot';
+        botBubble.innerHTML = reply;
+        chatMessages.appendChild(botBubble);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 550);
+    }
+
+    // Expose globally so other buttons can trigger it
+    window.openFloatingHygiaChat = function(query) {
+      toggleChat(true);
+      if (query) {
+        sendFloatingMessage(query);
+      }
+    };
+
+    // Connect existing AI buttons to open the floating chat
+    [btnAskAI, btnGetInsights, openChatBtn].forEach(b => {
+      if (b) {
+        b.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.openFloatingHygiaChat();
+        });
+      }
+    });
+  }
+
+  initFloatingChatbot();
 });
