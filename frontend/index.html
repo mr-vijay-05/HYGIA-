@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hygia - Your Health, Clearly.</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +11,6 @@
 </head>
 <body>
   <div class="app-layout">
-    <!-- LEFT SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <a href="index.html" class="brand-logo">
@@ -99,8 +97,6 @@
           </li>
         </ul>
       </nav>
-
-      <!-- Sidebar Promo Card: Have a question about your health? -->
       <div class="sidebar-promo-card">
         <div class="promo-image-container">
           <img src="assets/doctor_avatar.jpg" alt="Doctor Consultation" class="promo-doctor-img">
@@ -112,10 +108,7 @@
         </button>
       </div>
     </aside>
-
-    <!-- MAIN APP CONTENT -->
     <main class="main-content">
-      <!-- TOP HEADER BAR -->
       <header class="top-header">
         <div class="search-container">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -130,9 +123,7 @@
             autocomplete="off"
           >
         </div>
-
         <div class="header-actions">
-          <!-- Language Selector -->
           <div class="header-lang-wrapper" id="langWrapper">
             <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
               <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -177,8 +168,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- Notification Bell -->
           <div class="header-notification-wrapper" id="notifWrapper">
             <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -210,8 +199,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- User Profile Dropdown -->
           <div class="user-profile-wrapper" id="userProfileWrapper">
             <button class="user-profile-btn" id="userProfileBtn">
               <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
@@ -233,10 +220,7 @@
           </div>
         </div>
       </header>
-
-      <!-- CONTENT BODY SCROLLER -->
       <div class="page-body">
-        <!-- HERO GREETING BANNER -->
         <section class="hero-banner-card">
           <div class="hero-bg-cover" style="background-image: url('assets/hero_banner.jpg');"></div>
           <div class="hero-content">
@@ -244,10 +228,7 @@
             <h2 class="hero-greeting-name">Kavin <span class="wave-emoji">👋</span></h2>
             <p class="hero-greeting-desc">Here's your health overview. Stay informed, stay healthier.</p>
           </div>
-
-          <!-- 4 QUICK ACTION TILES OVERLAID / IN HERO -->
           <div class="quick-actions-grid">
-            <!-- Action 1: Upload Records -->
             <button class="quick-action-card" id="btnUploadRecords">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -264,8 +245,6 @@
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-
-            <!-- Action 2: Scan with Camera -->
             <button class="quick-action-card" id="btnScanCamera">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -281,8 +260,6 @@
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-
-            <!-- Action 3: Ask Hygia AI -->
             <button class="quick-action-card" id="btnAskAI">
               <div class="action-icon-box purple-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -297,8 +274,6 @@
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-
-            <!-- Action 4: Add Family Member -->
             <button class="quick-action-card" id="btnAddFamily">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -318,22 +293,15 @@
             </button>
           </div>
         </section>
-
-        <!-- DASHBOARD DUAL-COLUMN GRID -->
         <div class="dashboard-grid">
-          <!-- LEFT COLUMN: RECENT HEALTH ACTIVITY -->
           <div class="grid-left-col">
             <section class="content-card recent-activity-card">
               <div class="card-header">
                 <h3 class="card-title">Recent Health Activity</h3>
                 <a href="records.html" class="view-all-link">View All <span>→</span></a>
               </div>
-
-              <!-- TIMELINE WRAPPER -->
               <div class="timeline-container" id="timelineList">
-                <!-- TIMELINE GROUP 1: 24 Jun 2018 -->
                 <div class="timeline-group">
-                  <!-- Row 1: Doctor Visit -->
                   <div class="timeline-row" data-type="visit">
                     <div class="timeline-date-col">
                       <span class="timeline-date">24 Jun 2018</span>
@@ -364,8 +332,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Row 2: Treatment -->
                   <div class="timeline-row" data-type="treatment">
                     <div class="timeline-date-col">
                       <span class="timeline-date">24 Jun 2018</span>
@@ -397,8 +363,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Row 3: Doctor's Notes -->
                   <div class="timeline-row" data-type="notes">
                     <div class="timeline-date-col">
                       <span class="timeline-date">24 Jun 2018</span>
@@ -429,10 +393,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- TIMELINE GROUP 2: 01 Jun 2018 -->
                 <div class="timeline-group">
-                  <!-- Row 1: Doctor Visit -->
                   <div class="timeline-row" data-type="visit">
                     <div class="timeline-date-col">
                       <span class="timeline-date">01 Jun 2018</span>
@@ -462,8 +423,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Row 2: Treatment -->
                   <div class="timeline-row" data-type="treatment">
                     <div class="timeline-date-col">
                       <span class="timeline-date">01 Jun 2018</span>
@@ -495,8 +454,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Row 3: Doctor's Notes -->
                   <div class="timeline-row" data-type="notes">
                     <div class="timeline-date-col">
                       <span class="timeline-date">01 Jun 2018</span>
@@ -527,10 +484,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- TIMELINE GROUP 3: 05 May 2018 -->
                 <div class="timeline-group">
-                  <!-- Row 1: Doctor Visit -->
                   <div class="timeline-row" data-type="visit">
                     <div class="timeline-date-col">
                       <span class="timeline-date">05 May 2018</span>
@@ -560,8 +514,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- Row 2: Treatment -->
                   <div class="timeline-row" data-type="treatment">
                     <div class="timeline-date-col">
                       <span class="timeline-date">05 May 2018</span>
@@ -595,8 +547,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- LOAD MORE BUTTON -->
               <div class="timeline-footer">
                 <button class="load-more-btn" id="loadMoreBtn">
                   Load more activity <span class="arrow-down">↓</span>
@@ -604,10 +554,7 @@
               </div>
             </section>
           </div>
-
-          <!-- RIGHT COLUMN: SUMMARY, CONDITIONS, DIAGNOSES, AI ASSISTANT -->
-          <div class="grid-right-col">
-            <!-- 1. HEALTH SUMMARY -->
+          <div class="grid-right-col"
             <section class="content-card summary-card">
               <div class="card-header">
                 <div class="title-with-info">
@@ -622,9 +569,7 @@
                 </div>
                 <span class="header-timestamp">Last updated: 24 Jun 2018</span>
               </div>
-
               <div class="metrics-grid">
-                <!-- Metric 1: Doctor Visits -->
                 <div class="metric-box">
                   <div class="metric-icon orange-metric">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -639,8 +584,6 @@
                     <span class="metric-label">Doctor Visits</span>
                   </div>
                 </div>
-
-                <!-- Metric 2: Treatments -->
                 <div class="metric-box">
                   <div class="metric-icon green-metric">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -657,8 +600,6 @@
                     <span class="metric-label">Treatments</span>
                   </div>
                 </div>
-
-                <!-- Metric 3: Doctor's Notes -->
                 <div class="metric-box">
                   <div class="metric-icon purple-metric">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -673,8 +614,6 @@
                     <span class="metric-label">Doctor's Notes</span>
                   </div>
                 </div>
-
-                <!-- Metric 4: Health Condition -->
                 <div class="metric-box">
                   <div class="metric-icon orange-metric">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -689,8 +628,6 @@
                 </div>
               </div>
             </section>
-
-            <!-- 2. HEALTH CONDITIONS -->
             <section class="content-card condition-card">
               <div class="card-header">
                 <h3 class="card-title">Health Conditions</h3>
@@ -715,8 +652,6 @@
                 </div>
               </div>
             </section>
-
-            <!-- 3. RECENT DIAGNOSES -->
             <section class="content-card diagnoses-card">
               <div class="card-header">
                 <h3 class="card-title">Recent Diagnoses</h3>
@@ -741,8 +676,6 @@
                 </div>
               </div>
             </section>
-
-            <!-- 4. HYGIA AI ASSISTANT WIDGET -->
             <section class="content-card ai-assistant-widget">
               <div class="ai-widget-header">
                 <div class="ai-title-wrap">
@@ -751,15 +684,11 @@
                 </div>
                 <p class="ai-widget-sub">Ask anything about your health records in simple words.</p>
               </div>
-
-              <!-- Quick prompt suggestion pills -->
               <div class="prompt-chips-row">
                 <button class="prompt-chip" data-query="Summarize my health history">Summarize my health history</button>
                 <button class="prompt-chip" data-query="What is immunotherapy?">What is immunotherapy?</button>
                 <button class="prompt-chip" data-query="Any recurring issues?">Any recurring issues?</button>
               </div>
-
-              <!-- Input bar -->
               <form class="ai-input-form" id="aiChatForm">
                 <button type="button" class="attach-btn" id="attachFileBtn" title="Attach report or prescription" aria-label="Attach File">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -785,13 +714,6 @@
       </div>
     </main>
   </div>
-
-
-  <!-- ======================================================================= -->
-  <!-- INTERACTIVE DASHBOARD MODALS (QUICK ACTION TILES) -->
-  <!-- ======================================================================= -->
-
-  <!-- 1. UPLOAD MEDICAL RECORDS MODAL -->
   <div class="modal-backdrop" id="uploadModal" role="dialog" aria-hidden="true">
     <div class="modal-box">
       <div class="modal-header">
@@ -810,7 +732,6 @@
         </div>
         <button class="modal-close-btn" id="closeUploadModal" aria-label="Close modal">&times;</button>
       </div>
-
       <div class="modal-body">
         <div class="form-group" style="margin-bottom: 12px;">
           <label class="form-label" for="uploadDocType">Document Category</label>
@@ -823,7 +744,6 @@
             <option value="other">Other Medical Document</option>
           </select>
         </div>
-
         <div class="drop-zone" id="dropZone">
           <div class="drop-icon-circle">
             <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#F05A28" stroke-width="2">
@@ -838,15 +758,12 @@
         </div>
         <div class="uploaded-files-preview" id="filesPreview"></div>
       </div>
-
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="cancelUploadBtn">Cancel</button>
         <button type="button" class="btn btn-primary" id="confirmUploadBtn">Upload &amp; Analyze with AI</button>
       </div>
     </div>
   </div>
-
-  <!-- 2. SCAN WITH CAMERA MODAL -->
   <div class="modal-backdrop" id="cameraScanModal" role="dialog" aria-hidden="true">
     <div class="modal-box camera-scanner-modal-box">
       <div class="modal-header">
@@ -864,12 +781,10 @@
         </div>
         <button class="modal-close-btn" id="closeCameraScanModal" aria-label="Close modal">&times;</button>
       </div>
-
       <div class="modal-body">
         <div class="camera-viewfinder-wrap" id="cameraViewfinderWrap">
           <video id="cameraVideo" class="camera-video-feed" autoplay playsinline muted></video>
           <canvas id="cameraCanvas" class="camera-canvas-preview" style="display: none;"></canvas>
-
           <div class="camera-frame-guide" id="cameraFrameGuide">
             <span class="camera-corner tl"></span>
             <span class="camera-corner tr"></span>
@@ -877,13 +792,10 @@
             <span class="camera-corner br"></span>
             <div class="camera-scan-laser"></div>
           </div>
-
           <div class="camera-status-overlay" id="cameraStatusOverlay">
             <span>● Live Document Detection Ready</span>
           </div>
         </div>
-
-        <!-- Camera Options -->
         <div class="camera-options-row">
           <div class="form-group" style="flex: 1; margin: 10px 0 0 0;">
             <label class="form-label" for="cameraDocType" style="font-size: 11.5px;">Record Type</label>
@@ -895,7 +807,6 @@
             </select>
           </div>
         </div>
-
         <div class="camera-controls-bar" id="cameraLiveControls">
           <button type="button" class="btn btn-secondary" id="btnUploadFileFallback">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
@@ -906,11 +817,9 @@
             <span>Choose Photo</span>
           </button>
           <input type="file" id="cameraFileInput" accept="image/*" capture="environment" style="display: none;">
-
           <button type="button" class="camera-shutter-btn" id="btnCaptureSnapshot" aria-label="Take Photo">
             <span class="camera-shutter-inner"></span>
           </button>
-
           <button type="button" class="btn btn-secondary" id="btnFlipCamera" title="Switch Camera">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 10c0-4.418-3.582-8-8-8s-8 3.582-8 8c0 1.942.693 3.725 1.848 5.116L4 17h6v-6l-1.928 1.928A5.978 5.978 0 0 1 6 10c0-3.314 2.686-6 6-6s6 2.686 6 6c0 1.657-.672 3.157-1.757 4.243L14.83 15.66A7.963 7.963 0 0 0 20 10z"></path>
@@ -918,8 +827,6 @@
             <span>Flip</span>
           </button>
         </div>
-
-        <!-- Captured snapshot action toolbar (shown after capture) -->
         <div class="camera-snapshot-actions" id="cameraSnapshotActions" style="display: none;">
           <button type="button" class="btn btn-secondary" id="btnRetakeSnapshot">
             <span>↺ Retake Photo</span>
@@ -931,8 +838,6 @@
       </div>
     </div>
   </div>
-
-  <!-- 3. ASK HYGIA AI HEALTH COPILOT MODAL -->
   <div class="modal-backdrop" id="aiChatModal" role="dialog" aria-hidden="true">
     <div class="modal-box ai-chat-modal-box">
       <div class="modal-header">
@@ -945,7 +850,6 @@
         </div>
         <button class="modal-close-btn" id="closeAiChatModal" aria-label="Close modal">&times;</button>
       </div>
-
       <div class="ai-prompt-suggestions-row">
         <button type="button" class="prompt-chip" data-query="Summarize my health history">Summarize my health history</button>
         <button type="button" class="prompt-chip" data-query="What is immunotherapy?">What is immunotherapy?</button>
@@ -973,7 +877,6 @@
     </div>
   </div>
 
-  <!-- 4. ADD FAMILY MEMBER MODAL -->
   <div class="modal-backdrop" id="addFamilyModal" role="dialog" aria-hidden="true">
     <div class="modal-box">
       <div class="modal-header">
@@ -1059,8 +962,6 @@
       </form>
     </div>
   </div>
-
-  <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
   <div class="login-toast-container" id="dashboardToastContainer" aria-live="polite"></div>
 
   <script src="script.js?v=10"></script>
