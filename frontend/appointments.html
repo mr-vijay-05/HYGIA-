@@ -11,7 +11,6 @@
 </head>
 <body>
   <div class="app-layout">
-   
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <a href="index.html" class="brand-logo">
@@ -26,8 +25,7 @@
           </div>
         </a>
       </div>
-
-      <nav class="sidebar-nav">
+<nav class="sidebar-nav">
         <ul class="nav-list">
           <li class="nav-item">
             <a href="index.html" class="nav-link">
@@ -96,8 +94,6 @@
           </li>
         </ul>
       </nav>
-
-      <!-- SIDEBAR PROMO CTA CARD -->
       <div class="sidebar-promo-card">
         <div class="promo-illustration">
           <img src="assets/appointment_calendar.jpg" alt="Book Appointment Easily" class="promo-img">
@@ -112,10 +108,7 @@
         </div>
       </div>
     </aside>
-
-    <!-- MAIN APPOINTMENT PAGE CONTENT -->
     <main class="main-content">
-      <!-- TOP NAVIGATION BAR -->
       <header class="top-header">
         <div class="search-container">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -130,9 +123,7 @@
             autocomplete="off"
           >
         </div>
-
         <div class="header-actions">
-          <!-- Language Selector -->
           <div class="header-lang-wrapper" id="langWrapper">
             <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
               <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -177,8 +168,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- Notification Bell -->
           <div class="header-notification-wrapper" id="notifWrapper">
             <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -210,8 +199,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- User Profile Dropdown -->
           <div class="user-profile-wrapper" id="userProfileWrapper">
             <button class="user-profile-btn" id="userProfileBtn">
               <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
@@ -233,8 +220,6 @@
           </div>
         </div>
       </header>
-
-      <!-- APPOINTMENT HERO BANNER -->
       <section class="appointment-hero-banner">
         <div class="appointment-hero-content">
           <h2 class="appointment-hero-title">Book an Appointment</h2>
@@ -247,10 +232,7 @@
           </div>
         </div>
       </section>
-
-      <!-- SEARCH & FILTER CONTROLS BAR -->
       <section class="appointment-filters-bar">
-        <!-- Search query pill box -->
         <div class="filter-search-box">
           <svg class="filter-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -265,8 +247,6 @@
           >
           <button type="button" class="filter-clear-btn" id="clearSearchQuery" aria-label="Clear search">✕</button>
         </div>
-
-        <!-- Location Dropdown -->
         <div class="filter-dropdown-wrap">
           <button type="button" class="filter-dropdown-btn" id="locationFilterBtn">
             <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -285,8 +265,6 @@
             <div class="filter-option" data-value="Erode">Erode</div>
           </div>
         </div>
-
-        <!-- Radius Dropdown -->
         <div class="filter-dropdown-wrap">
           <button type="button" class="filter-dropdown-btn" id="radiusFilterBtn">
             <span id="selectedRadiusText">Within 10 km</span>
@@ -301,8 +279,6 @@
             <div class="filter-option" data-value="50">Within 50 km</div>
           </div>
         </div>
-
-        <!-- Date Filter Dropdown -->
         <div class="filter-dropdown-wrap">
           <button type="button" class="filter-dropdown-btn" id="dateFilterBtn">
             <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -323,8 +299,6 @@
             <div class="filter-option" data-value="this-week">This Week</div>
           </div>
         </div>
-
-        <!-- Filters Extra Button -->
         <div class="filter-dropdown-wrap">
           <button type="button" class="filter-dropdown-btn filter-btn-last" id="moreFiltersBtn">
             <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -345,10 +319,7 @@
           </button>
         </div>
       </section>
-
-      <!-- TWO-COLUMN MAIN CONTENT GRID -->
       <div class="appointment-layout-grid">
-        <!-- LEFT COLUMN: RECOMMENDED DOCTORS LIST -->
         <section class="appointment-doctors-col">
           <!-- Section Header -->
           <div class="doctors-section-header">
@@ -368,10 +339,7 @@
               </div>
             </div>
           </div>
-
-          <!-- Doctor Cards List -->
           <div class="doctor-cards-list" id="doctorCardsList">
-            <!-- Doctor 1: Dr. Priya Raman (Selected by default) -->
             <article class="doctor-card selected" data-doctor-id="priya-raman">
               <div class="doctor-card-main">
                 <div class="doctor-avatar-wrap">
@@ -430,8 +398,6 @@
                 </button>
               </div>
             </article>
-
-            <!-- Doctor 2: Dr. Aravind Kumar -->
             <article class="doctor-card" data-doctor-id="aravind-kumar">
               <div class="doctor-card-main">
                 <div class="doctor-avatar-wrap">
@@ -489,8 +455,6 @@
                 </button>
               </div>
             </article>
-
-            <!-- Doctor 3: Dr. Nithya S -->
             <article class="doctor-card" data-doctor-id="nithya-s">
               <div class="doctor-card-main">
                 <div class="doctor-avatar-wrap">
@@ -548,8 +512,6 @@
                 </button>
               </div>
             </article>
-
-            <!-- Doctor 4: Dr. Karthik Subramanian -->
             <article class="doctor-card" data-doctor-id="karthik-subramanian">
               <div class="doctor-card-main">
                 <div class="doctor-avatar-wrap">
@@ -668,11 +630,8 @@
             </article>
           </div>
         </section>
-
-        <!-- RIGHT COLUMN: DOCTOR BOOKING & DETAIL CARD -->
         <aside class="appointment-detail-col">
           <div class="doctor-booking-card" id="doctorBookingCard">
-            <!-- Card Header: Doctor Profile & Rating -->
             <div class="booking-card-header">
               <div class="booking-doctor-profile">
                 <div class="booking-doctor-avatar">
@@ -707,8 +666,6 @@
                 <span class="rating-count" id="panelDoctorReviews">(320 reviews)</span>
               </div>
             </div>
-
-            <!-- 3 Highlights Badges Grid -->
             <div class="doctor-info-badges">
               <div class="info-badge-item">
                 <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -720,7 +677,6 @@
                   <span class="badge-caption">experience</span>
                 </div>
               </div>
-
               <div class="info-badge-item">
                 <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path>
@@ -744,23 +700,17 @@
                 </div>
               </div>
             </div>
-
-            <!-- Tab Navigation -->
             <div class="doctor-detail-tabs">
               <button type="button" class="tab-link active" data-tab="about">About</button>
               <button type="button" class="tab-link" data-tab="services">Services</button>
               <button type="button" class="tab-link" data-tab="reviews">Patient Reviews</button>
               <button type="button" class="tab-link" data-tab="location">Location</button>
             </div>
-
-            <!-- Tab Content -->
             <div class="tab-content-area" id="tabContentArea">
               <p class="doctor-bio-text" id="panelDoctorBio">
                 Dr. Priya Raman specializes in the diagnosis and treatment of allergies, asthma, and immunological conditions. She has extensive experience in allergy immunotherapy and personalized treatment plans.
               </p>
             </div>
-
-            <!-- Select Appointment Date -->
             <div class="date-picker-section">
               <div class="date-picker-header">
                 <h4 class="date-picker-title">Select Appointment Date</h4>
@@ -770,8 +720,6 @@
                   <button type="button" class="month-nav-btn" id="nextMonthBtn" aria-label="Next month">›</button>
                 </div>
               </div>
-
-              <!-- 7-Day Picker Row -->
               <div class="days-strip-row" id="daysStripRow">
                 <button type="button" class="day-slot-btn" data-date="2026-10-11" data-day-name="Sunday" data-day-num="11">
                   <span class="day-name">Sun</span>
@@ -803,8 +751,6 @@
                 </button>
               </div>
             </div>
-
-            <!-- Available Time Slots -->
             <div class="time-slots-section">
               <h4 class="time-slots-title">Available Time Slots</h4>
               <div class="time-slots-grid" id="timeSlotsGrid">
@@ -822,8 +768,6 @@
                 <button type="button" class="time-slot-btn" data-slot="04:30 PM">04:30 PM</button>
               </div>
             </div>
-
-            <!-- Primary CTA: Book Appointment -->
             <div class="booking-submit-wrap">
               <button type="button" class="btn-confirm-booking" id="btnConfirmBooking">
                 <svg class="btn-cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -840,8 +784,6 @@
       </div>
     </main>
   </div>
-
-  <!-- BOOKING CONFIRMATION MODAL -->
   <div class="modal-backdrop" id="bookingConfirmModal" style="display: none;">
     <div class="modal-box appointment-confirm-modal-box">
       <div class="modal-header">
