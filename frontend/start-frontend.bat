@@ -1,4 +1,3 @@
-
 @echo off
 cd /d D:\HYGIA-\frontend
 start "" http://localhost:5500/
