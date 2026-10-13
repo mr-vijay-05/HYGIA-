@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
   <div class="app-layout">
@@ -106,7 +106,7 @@
         <div class="promo-content">
           <h4 class="promo-title">Book your next appointment easily</h4>
           <p class="promo-desc">Get personalized doctor suggestions based on your health needs.</p>
-          <a href="#quick-book" class="promo-cta-btn" id="sidebarBookCta">
+          <a href="#doctorBookingCard" class="promo-cta-btn" id="sidebarBookCta">
             <span>Book Appointment</span>
             <span class="btn-arrow">→</span>
           </a>
@@ -136,47 +136,101 @@
           <!-- Language Selector -->
           <div class="header-lang-wrapper" id="langWrapper">
             <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
-              <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="2" y1="12" x2="22" y2="12"></line>
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
               </svg>
-              <span class="current-lang-text" id="currentLangText">English</span>
-              <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span class="lang-current-label" id="currentLangLabel">EN</span>
+              <svg class="lang-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
-            <div class="lang-dropdown-menu" id="langDropdownMenu">
-              <button class="lang-option-btn active" data-lang="en">
-                <span class="lang-name">English</span>
-                <span class="lang-check">✓</span>
-              </button>
-              <button class="lang-option-btn" data-lang="ta">
-                <span class="lang-name">தமிழ் (Tamil)</span>
-                <span class="lang-check">✓</span>
-              </button>
+            <div class="lang-dropdown" id="langDropdown">
+              <div class="dropdown-header">
+                <h6>Language</h6>
+              </div>
+              <ul class="dropdown-list lang-list">
+                <li class="dropdown-item lang-item active" data-lang="en">
+                  <span class="lang-native">English</span>
+                  <span class="lang-code-pill">EN</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="es">
+                  <span class="lang-native">Español</span>
+                  <span class="lang-code-pill">ES</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="fr">
+                  <span class="lang-native">Français</span>
+                  <span class="lang-code-pill">FR</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="ta">
+                  <span class="lang-native">தமிழ்</span>
+                  <span class="lang-code-pill">TA</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="hi">
+                  <span class="lang-native">हिन्दी</span>
+                  <span class="lang-code-pill">HI</span>
+                </li>
+                <li class="dropdown-item lang-item" data-lang="de">
+                  <span class="lang-native">Deutsch</span>
+                  <span class="lang-code-pill">DE</span>
+                </li>
+              </ul>
             </div>
           </div>
 
           <!-- Notification Bell -->
-          <button class="icon-button notification-btn" aria-label="Notifications">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-            <span class="notification-indicator"></span>
-          </button>
-
-          <!-- User Profile -->
-          <div class="user-profile">
-            <img src="assets/user_avatar.jpg" alt="Kavin S" class="avatar-img">
-            <div class="user-info">
-              <span class="user-name">Kavin S</span>
-              <span class="user-role">Personal Account</span>
+          <div class="header-notification-wrapper" id="notifWrapper">
+            <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-badge"></span>
+            </button>
+            <div class="notification-dropdown" id="notifDropdown">
+              <div class="dropdown-header">
+                <h6>Notifications</h6>
+                <span class="badge-count">2 New</span>
+              </div>
+              <ul class="dropdown-list">
+                <li class="dropdown-item unread">
+                  <span class="dot-unread"></span>
+                  <div class="notif-content">
+                    <p class="notif-text">Lab results for <strong>Allergy Panel</strong> uploaded.</p>
+                    <span class="notif-time">10 mins ago</span>
+                  </div>
+                </li>
+                <li class="dropdown-item unread">
+                  <span class="dot-unread"></span>
+                  <div class="notif-content">
+                    <p class="notif-text">Upcoming appointment with <strong>Dr. Priya Raman</strong>.</p>
+                    <span class="notif-time">Tomorrow 09:00 AM</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+          </div>
+
+          <!-- User Profile Dropdown -->
+          <div class="user-profile-wrapper" id="userProfileWrapper">
+            <button class="user-profile-btn" id="userProfileBtn">
+              <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
+              <div class="user-meta">
+                <span class="user-name">Kavin S</span>
+                <span class="user-role">Personal Account</span>
+              </div>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <a href="#profile" class="profile-item">Account Details</a>
+              <a href="family.html" class="profile-item">Family Profiles (3)</a>
+              <a href="#security" class="profile-item">Privacy &amp; Data</a>
+              <hr class="dropdown-divider">
+              <a href="login.html" class="profile-item text-danger">Sign Out</a>
+            </div>
           </div>
         </div>
       </header>
@@ -862,6 +916,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

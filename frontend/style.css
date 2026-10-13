@@ -2508,8 +2508,8 @@ body {
   background: linear-gradient(
     90deg, 
     #FAF7F2 0%, 
-    #FAF7F2 36%, 
-    rgba(250, 247, 242, 0.90) 50%, 
+    #FAF7F2 32%, 
+    rgba(250, 247, 242, 0.88) 50%, 
     rgba(250, 247, 242, 0.40) 72%, 
     rgba(250, 247, 242, 0.18) 100%
   );
@@ -2523,7 +2523,7 @@ body {
   z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 22px 48px 0 48px;
 }
 
@@ -2635,13 +2635,13 @@ body {
   position: relative;
   z-index: 10;
   flex: 1;
-  max-width: 1240px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 12px 48px 48px 48px;
+  padding: 24px 48px 48px 48px;
   display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   align-items: center;
 }
 
@@ -2649,34 +2649,32 @@ body {
 .login-brand-col {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   padding-right: 12px;
 }
 
 .login-brand-header {
-<<<<<<< HEAD
   margin-bottom: 28px;
-=======
-  margin-bottom: 32px;
->>>>>>> 9394c2a8dbde6956380fb4cde938b51e12209fea
 }
 
 .login-brand-header .brand-logo {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   transition: transform 0.2s ease;
 }
 
 .login-brand-header .brand-logo:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .login-brand-header .brand-icon {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   flex-shrink: 0;
-  filter: drop-shadow(0 4px 12px rgba(240, 90, 40, 0.2));
+  filter: drop-shadow(0 6px 16px rgba(240, 90, 40, 0.22));
 }
 
 .login-brand-header .brand-text {
@@ -2687,32 +2685,32 @@ body {
 
 .login-brand-header .brand-title {
   font-family: var(--font-serif);
-  font-size: 38px;
+  font-size: 46px;
   font-weight: 700;
   color: #111827;
   line-height: 1.05;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 }
 
 .login-brand-header .brand-tagline {
-  font-size: 13.5px;
+  font-size: 15px;
   color: #64748B;
   font-weight: 500;
   letter-spacing: 0.3px;
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
 .login-headline-group {
-  margin-bottom: 30px;
+  margin-bottom: 0;
 }
 
 .login-headline {
   font-family: var(--font-serif);
-  font-size: 42px;
+  font-size: 44px;
   font-weight: 700;
   color: #111827;
   line-height: 1.18;
-  margin-bottom: 14px;
+  margin-bottom: 0;
   letter-spacing: -0.6px;
 }
 
@@ -2898,10 +2896,11 @@ body {
   line-height: 1.45;
 }
 
-/* Right Column: Card */
+/* Card Container */
 .login-card-col {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 
 .login-card-box {
@@ -4210,7 +4209,6 @@ body {
 }
 
 /* ==========================================================================
-<<<<<<< HEAD
    QUICK ACTION MODALS & CAMERA SCANNER SYSTEM
    ========================================================================== */
 .modal-header-meta {
@@ -4452,7 +4450,7 @@ body {
 }
 
 
-=======
+/* ==========================================================================
    AI ASSISTANT STANDALONE PAGE STYLES (assistant.html)
    ========================================================================== */
 .ai-page-layout {
@@ -4461,7 +4459,6 @@ body {
   gap: 20px;
   align-items: start;
 }
->>>>>>> 9394c2a8dbde6956380fb4cde938b51e12209fea
 
 .ai-main-card {
   background: #FFFFFF;
@@ -5097,6 +5094,10 @@ body {
 /* ==========================================================================
    FLOATING CORNER AI CHATBOT WIDGET
    ========================================================================== */
+.login-body .floating-chatbot-wrapper {
+  display: none !important;
+}
+
 .floating-chatbot-wrapper {
   position: fixed;
   bottom: 24px;

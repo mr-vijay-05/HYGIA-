@@ -1643,7 +1643,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-<<<<<<< HEAD
   // Handle Login submission
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
@@ -1784,140 +1783,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (signInSubmitBtn) {
           signInSubmitBtn.classList.remove('loading');
           signInSubmitBtn.disabled = false;
-=======
-  // ---------------------------------------------------------------------------
-  // 7. Dedicated AI Assistant Page Controller (assistant.html)
-  // ---------------------------------------------------------------------------
-  const aiWorkspaceDefault = document.getElementById('aiWorkspaceDefault');
-  const aiConversationThread = document.getElementById('aiConversationThread');
-  const aiComposerForm = document.getElementById('aiComposerForm');
-  const composerTextInput = document.getElementById('composerTextInput');
-  const composerSendBtn = document.getElementById('composerSendBtn');
-  const composerAttachBtn = document.getElementById('composerAttachBtn');
-  const aiDropzone = document.getElementById('aiDropzone');
-  const btnBrowseFiles = document.getElementById('btnBrowseFiles');
-  const aiFileUploadInput = document.getElementById('aiFileUploadInput');
-  const uploadedChipsRow = document.getElementById('uploadedChipsRow');
-  const btnRefreshPrompts = document.getElementById('btnRefreshPrompts');
-  const examplesContainer = document.getElementById('examplesContainer');
-  const aiQuickCards = document.querySelectorAll('.ai-quick-card');
-  const exampleQuoteCards = document.querySelectorAll('.example-quote-card');
-  const recentFileItems = document.querySelectorAll('.recent-file-item');
-
-  const assistantKnowledge = {
-    summary: "📋 **Health Records Summary (Kavin S)**:\n\n• **Total Events**: 9 clinic encounters & 8 completed immunotherapy injection procedures at Salem Hospital (Sep 2017 – Jun 2018).\n• **Primary Diagnosis**: Allergic rhinitis & environmental hypersensitivity.\n• **Status**: Immunotherapy course successfully completed with optimal compliance. Viral sinusitis episode in Feb 2018 is fully resolved.",
-    condition: "❤️ **Health Condition Explanation**:\n\n• **Allergic Rhinitis**: Inflammation of the nasal membranes triggered by environmental allergens (dust mites, grass pollen).\n• **Mechanism**: Your immune system produces IgE antibodies causing histamine release, leading to congestion and sneezing.\n• **Management**: Allergen immunotherapy gradually desensitizes your response over time.",
-    trends: "📈 **Health Trends & Immunotherapy Progress**:\n\n• **Treatment Adherence**: 100% attendance across 8 SCIT injection sessions.\n• **Symptom Score**: Reduced by ~68% between Oct 2017 and Jun 2018.\n• **Vitals Stability**: Resting blood pressure (118/76 mmHg) and pulse (72 bpm) consistently normal at all appointments.",
-    appointments: "📅 **Upcoming Appointments & Follow-ups**:\n\n1. **Kavin S**: Allergy Follow-up at Salem Hospital — 26 Jun 2024 at 10:00 AM.\n2. **Advik (Son)**: Routine Pediatric Checkup at City Clinic — 28 Jun 2024 at 11:30 AM.\n3. **Lakshmi (Mother)**: Fasting Blood Test at Apollo Diagnostics — 02 Jul 2024 at 09:00 AM.",
-    prescription: "💊 **Prescription in Plain English**:\n\n• **Levocetirizine (5mg)**: Once daily at bedtime. Non-drowsy antihistamine that blocks allergic reactions.\n• **Budecort Inhaler (100mcg)**: 1 puff twice daily after meals. Corticosteroid that reduces airway inflammation without systemic side-effects.",
-    visits: "🩺 **Summary of Last 3 Doctor Visits**:\n\n1. **24 Jun 2018**: Outpatient follow-up with Dr. Sarah Jenkins. Lungs clear, completed 8th injection cycle.\n2. **01 Jun 2018**: Routine clinic consultation and vitals check.\n3. **05 May 2018**: Allergen immunotherapy maintenance administration.",
-    allergy: "🌿 **Allergy Treatment History**:\n\nInitiated on 12 Sep 2017 following skin prick test confirmation for house dust and grass allergens. 8 subcutaneous injection doses administered at Salem Hospital without adverse local reactions.",
-    default: "Thank you for asking! Based on your verified health records and diagnostic files, your vital markers are healthy and your allergy treatment milestones are up to date. How else can I assist your health care today?"
-  };
-
-  function sendAssistantPageQuery(userQuery) {
-    if (!userQuery || !userQuery.trim()) return;
-    const cleanText = userQuery.trim();
-
-    // Transition workspace from hero to conversation
-    if (aiWorkspaceDefault && aiConversationThread) {
-      aiWorkspaceDefault.style.display = 'none';
-      aiConversationThread.style.display = 'flex';
-    }
-
-    // Append user message
-    const userMsg = document.createElement('div');
-    userMsg.className = 'ai-chat-msg user';
-    userMsg.innerText = cleanText;
-    aiConversationThread.appendChild(userMsg);
-    if (composerTextInput) composerTextInput.value = '';
-    if (composerSendBtn) composerSendBtn.classList.remove('active');
-
-    aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
-
-    // Simulate AI clinical reasoning
-    setTimeout(() => {
-      const lower = cleanText.toLowerCase();
-      let answer = assistantKnowledge.default;
-      if (lower.includes('summar') && (lower.includes('record') || lower.includes('health') || lower.includes('history'))) {
-        answer = assistantKnowledge.summary;
-      } else if (lower.includes('last 3') || lower.includes('visits')) {
-        answer = assistantKnowledge.visits;
-      } else if (lower.includes('condition') || lower.includes('explain')) {
-        answer = assistantKnowledge.condition;
-      } else if (lower.includes('trend')) {
-        answer = assistantKnowledge.trends;
-      } else if (lower.includes('appoint')) {
-        answer = assistantKnowledge.appointments;
-      } else if (lower.includes('prescript')) {
-        answer = assistantKnowledge.prescription;
-      } else if (lower.includes('allergy') || lower.includes('immuno')) {
-        answer = assistantKnowledge.allergy;
-      } else if (lower.includes('lab') || lower.includes('file') || lower.includes('report') || lower.includes('doctor note')) {
-        answer = "📄 **Analysis of Selected Medical Record**:\n• Document status: Verified by Hospital Health Information System.\n• Key finding: All normal baseline ranges observed. Compliance score is optimal.";
-      }
-
-      const botMsg = document.createElement('div');
-      botMsg.className = 'ai-chat-msg bot';
-      botMsg.innerHTML = answer.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      aiConversationThread.appendChild(botMsg);
-      aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
-    }, 450);
-  }
-
-  // Quick Action Cards
-  if (aiQuickCards.length > 0) {
-    aiQuickCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const prompt = card.dataset.prompt;
-        sendAssistantPageQuery(prompt);
-      });
-    });
-  }
-
-  // Example Quotes
-  if (exampleQuoteCards.length > 0) {
-    exampleQuoteCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const prompt = card.dataset.prompt || card.innerText.replace(/[“”"]/g, '').trim();
-        sendAssistantPageQuery(prompt);
-      });
-    });
-  }
-
-  // Recent Files Clicks
-  if (recentFileItems.length > 0) {
-    recentFileItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const filename = item.dataset.filename || item.querySelector('.file-item-name')?.textContent || 'Medical File';
-        sendAssistantPageQuery(`Please analyze and summarize ${filename}`);
-      });
-    });
-  }
-
-  // Composer Form
-  if (aiComposerForm) {
-    aiComposerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = composerTextInput ? composerTextInput.value : '';
-      sendAssistantPageQuery(text);
-    });
-  }
-
-  if (composerTextInput) {
-    composerTextInput.addEventListener('input', () => {
-      if (composerSendBtn) {
-        if (composerTextInput.value.trim().length > 0) {
-          composerSendBtn.classList.add('active');
-        } else {
-          composerSendBtn.classList.remove('active');
->>>>>>> 9394c2a8dbde6956380fb4cde938b51e12209fea
         }
       }
     });
   }
 
-<<<<<<< HEAD
   // Social Sign-in handlers
   ['googleLoginBtn', 'appleLoginBtn'].forEach(id => {
     const btn = document.getElementById(id);
@@ -2058,7 +1928,192 @@ document.addEventListener('DOMContentLoaded', () => {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Create Profile & Continue';
         }
-=======
+      }
+    });
+  }
+
+  // 2. Forgot Password Modal
+  const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+  const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+  const closeForgotModal = document.getElementById('closeForgotModal');
+  const cancelForgotBtn = document.getElementById('cancelForgotBtn');
+  const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+
+  if (forgotPasswordBtn && forgotPasswordModal) {
+    forgotPasswordBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLoginModal(forgotPasswordModal);
+    });
+  }
+  if (closeForgotModal) closeForgotModal.addEventListener('click', () => closeLoginModal(forgotPasswordModal));
+  if (cancelForgotBtn) cancelForgotBtn.addEventListener('click', () => closeLoginModal(forgotPasswordModal));
+  if (forgotPasswordModal) {
+    forgotPasswordModal.addEventListener('click', (e) => {
+      if (e.target === forgotPasswordModal) closeLoginModal(forgotPasswordModal);
+    });
+  }
+
+  if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('resetEmail').value;
+      showToast(`Recovery link sent to ${email}`, 'success');
+      closeLoginModal(forgotPasswordModal);
+    });
+  }
+
+  // 3. Need Help? Modal
+  const needHelpModal = document.getElementById('needHelpModal');
+  const needHelpBtn = document.getElementById('needHelpBtn');
+  const closeNeedHelpModal = document.getElementById('closeNeedHelpModal');
+  const gotItHelpBtn = document.getElementById('gotItHelpBtn');
+
+  if (needHelpBtn && needHelpModal) {
+    needHelpBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLoginModal(needHelpModal);
+    });
+  }
+  if (closeNeedHelpModal) closeNeedHelpModal.addEventListener('click', () => closeLoginModal(needHelpModal));
+  if (gotItHelpBtn) gotItHelpBtn.addEventListener('click', () => closeLoginModal(needHelpModal));
+  if (needHelpModal) {
+    needHelpModal.addEventListener('click', (e) => {
+      if (e.target === needHelpModal) closeLoginModal(needHelpModal);
+    });
+  }
+
+
+  // ---------------------------------------------------------------------------
+  // 7. Dedicated AI Assistant Page Controller (assistant.html)
+  // ---------------------------------------------------------------------------
+  const aiWorkspaceDefault = document.getElementById('aiWorkspaceDefault');
+  const aiConversationThread = document.getElementById('aiConversationThread');
+  const aiComposerForm = document.getElementById('aiComposerForm');
+  const composerTextInput = document.getElementById('composerTextInput');
+  const composerSendBtn = document.getElementById('composerSendBtn');
+  const composerAttachBtn = document.getElementById('composerAttachBtn');
+  const aiDropzone = document.getElementById('aiDropzone');
+  const btnBrowseFiles = document.getElementById('btnBrowseFiles');
+  const aiFileUploadInput = document.getElementById('aiFileUploadInput');
+  const uploadedChipsRow = document.getElementById('uploadedChipsRow');
+  const btnRefreshPrompts = document.getElementById('btnRefreshPrompts');
+  const examplesContainer = document.getElementById('examplesContainer');
+  const aiQuickCards = document.querySelectorAll('.ai-quick-card');
+  const exampleQuoteCards = document.querySelectorAll('.example-quote-card');
+  const recentFileItems = document.querySelectorAll('.recent-file-item');
+
+  const assistantKnowledge = {
+    summary: "📋 **Health Records Summary (Kavin S)**:\n\n• **Total Events**: 9 clinic encounters & 8 completed immunotherapy injection procedures at Salem Hospital (Sep 2017 – Jun 2018).\n• **Primary Diagnosis**: Allergic rhinitis & environmental hypersensitivity.\n• **Status**: Immunotherapy course successfully completed with optimal compliance. Viral sinusitis episode in Feb 2018 is fully resolved.",
+    condition: "❤️ **Health Condition Explanation**:\n\n• **Allergic Rhinitis**: Inflammation of the nasal membranes triggered by environmental allergens (dust mites, grass pollen).\n• **Mechanism**: Your immune system produces IgE antibodies causing histamine release, leading to congestion and sneezing.\n• **Management**: Allergen immunotherapy gradually desensitizes your response over time.",
+    trends: "📈 **Health Trends & Immunotherapy Progress**:\n\n• **Treatment Adherence**: 100% attendance across 8 SCIT injection sessions.\n• **Symptom Score**: Reduced by ~68% between Oct 2017 and Jun 2018.\n• **Vitals Stability**: Resting blood pressure (118/76 mmHg) and pulse (72 bpm) consistently normal at all appointments.",
+    appointments: "📅 **Upcoming Appointments & Follow-ups**:\n\n1. **Kavin S**: Allergy Follow-up at Salem Hospital — 26 Jun 2024 at 10:00 AM.\n2. **Advik (Son)**: Routine Pediatric Checkup at City Clinic — 28 Jun 2024 at 11:30 AM.\n3. **Lakshmi (Mother)**: Fasting Blood Test at Apollo Diagnostics — 02 Jul 2024 at 09:00 AM.",
+    prescription: "💊 **Prescription in Plain English**:\n\n• **Levocetirizine (5mg)**: Once daily at bedtime. Non-drowsy antihistamine that blocks allergic reactions.\n• **Budecort Inhaler (100mcg)**: 1 puff twice daily after meals. Corticosteroid that reduces airway inflammation without systemic side-effects.",
+    visits: "🩺 **Summary of Last 3 Doctor Visits**:\n\n1. **24 Jun 2018**: Outpatient follow-up with Dr. Sarah Jenkins. Lungs clear, completed 8th injection cycle.\n2. **01 Jun 2018**: Routine clinic consultation and vitals check.\n3. **05 May 2018**: Allergen immunotherapy maintenance administration.",
+    allergy: "🌿 **Allergy Treatment History**:\n\nInitiated on 12 Sep 2017 following skin prick test confirmation for house dust and grass allergens. 8 subcutaneous injection doses administered at Salem Hospital without adverse local reactions.",
+    default: "Thank you for asking! Based on your verified health records and diagnostic files, your vital markers are healthy and your allergy treatment milestones are up to date. How else can I assist your health care today?"
+  };
+
+  function sendAssistantPageQuery(userQuery) {
+    if (!userQuery || !userQuery.trim()) return;
+    const cleanText = userQuery.trim();
+
+    // Transition workspace from hero to conversation
+    if (aiWorkspaceDefault && aiConversationThread) {
+      aiWorkspaceDefault.style.display = 'none';
+      aiConversationThread.style.display = 'flex';
+    }
+
+    // Append user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'ai-chat-msg user';
+    userMsg.innerText = cleanText;
+    aiConversationThread.appendChild(userMsg);
+    if (composerTextInput) composerTextInput.value = '';
+    if (composerSendBtn) composerSendBtn.classList.remove('active');
+
+    aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
+
+    // Simulate AI clinical reasoning
+    setTimeout(() => {
+      const lower = cleanText.toLowerCase();
+      let answer = assistantKnowledge.default;
+      if (lower.includes('summar') && (lower.includes('record') || lower.includes('health') || lower.includes('history'))) {
+        answer = assistantKnowledge.summary;
+      } else if (lower.includes('last 3') || lower.includes('visits')) {
+        answer = assistantKnowledge.visits;
+      } else if (lower.includes('condition') || lower.includes('explain')) {
+        answer = assistantKnowledge.condition;
+      } else if (lower.includes('trend')) {
+        answer = assistantKnowledge.trends;
+      } else if (lower.includes('appoint')) {
+        answer = assistantKnowledge.appointments;
+      } else if (lower.includes('prescript')) {
+        answer = assistantKnowledge.prescription;
+      } else if (lower.includes('allergy') || lower.includes('immuno')) {
+        answer = assistantKnowledge.allergy;
+      } else if (lower.includes('lab') || lower.includes('file') || lower.includes('report') || lower.includes('doctor note')) {
+        answer = "📄 **Analysis of Selected Medical Record**:\n• Document status: Verified by Hospital Health Information System.\n• Key finding: All normal baseline ranges observed. Compliance score is optimal.";
+      }
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'ai-chat-msg bot';
+      botMsg.innerHTML = answer.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      aiConversationThread.appendChild(botMsg);
+      aiConversationThread.scrollTop = aiConversationThread.scrollHeight;
+    }, 450);
+  }
+
+  // Quick Action Cards
+  if (aiQuickCards.length > 0) {
+    aiQuickCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const prompt = card.dataset.prompt;
+        sendAssistantPageQuery(prompt);
+      });
+    });
+  }
+
+  // Example Quotes
+  if (exampleQuoteCards.length > 0) {
+    exampleQuoteCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const prompt = card.dataset.prompt || card.innerText.replace(/[“”"]/g, '').trim();
+        sendAssistantPageQuery(prompt);
+      });
+    });
+  }
+
+  // Recent Files Clicks
+  if (recentFileItems.length > 0) {
+    recentFileItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const filename = item.dataset.filename || item.querySelector('.file-item-name')?.textContent || 'Medical File';
+        sendAssistantPageQuery(`Please analyze and summarize ${filename}`);
+      });
+    });
+  }
+
+  // Composer Form
+  if (aiComposerForm) {
+    aiComposerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = composerTextInput ? composerTextInput.value : '';
+      sendAssistantPageQuery(text);
+    });
+  }
+
+  if (composerTextInput) {
+    composerTextInput.addEventListener('input', () => {
+      if (composerSendBtn) {
+        if (composerTextInput.value.trim().length > 0) {
+          composerSendBtn.classList.add('active');
+        } else {
+          composerSendBtn.classList.remove('active');
+        }
+      }
+    });
+  }
+
   if (composerAttachBtn) {
     composerAttachBtn.addEventListener('click', () => {
       if (aiFileUploadInput) aiFileUploadInput.click();
@@ -2159,10 +2214,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
   // ---------------------------------------------------------------------------
   // 8. Universal Floating Corner AI Chatbot Widget (Always Available on All Pages)
   // ---------------------------------------------------------------------------
   function initFloatingChatbot() {
+    if (document.body.classList.contains('login-body')) {
+      return;
+    }
     let wrapper = document.getElementById('floatingChatbotWrapper');
     if (!wrapper) {
       wrapper = document.createElement('div');
@@ -2368,78 +2427,11 @@ document.addEventListener('DOMContentLoaded', () => {
           e.preventDefault();
           window.openFloatingHygiaChat();
         });
->>>>>>> 9394c2a8dbde6956380fb4cde938b51e12209fea
       }
     });
   }
 
-<<<<<<< HEAD
-  // 2. Forgot Password Modal
-  const forgotPasswordModal = document.getElementById('forgotPasswordModal');
-  const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
-  const closeForgotModal = document.getElementById('closeForgotModal');
-  const cancelForgotBtn = document.getElementById('cancelForgotBtn');
-  const forgotPasswordForm = document.getElementById('forgotPasswordForm');
 
-  if (forgotPasswordBtn && forgotPasswordModal) {
-    forgotPasswordBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openLoginModal(forgotPasswordModal);
-    });
-  }
-  if (closeForgotModal) closeForgotModal.addEventListener('click', () => closeLoginModal(forgotPasswordModal));
-  if (cancelForgotBtn) cancelForgotBtn.addEventListener('click', () => closeLoginModal(forgotPasswordModal));
-  if (forgotPasswordModal) {
-    forgotPasswordModal.addEventListener('click', (e) => {
-      if (e.target === forgotPasswordModal) closeLoginModal(forgotPasswordModal);
-    });
-  }
-
-  if (forgotPasswordForm) {
-    forgotPasswordForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('resetEmail').value;
-      showToast(`Recovery link sent to ${email}`, 'success');
-      closeLoginModal(forgotPasswordModal);
-    });
-  }
-
-  // 3. Need Help? Modal
-  const needHelpModal = document.getElementById('needHelpModal');
-  const needHelpBtn = document.getElementById('needHelpBtn');
-  const closeNeedHelpModal = document.getElementById('closeNeedHelpModal');
-  const gotItHelpBtn = document.getElementById('gotItHelpBtn');
-
-  if (needHelpBtn && needHelpModal) {
-    needHelpBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openLoginModal(needHelpModal);
-    });
-  }
-  if (closeNeedHelpModal) closeNeedHelpModal.addEventListener('click', () => closeLoginModal(needHelpModal));
-  if (gotItHelpBtn) gotItHelpBtn.addEventListener('click', () => closeLoginModal(needHelpModal));
-  if (needHelpModal) {
-    needHelpModal.addEventListener('click', (e) => {
-      if (e.target === needHelpModal) closeLoginModal(needHelpModal);
-    });
-  }
-});
-
-fetch("http://127.0.0.1:8000/openapi.json")
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log("HYGIA backend connected!");
-    console.log("Available API paths:", Object.keys(data.paths));
-  })
-  .catch(error => {
-    console.error("HYGIA backend connection failed:", error);
-  });
-=======
   /* ==========================================================================
      9. APPOINTMENTS PAGE CONTROLLER (appointments.html)
      ========================================================================== */
@@ -2676,6 +2668,75 @@ fetch("http://127.0.0.1:8000/openapi.json")
       document.querySelectorAll('.filter-dropdown-btn').forEach(b => b.classList.remove('active'));
     });
 
+    // Doctor Sorting
+    const doctorSortSelect = document.getElementById('doctorSortSelect');
+    if (doctorSortSelect && doctorCardsList) {
+      doctorSortSelect.addEventListener('change', () => {
+        const val = doctorSortSelect.value;
+        const cards = Array.from(doctorCardsList.querySelectorAll('.doctor-card'));
+        cards.sort((a, b) => {
+          const docA = doctorsData[a.getAttribute('data-doctor-id')];
+          const docB = doctorsData[b.getAttribute('data-doctor-id')];
+          if (!docA || !docB) return 0;
+          if (val === 'rating') return parseFloat(docB.rating) - parseFloat(docA.rating);
+          if (val === 'distance') return parseFloat(docA.distance) - parseFloat(docB.distance);
+          if (val === 'experience') return parseInt(docB.experience) - parseInt(docA.experience);
+          return 0; // relevance / default
+        });
+        cards.forEach(card => doctorCardsList.appendChild(card));
+      });
+    }
+
+    // Month Navigation
+    const prevMonthBtn = document.getElementById('prevMonthBtn');
+    const nextMonthBtn = document.getElementById('nextMonthBtn');
+    const currentMonthDisplay = document.getElementById('currentMonthDisplay');
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let currentMonthIdx = 9; // October
+    let currentYear = 2026;
+
+    function updateMonthDisplay() {
+      if (currentMonthDisplay) {
+        currentMonthDisplay.textContent = `${months[currentMonthIdx]} ${currentYear}`;
+      }
+    }
+
+    if (prevMonthBtn) {
+      prevMonthBtn.addEventListener('click', () => {
+        currentMonthIdx--;
+        if (currentMonthIdx < 0) { currentMonthIdx = 11; currentYear--; }
+        updateMonthDisplay();
+      });
+    }
+    if (nextMonthBtn) {
+      nextMonthBtn.addEventListener('click', () => {
+        currentMonthIdx++;
+        if (currentMonthIdx > 11) { currentMonthIdx = 0; currentYear++; }
+        updateMonthDisplay();
+      });
+    }
+
+    // Sync header globalSearchInput with treatmentQueryInput
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    if (globalSearchInput && treatmentQueryInput) {
+      globalSearchInput.addEventListener('input', (e) => {
+        treatmentQueryInput.value = e.target.value;
+        treatmentQueryInput.dispatchEvent(new Event('input'));
+      });
+    }
+
+    // Sidebar Book CTA
+    const sidebarBookCta = document.getElementById('sidebarBookCta');
+    if (sidebarBookCta) {
+      sidebarBookCta.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = document.getElementById('doctorBookingCard');
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
+
     // Booking Confirmation Modal
     const btnConfirmBooking = document.getElementById('btnConfirmBooking');
     const bookingConfirmModal = document.getElementById('bookingConfirmModal');
@@ -2699,7 +2760,26 @@ fetch("http://127.0.0.1:8000/openapi.json")
         if (ticketTime) ticketTime.textContent = selectedSlot;
         if (ticketBookingId) {
           const randNum = Math.floor(1000 + Math.random() * 9000);
-          ticketBookingId.textContent = `HYG-APT-${randNum}`;
+          const bookingId = `HYG-APT-${randNum}`;
+          ticketBookingId.textContent = bookingId;
+
+          // Save appointment to localStorage
+          try {
+            const storedApts = JSON.parse(localStorage.getItem('hygia_appointments') || '[]');
+            storedApts.push({
+              id: bookingId,
+              doctor: doc.name,
+              specialty: doc.specialty,
+              hospital: doc.hospital,
+              date: selectedDate,
+              time: selectedSlot,
+              patient: 'Kavin S',
+              timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('hygia_appointments', JSON.stringify(storedApts));
+          } catch (e) {
+            console.warn('Could not save booking:', e);
+          }
         }
 
         bookingConfirmModal.style.display = 'flex';
@@ -2747,4 +2827,17 @@ fetch("http://127.0.0.1:8000/openapi.json")
   initAppointmentsPage();
 });
 
->>>>>>> 9394c2a8dbde6956380fb4cde938b51e12209fea
+fetch("http://127.0.0.1:8000/openapi.json")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("HYGIA backend connected!");
+    console.log("Available API paths:", Object.keys(data.paths));
+  })
+  .catch(error => {
+    console.error("HYGIA backend connection failed:", error);
+  });
