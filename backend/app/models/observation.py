@@ -1,9 +1,7 @@
 from __future__ import annotations
-
 import uuid
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
-
 from sqlalchemy import (
     CheckConstraint,
     DateTime,
@@ -14,20 +12,13 @@ from sqlalchemy import (
     Text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
 from app.db.session import Base
-
 if TYPE_CHECKING:
     from app.models.medical_document import MedicalDocument
-
-
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
-
-
 class Observation(Base):
     __tablename__ = "observations"
-
     __table_args__ = (
         CheckConstraint(
             "review_status IN "
@@ -35,7 +26,6 @@ class Observation(Base):
             name="ck_observation_review_status",
         ),
     )
-
     id: Mapped[str] = mapped_column(
         String(36),
         primary_key=True,
@@ -47,8 +37,6 @@ class Observation(Base):
         nullable=False,
         index=True,
     )
-
-    # Structured medical information
     code: Mapped[str | None] = mapped_column(
         String(100),
         nullable=True,
@@ -73,8 +61,6 @@ class Observation(Base):
         String(255),
         nullable=True,
     )
-
-    # Traceability back to the source document
     page_number: Mapped[int | None] = mapped_column(
         Integer,
         nullable=True,
@@ -83,7 +69,6 @@ class Observation(Base):
         Text,
         nullable=True,
     )
-
     review_status: Mapped[str] = mapped_column(
         String(20),
         default="pending",
@@ -94,7 +79,6 @@ class Observation(Base):
         default=utc_now,
         nullable=False,
     )
-
     document: Mapped[MedicalDocument] = relationship(
         back_populates="observations",
     )
