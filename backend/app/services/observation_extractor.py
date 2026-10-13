@@ -1,8 +1,6 @@
 ﻿import re
 import pymupdf
 from dataclasses import dataclass
-
-
 @dataclass
 class ExtractedObservation:
     name: str
@@ -12,10 +10,6 @@ class ExtractedObservation:
     reference_range: str | None
     evidence_text: str
     page_number: int | None = None
-
-
-# Conservative patterns: extract only when a known test name and
-# a numeric result appear together on the same line.
 TEST_NAMES = {
     "hemoglobin": ("Hemoglobin", "g/dL"),
     "haemoglobin": ("Hemoglobin", "g/dL"),
@@ -31,44 +25,27 @@ TEST_NAMES = {
     "wbc": ("WBC", "10^3/uL"),
     "rbc": ("RBC", "10^6/uL"),
 }
-
-
 NUMBER = r"[-+]?\d+(?:[.,]\d+)?"
 RANGE = rf"(?:{NUMBER}\s*(?:-|–|to)\s*{NUMBER})"
-
-
-
 def extract_observations(
     pages: list[dict],
 ) -> list[ExtractedObservation]:
-    """Extract candidate lab results with source evidence.
-
-    Candidates require human review; this function does not
-    interpret results or provide medical advice.
-    """
     observations = []
     seen = set()
-
-    # Longest names first, so specific tests take precedence.
     test_names = sorted(
         TEST_NAMES.items(),
         key=lambda item: len(item[0]),
         reverse=True,
     )
-
     for page in pages:
         page_number = page.get("page_number")
         text = page.get("extracted_text", "")
-
         for line in text.splitlines():
             evidence = line.strip()
             if not evidence:
                 continue
-
             lowered = evidence.lower()
             matched = None
-
-            # Select exactly one test name per line.
             for test_key, (display_name, _) in test_names:
                 match = re.search(
                     rf"(?<![a-z]){re.escape(test_key)}(?![a-z])",
@@ -77,36 +54,25 @@ def extract_observations(
                 if match:
                     matched = (test_key, display_name, match)
                     break
-
             if matched is None:
                 continue
-
             test_key, display_name, name_match = matched
             after_name = evidence[name_match.end():]
-
-            # Extract the first number following the test name.
             value_match = re.search(NUMBER, after_name)
             if not value_match:
                 continue
-
             value_text = value_match.group(0)
-
             try:
                 value_numeric = float(value_text.replace(",", "."))
             except ValueError:
                 value_numeric = None
-
-            # Capture units only when explicitly printed.
             unit_match = re.search(
                 r"(?i)(mg/dl|g/dl|mmol/l|10\^3/ul|10\^6/ul|"
                 r"10³/µl|10⁶/µl|%|u/l|iu/l)",
                 after_name[value_match.end():],
             )
             unit = unit_match.group(0) if unit_match else None
-
-            # Do not infer reference ranges in this initial version.
             reference_range = None
-
             key = (
                 display_name.lower(),
                 value_text,
@@ -117,7 +83,6 @@ def extract_observations(
             if key in seen:
                 continue
             seen.add(key)
-
             observations.append(
                 ExtractedObservation(
                     name=display_name,
@@ -129,5 +94,4 @@ def extract_observations(
                     page_number=page_number,
                 )
             )
-
     return observations
