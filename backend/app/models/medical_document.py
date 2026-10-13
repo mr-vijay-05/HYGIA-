@@ -1,9 +1,7 @@
 from __future__ import annotations
-
 import uuid
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
-
 from sqlalchemy import (
     CheckConstraint,
     DateTime,
@@ -11,21 +9,14 @@ from sqlalchemy import (
     String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
 from app.db.session import Base
-
 if TYPE_CHECKING:
     from app.models.observation import Observation
     from app.models.patient import Patient
-
-
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
-
-
 class MedicalDocument(Base):
     __tablename__ = "medical_documents"
-
     __table_args__ = (
         CheckConstraint(
             "processing_status IN "
@@ -33,7 +24,6 @@ class MedicalDocument(Base):
             name="ck_document_processing_status",
         ),
     )
-
     id: Mapped[str] = mapped_column(
         String(36),
         primary_key=True,

@@ -1,5 +1,3 @@
-"""Database package containing session management and table initialization."""
-
 from app.db.session import Base, engine, SessionLocal, get_db
 from app.db.init_db import init_db
 
