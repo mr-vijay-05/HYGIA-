@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hygia - AI Assistant</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -100,10 +99,7 @@
         </ul>
       </nav>
     </aside>
-
-    <!-- MAIN VIEWPORT -->
     <main class="main-content">
-      <!-- TOP HEADER -->
       <header class="top-header">
         <div class="search-container">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -120,7 +116,6 @@
         </div>
 
         <div class="header-actions">
-          <!-- Language Selector -->
           <div class="header-lang-wrapper" id="langWrapper">
             <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
               <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -165,8 +160,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- Notification Bell -->
           <div class="header-notification-wrapper" id="notifWrapper">
             <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -198,8 +191,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- User Profile -->
           <div class="user-profile-wrapper" id="userProfileWrapper">
             <button class="user-profile-btn" id="userProfileBtn">
               <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
@@ -221,15 +212,10 @@
           </div>
         </div>
       </header>
-
-      <!-- CONTENT BODY -->
       <div class="page-body">
         <div class="ai-page-layout">
-          <!-- MAIN CENTER WORKSPACE -->
           <div class="ai-main-card">
-            <!-- HERO WELCOME & ACTIONS (Default State) -->
             <div class="ai-workspace-content" id="aiWorkspaceDefault">
-              <!-- Halo Icon Badge -->
               <div class="ai-halo-badge-container">
                 <div class="ai-halo-glow-bg"></div>
                 <div class="ai-halo-circle">
@@ -238,13 +224,9 @@
                   </svg>
                 </div>
               </div>
-
-              <h2 class="ai-hub-title">Hi Kavin, I'm Hygia AI</h2>
+           <h2 class="ai-hub-title">Hi Kavin, I'm Hygia AI</h2>
               <p class="ai-hub-subtitle">Ask anything about your health records, get simple explanations, track your health and make better decisions.</p>
-
-              <!-- 4 Quick-Action Action Cards -->
               <div class="ai-quick-cards-grid">
-                <!-- Action 1 -->
                 <button class="ai-quick-card" data-prompt="Summarize my health records and medical history so far.">
                   <div class="ai-card-icon-box blue-icon-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -259,8 +241,6 @@
                     <span>my records</span>
                   </div>
                 </button>
-
-                <!-- Action 2 -->
                 <button class="ai-quick-card" data-prompt="Explain my ongoing diagnosed conditions in simple words.">
                   <div class="ai-card-icon-box coral-icon-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -272,8 +252,6 @@
                     <span>health condition</span>
                   </div>
                 </button>
-
-                <!-- Action 3 -->
                 <button class="ai-quick-card" data-prompt="Show my health trends and allergy immunotherapy progress over time.">
                   <div class="ai-card-icon-box purple-icon-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -287,8 +265,6 @@
                     <span>health trends</span>
                   </div>
                 </button>
-
-                <!-- Action 4 -->
                 <button class="ai-quick-card" data-prompt="What are my upcoming appointments and follow-up schedules?">
                   <div class="ai-card-icon-box orange-icon-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -304,8 +280,6 @@
                   </div>
                 </button>
               </div>
-
-              <!-- Upload Drag & Drop Zone -->
               <div class="ai-dropzone-box" id="aiDropzone">
                 <input type="file" id="aiFileUploadInput" multiple style="display: none;" accept=".pdf,.jpg,.jpeg,.png,.dcm">
                 <div class="ai-folder-icon">
@@ -329,11 +303,7 @@
                 <div class="uploaded-chips-row" id="uploadedChipsRow"></div>
               </div>
             </div>
-
-            <!-- LIVE CHAT THREAD (Shown when chatting) -->
             <div class="ai-chat-conversation" id="aiConversationThread" style="display: none;"></div>
-
-            <!-- BOTTOM CHAT INPUT BAR -->
             <form class="ai-composer-form" id="aiComposerForm">
               <button type="button" class="composer-attach-btn" id="composerAttachBtn" title="Attach file or report">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -355,10 +325,7 @@
               </button>
             </form>
           </div>
-
-          <!-- RIGHT SIDEBAR COLUMN -->
           <div class="ai-sidebar-column">
-            <!-- 1. TRY THESE EXAMPLES -->
             <section class="content-card ai-examples-panel">
               <div class="panel-header">
                 <h3 class="panel-title">Try these examples</h3>
@@ -372,7 +339,6 @@
               </div>
 
               <div class="examples-list" id="examplesContainer">
-                <!-- Example 1 -->
                 <button class="example-quote-card" data-prompt="Summarize my last 3 doctor visits.">
                   <div class="example-icon-box doc-blue">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -384,8 +350,6 @@
                   </div>
                   <span class="example-quote-text">“Summarize my last 3 doctor visits.”</span>
                 </button>
-
-                <!-- Example 2 -->
                 <button class="example-quote-card" data-prompt="Explain this prescription in simple words.">
                   <div class="example-icon-box pill-green">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -397,8 +361,6 @@
                   </div>
                   <span class="example-quote-text">“Explain this prescription in simple words.”</span>
                 </button>
-
-                <!-- Example 3 -->
                 <button class="example-quote-card" data-prompt="Show my allergy treatment history.">
                   <div class="example-icon-box chart-orange">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -409,8 +371,6 @@
                   </div>
                   <span class="example-quote-text">“Show my allergy treatment history.”</span>
                 </button>
-
-                <!-- Example 4 -->
                 <button class="example-quote-card" data-prompt="What are my upcoming appointments?">
                   <div class="example-icon-box cal-orange">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -424,8 +384,6 @@
                 </button>
               </div>
             </section>
-
-            <!-- 2. RECENT FILES -->
             <section class="content-card ai-recent-files-panel">
               <div class="panel-header">
                 <h3 class="panel-title">Recent Files</h3>
@@ -433,7 +391,6 @@
               </div>
 
               <div class="recent-files-list">
-                <!-- File 1: Lab Report -->
                 <div class="recent-file-item" data-filename="Lab Report (12 Jun 2024)">
                   <div class="file-icon-box red-file-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -455,8 +412,6 @@
                     </svg>
                   </button>
                 </div>
-
-                <!-- File 2: Prescription -->
                 <div class="recent-file-item" data-filename="Prescription (05 Jun 2024)">
                   <div class="file-icon-box green-file-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -477,8 +432,6 @@
                     </svg>
                   </button>
                 </div>
-
-                <!-- File 3: Doctor Note -->
                 <div class="recent-file-item" data-filename="Doctor Note (01 Jun 2024)">
                   <div class="file-icon-box blue-file-box">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -500,8 +453,6 @@
                     </svg>
                   </button>
                 </div>
-
-                <!-- File 4: Allergy Reports Folder -->
                 <div class="recent-file-item" data-filename="Allergy Reports Folder (5 files)">
                   <div class="file-icon-box orange-file-box">
                     <svg viewBox="0 0 24 24" fill="#EA580C">
@@ -522,8 +473,6 @@
                 </div>
               </div>
             </section>
-
-            <!-- 3. DATA PRIVACY CALLOUT -->
             <div class="ai-privacy-box">
               <div class="privacy-bulb-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -542,7 +491,6 @@
       </div>
     </main>
   </div>
-
-  <script src="script.js?v=9"></script>
+   <script src="script.js?v=9"></script>
 </body>
 </html>
