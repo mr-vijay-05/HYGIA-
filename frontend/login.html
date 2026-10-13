@@ -11,11 +11,9 @@
 </head>
 <body class="login-body">
   <div class="login-layout-wrapper">
-    <!-- BACKGROUND SCENIC LAYER -->
     <div class="login-bg-scene" style="background-image: url('assets/login_bg.jpg');"></div>
     <div class="login-bg-overlay"></div>
 
-    <!-- TOP HEADER UTILITIES -->
     <header class="login-top-bar">
       <div class="login-top-right">
         <a href="#need-help" class="need-help-link" id="needHelpBtn">
@@ -29,9 +27,7 @@
       </div>
     </header>
 
-    <!-- MAIN TWO-COLUMN CONTAINER -->
     <main class="login-container">
-      <!-- LEFT COLUMN: BRAND -->
       <section class="login-brand-col">
         <div class="login-brand-header">
           <a href="index.html" class="brand-logo">
@@ -47,13 +43,11 @@
           </a>
         </div>
 
-        <!-- Headline -->
         <div class="login-headline-group">
           <h2 class="login-headline">Your Health Journey,<br><span class="headline-gradient">All in One Place.</span></h2>
         </div>
       </section>
 
-      <!-- RIGHT COLUMN: LOGIN CARD -->
       <section class="login-card-col">
         <div class="login-card-box">
           <div class="login-card-header">
@@ -61,7 +55,6 @@
             <p class="login-card-subtitle" id="cardSubtitle">Sign in to access your personal health records</p>
           </div>
 
-          <!-- User Role Switcher -->
           <div class="login-role-switcher" id="roleSwitcher" role="tablist">
             <button type="button" class="role-tab active" data-role="patient" id="patientTab" role="tab" aria-selected="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,11 +74,8 @@
             </button>
           </div>
 
-          <!-- Sign-In Form -->
           <form class="login-form" id="loginForm" novalidate>
-            <!-- Email / Phone Field -->
-            <div class="login-form-group">
-              <label for="loginEmail" class="form-label" id="loginEmailLabel">Email or Phone Number</label>
+            <label for="loginEmail" class="form-label" id="loginEmailLabel">Email or Phone Number</label>
               <div class="input-with-icon">
                 <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -102,7 +92,6 @@
               </div>
             </div>
 
-            <!-- Password Field -->
             <div class="login-form-group">
               <label for="loginPassword" class="form-label">Password</label>
               <div class="input-with-icon has-right-icon">
@@ -137,7 +126,6 @@
               </div>
             </div>
 
-            <!-- Submit Button -->
             <button type="submit" class="login-submit-btn" id="signInSubmitBtn">
               <span class="btn-spinner" id="btnSpinner"></span>
               <span class="btn-text" id="signInBtnText">Sign In as Patient</span>
@@ -148,14 +136,12 @@
             </button>
           </form>
 
-          <!-- Divider -->
           <div class="login-divider">
             <span class="divider-line"></span>
             <span class="divider-text">or continue with</span>
             <span class="divider-line"></span>
           </div>
-
-          <!-- Social Buttons -->
+        
           <div class="social-login-grid">
             <button type="button" class="social-btn" id="googleLoginBtn">
               <svg class="social-icon" viewBox="0 0 24 24">
@@ -174,7 +160,6 @@
             </button>
           </div>
 
-          <!-- Bottom Prompt -->
           <div class="login-footer-row">
             <span>Don't have an account?</span>
             <button type="button" class="register-link-btn" id="openRegisterModalBtn">Create a new account</button>
@@ -184,12 +169,6 @@
     </main>
   </div>
 
-
-  <!-- ======================================================================= -->
-  <!-- MODALS -->
-  <!-- ======================================================================= -->
-
-  <!-- 1. CREATE ACCOUNT MODAL -->
   <div class="login-modal-backdrop" id="createAccountModal" role="dialog" aria-hidden="true" aria-labelledby="createAccountTitle">
     <div class="login-modal-box">
       <div class="login-modal-header">
@@ -252,7 +231,6 @@
     </div>
   </div>
 
-  <!-- 2. FORGOT PASSWORD MODAL -->
   <div class="login-modal-backdrop" id="forgotPasswordModal" role="dialog" aria-hidden="true" aria-labelledby="forgotPasswordTitle">
     <div class="login-modal-box">
       <div class="login-modal-header">
@@ -285,7 +263,6 @@
     </div>
   </div>
 
-  <!-- 3. NEED HELP? MODAL -->
   <div class="login-modal-backdrop" id="needHelpModal" role="dialog" aria-hidden="true" aria-labelledby="needHelpTitle">
     <div class="login-modal-box login-modal-wide">
       <div class="login-modal-header">
@@ -328,7 +305,6 @@
     </div>
   </div>
 
-  <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
   <div class="login-toast-container" id="toastContainer" aria-live="polite"></div>
 
   <script src="script.js?v=10"></script>
