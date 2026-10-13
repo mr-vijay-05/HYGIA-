@@ -1,2 +1,21 @@
+[project]
+name = "hygia"
+version = "0.1.0"
+description = "HYGIA medical document intelligence API"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi==0.143.0",
+    "uvicorn==0.54.0",
+    "python-multipart==0.0.32",
+    "python-dotenv==1.2.4",
+    "pydantic==2.14.1",
+    "pydantic-settings==2.15.0",
+    "SQLAlchemy==2.1.4",
+    "PyMuPDF==1.28.2",
+    "PyYAML==6.0.3",
+    "httpx==0.28.1",
+    "numpy>=2.4.6",
+]
+
 [tool.vercel]
 entrypoint = "backend.app.main:app"
