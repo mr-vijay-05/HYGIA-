@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hygia - My Records</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +11,6 @@
 </head>
 <body>
   <div class="app-layout">
-    <!-- LEFT SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <a href="index.html" class="brand-logo">
@@ -97,7 +95,6 @@
         </ul>
       </nav>
 
-      <!-- Sidebar Promo Card: Keep health records organized -->
       <div class="sidebar-promo-card">
         <div class="promo-image-container">
           <img src="assets/records_organizer.jpg" alt="Organize Health Records" class="promo-doctor-img">
@@ -110,9 +107,7 @@
       </div>
     </aside>
 
-    <!-- MAIN APP CONTENT -->
     <main class="main-content">
-      <!-- TOP HEADER BAR -->
       <header class="top-header">
         <div class="search-container">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -129,7 +124,6 @@
         </div>
 
         <div class="header-actions">
-          <!-- Language Selector -->
           <div class="header-lang-wrapper" id="langWrapper">
             <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
               <svg class="lang-globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -174,8 +168,7 @@
               </ul>
             </div>
           </div>
-
-          <!-- Notification Bell -->
+          
           <div class="header-notification-wrapper" id="notifWrapper">
             <button class="icon-button notification-btn" id="notifToggle" aria-label="Notifications">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -208,7 +201,6 @@
             </div>
           </div>
 
-          <!-- User Profile Dropdown -->
           <div class="user-profile-wrapper" id="userProfileWrapper">
             <button class="user-profile-btn" id="userProfileBtn">
               <img src="assets/user_avatar.jpg" alt="Kavin S" class="user-avatar-img">
@@ -231,19 +223,14 @@
         </div>
       </header>
 
-      <!-- CONTENT BODY SCROLLER -->
       <div class="page-body">
-        <!-- HERO BANNER: MY RECORDS -->
         <section class="hero-banner-card records-hero">
           <div class="hero-bg-cover" style="background-image: url('assets/hero_banner.jpg');"></div>
           <div class="hero-content">
             <h2 class="hero-page-title">My Records</h2>
             <p class="hero-page-desc">All your doctor visits, treatments, reports and notes in one place.</p>
           </div>
-
-          <!-- 4 QUICK ACTION TILES -->
           <div class="quick-actions-grid">
-            <!-- Action 1: Upload Records -->
             <button class="quick-action-card" id="btnUploadRecords">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -261,7 +248,6 @@
               </svg>
             </button>
 
-            <!-- Action 2: Scan with Camera -->
             <button class="quick-action-card" id="btnScanCamera">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -278,7 +264,6 @@
               </svg>
             </button>
 
-            <!-- Action 3: Get Health Insights -->
             <button class="quick-action-card" id="btnGetInsights">
               <div class="action-icon-box purple-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -294,7 +279,6 @@
               </svg>
             </button>
 
-            <!-- Action 4: Add Family Member -->
             <button class="quick-action-card" id="btnAddFamily">
               <div class="action-icon-box orange-tint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -315,7 +299,6 @@
           </div>
         </section>
 
-        <!-- HORIZONTAL FILTER BAR & CONTROLS -->
         <div class="records-filter-toolbar">
           <div class="filter-pills-group">
             <button class="filter-pill active" data-category="all">All Records</button>
@@ -345,20 +328,15 @@
           </div>
         </div>
 
-        <!-- 2-COLUMN GRID: RECENT RECORDS (LEFT) & RECORD INSPECTOR (RIGHT) -->
         <div class="records-main-grid">
-          <!-- LEFT COLUMN: RECENT RECORDS TIMELINE -->
           <div class="records-timeline-card">
             <div class="records-card-header">
               <h3 class="records-title">Recent Records</h3>
               <span class="records-count-text">92 records</span>
             </div>
 
-            <!-- TIMELINE LIST -->
             <div class="timeline-container" id="timelineList">
-              <!-- GROUP 1: 24 Jun 2018 -->
               <div class="timeline-group">
-                <!-- Row 1: Doctor Visit (Selected by default) -->
                 <div class="timeline-row active-record" data-id="visit-24jun" data-type="visit">
                   <div class="timeline-date-col">
                     <span class="timeline-date">24 Jun 2018</span>
@@ -389,8 +367,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Row 2: Allergy Treatment (Injection) -->
+                
                 <div class="timeline-row" data-id="treatment-24jun" data-type="treatment">
                   <div class="timeline-date-col">
                     <span class="timeline-date">24 Jun 2018</span>
@@ -423,7 +400,6 @@
                   </div>
                 </div>
 
-                <!-- Row 3: Doctor's Notes -->
                 <div class="timeline-row" data-id="notes-24jun" data-type="notes">
                   <div class="timeline-date-col">
                     <span class="timeline-date">24 Jun 2018</span>
@@ -455,9 +431,7 @@
                 </div>
               </div>
 
-              <!-- GROUP 2: 01 Jun 2018 -->
               <div class="timeline-group">
-                <!-- Row 1: Doctor Visit -->
                 <div class="timeline-row" data-id="visit-01jun" data-type="visit">
                   <div class="timeline-date-col">
                     <span class="timeline-date">01 Jun 2018</span>
@@ -487,8 +461,7 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Row 2: Allergy Treatment (Injection) -->
+                
                 <div class="timeline-row" data-id="treatment-01jun" data-type="treatment">
                   <div class="timeline-date-col">
                     <span class="timeline-date">01 Jun 2018</span>
@@ -521,7 +494,6 @@
                   </div>
                 </div>
 
-                <!-- Row 3: Doctor's Notes -->
                 <div class="timeline-row" data-id="notes-01jun" data-type="notes">
                   <div class="timeline-date-col">
                     <span class="timeline-date">01 Jun 2018</span>
@@ -553,9 +525,7 @@
                 </div>
               </div>
 
-              <!-- GROUP 3: 05 May 2018 -->
               <div class="timeline-group">
-                <!-- Row 1: Doctor Visit -->
                 <div class="timeline-row" data-id="visit-05may" data-type="visit">
                   <div class="timeline-date-col">
                     <span class="timeline-date">05 May 2018</span>
@@ -586,7 +556,6 @@
                   </div>
                 </div>
 
-                <!-- Row 2: Allergy Treatment (Injection) -->
                 <div class="timeline-row" data-id="treatment-05may" data-type="treatment">
                   <div class="timeline-date-col">
                     <span class="timeline-date">05 May 2018</span>
@@ -621,7 +590,6 @@
               </div>
             </div>
 
-            <!-- VIEW MORE BUTTON -->
             <div class="timeline-footer">
               <button class="load-more-btn" id="loadMoreBtn">
                 View More Records <span class="arrow-down">↓</span>
@@ -629,9 +597,7 @@
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: RECORD DETAIL INSPECTOR -->
           <div class="record-detail-panel" id="recordInspector">
-            <!-- Inspector Top Nav -->
             <div class="inspector-header">
               <a href="#back" class="back-link">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -658,7 +624,6 @@
               </div>
             </div>
 
-            <!-- Active Record Header Banner -->
             <div class="record-banner-box">
               <div class="record-banner-main">
                 <div class="record-avatar-icon" id="inspectorIcon">
@@ -677,16 +642,13 @@
               <span class="badge badge-visit-completed" id="inspectorBadge">Visit Completed</span>
             </div>
 
-            <!-- Inspector Tab Bar -->
             <div class="inspector-tabs">
               <button class="inspector-tab active" data-tab="overview">Overview</button>
               <button class="inspector-tab" data-tab="documents">Documents (2)</button>
               <button class="inspector-tab" data-tab="related">Related Records</button>
             </div>
 
-            <!-- Tab Content: Overview -->
             <div class="tab-pane active" id="paneOverview">
-              <!-- About this visit card -->
               <div class="about-visit-card">
                 <div class="about-visit-img-box">
                   <img src="assets/doctor_consultation.jpg" alt="Doctor Consultation" class="about-doctor-img">
@@ -699,9 +661,7 @@
                 </div>
               </div>
 
-              <!-- 2x2 Info Attributes Grid -->
               <div class="info-attributes-grid">
-                <!-- Attribute 1: Reason for visit -->
                 <div class="attribute-box">
                   <div class="attribute-icon orange-attr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -714,7 +674,6 @@
                   </div>
                 </div>
 
-                <!-- Attribute 2: Location -->
                 <div class="attribute-box">
                   <div class="attribute-icon orange-attr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -728,7 +687,6 @@
                   </div>
                 </div>
 
-                <!-- Attribute 3: Status -->
                 <div class="attribute-box">
                   <div class="attribute-icon green-attr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -742,7 +700,6 @@
                   </div>
                 </div>
 
-                <!-- Attribute 4: Visit Type -->
                 <div class="attribute-box">
                   <div class="attribute-icon orange-attr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -757,7 +714,6 @@
                 </div>
               </div>
 
-              <!-- Blue Medical Explanation Box -->
               <div class="medical-explanation-box">
                 <div class="explanation-icon-col">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
@@ -775,8 +731,7 @@
                 </div>
               </div>
             </div>
-
-            <!-- Tab Content: Documents -->
+            
             <div class="tab-pane" id="paneDocuments">
               <div class="documents-list">
                 <div class="document-item">
@@ -797,8 +752,7 @@
                 </div>
               </div>
             </div>
-
-            <!-- Tab Content: Related Records -->
+            
             <div class="tab-pane" id="paneRelated">
               <div class="related-list">
                 <div class="related-item">
@@ -817,7 +771,6 @@
     </main>
   </div>
 
-  <!-- INTERACTIVE MODAL: UPLOAD FILE -->
   <div class="modal-backdrop" id="uploadModal">
     <div class="modal-box">
       <div class="modal-header">
@@ -846,7 +799,6 @@
     </div>
   </div>
 
-  <!-- INTERACTIVE MODAL: AI HEALTH COPILOT CHAT -->
   <div class="modal-backdrop" id="aiChatModal">
     <div class="modal-box ai-chat-modal-box">
       <div class="modal-header">
