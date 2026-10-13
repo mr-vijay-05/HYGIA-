@@ -34,6 +34,10 @@ def test_patient_flow():
     assert get_res.status_code == 200
     assert get_res.json()["id"] == patient_id
 
+    list_res = client.get("/api/v1/patients")
+    assert list_res.status_code == 200
+    assert any(p["id"] == patient_id for p in list_res.json())
+
 
 def test_document_flow():
     patient_res = client.post("/api/v1/patients", json={"display_name": "John Doe"})
@@ -52,3 +56,95 @@ def test_document_flow():
     doc_data = doc_res.json()
     assert doc_data["filename"] == "blood_test.pdf"
     assert doc_data["patient_id"] == patient_id
+
+
+def test_document_upload_and_extraction_pipeline():
+    import io
+    import pymupdf
+
+    patient_res = client.post("/api/v1/patients", json={"display_name": "Pipeline Patient"})
+    assert patient_res.status_code == 201
+    patient_id = patient_res.json()["id"]
+
+    # Generate synthetic PDF with clinical observations
+    doc = pymupdf.open()
+    page = doc.new_page()
+    page.insert_text(
+        (50, 72),
+        "PATIENT: Pipeline Patient\n"
+        "LAB TEST: Comprehensive Metabolic Panel\n"
+        "Hemoglobin: 14.5 g/dL (Reference: 13.5-17.5)\n"
+        "Fasting Blood Glucose: 92 mg/dL (Reference: 70-99)\n"
+        "Total Cholesterol: 175 mg/dL (Reference: <200)\n"
+    )
+    pdf_bytes = doc.tobytes()
+    doc.close()
+
+    # 1. Upload via multipart form
+    upload_res = client.post(
+        "/api/v1/documents/upload",
+        data={"patient_id": patient_id},
+        files={"file": ("synthetic_report.pdf", pdf_bytes, "application/pdf")},
+    )
+    assert upload_res.status_code == 201
+    upload_data = upload_res.json()
+    assert upload_data["filename"] == "synthetic_report.pdf"
+    doc_id = upload_data["id"]
+
+    # 2. Text Extraction
+    extract_res = client.get(f"/api/v1/documents/{doc_id}/extract")
+    assert extract_res.status_code == 200
+    extract_data = extract_res.json()
+    assert extract_data["page_count"] == 1
+    assert extract_data["character_count"] > 50
+
+    # 3. Observation Extraction
+    obs_res = client.post(f"/api/v1/documents/{doc_id}/observations/extract")
+    assert obs_res.status_code == 200
+    obs_data = obs_res.json()
+    assert obs_data["candidates_found"] >= 1
+    assert obs_data["review_status"] == "pending"
+    for obs in obs_data["observations"]:
+        assert obs["review_status"] == "pending"
+
+
+def test_document_upload_validation_errors():
+    # Invalid patient
+    res_invalid_patient = client.post(
+        "/api/v1/documents/upload",
+        data={"patient_id": "nonexistent-patient-uuid"},
+        files={"file": ("test.pdf", b"%PDF-1.4\nfake", "application/pdf")},
+    )
+    assert res_invalid_patient.status_code == 404
+
+    # Unsupported file type (.txt)
+    patient_res = client.post("/api/v1/patients", json={"display_name": "Validation Patient"})
+    patient_id = patient_res.json()["id"]
+
+    res_unsupported = client.post(
+        "/api/v1/documents/upload",
+        data={"patient_id": patient_id},
+        files={"file": ("test.txt", b"plain text", "text/plain")},
+    )
+    assert res_unsupported.status_code == 415
+
+    # Oversized file (>15 MB)
+    oversized_bytes = b"%PDF-1.4\n" + b"0" * (16 * 1024 * 1024)
+    res_oversized = client.post(
+        "/api/v1/documents/upload",
+        data={"patient_id": patient_id},
+        files={"file": ("large.pdf", oversized_bytes, "application/pdf")},
+    )
+    assert res_oversized.status_code == 413
+
+
+def test_cors_preflight():
+    for origin in ["http://localhost:5500", "http://127.0.0.1:5500"]:
+        res = client.options(
+            "/api/v1/documents/upload",
+            headers={
+                "Origin": origin,
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+        assert res.headers.get("access-control-allow-origin") == origin

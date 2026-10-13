@@ -943,8 +943,8 @@
             </svg>
           </div>
           <p class="drop-title">Drag & drop your files here or <span class="browse-link">browse</span></p>
-          <span class="drop-hint">Supports PDF, JPG, PNG, DICOM (up to 25MB)</span>
-          <input type="file" id="fileUploadInput" multiple style="display: none;">
+          <span class="drop-hint">Supports PDF, JPG, PNG (up to 15MB)</span>
+          <input type="file" id="fileUploadInput" multiple accept=".pdf,.png,.jpg,.jpeg" style="display: none;">
         </div>
         <div class="uploaded-files-preview" id="filesPreview"></div>
       </div>
@@ -982,6 +982,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>

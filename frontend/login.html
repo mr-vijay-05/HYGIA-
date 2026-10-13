@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hygia - Sign In</title>
+  <title>Hygia - Sign In | Personal Health Copilot</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body class="login-body">
   <div class="login-layout-wrapper">
@@ -18,15 +18,32 @@
 
     <!-- TOP HEADER UTILITIES -->
     <header class="login-top-bar">
-      <div class="login-top-spacer"></div>
-      <a href="#need-help" class="need-help-link" id="needHelpBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
-        <span>Need help?</span>
-      </a>
+      <div class="login-top-left">
+        <a href="index.html" class="back-home-link" id="backToHomeBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Back to Overview</span>
+        </a>
+      </div>
+
+      <div class="login-top-right">
+        <!-- Live API Server Status Indicator -->
+        <div class="api-status-pill" id="apiStatusPill" title="Backend service connectivity">
+          <span class="status-indicator-dot" id="statusDot"></span>
+          <span class="status-indicator-text" id="statusText">API Connecting...</span>
+        </div>
+
+        <a href="#need-help" class="need-help-link" id="needHelpBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Need help?</span>
+        </a>
+      </div>
     </header>
 
     <!-- MAIN TWO-COLUMN CONTAINER -->
@@ -50,8 +67,8 @@
 
         <!-- Headline & Description -->
         <div class="login-headline-group">
-          <h2 class="login-headline">Your Health<br>Journey, All in One Place</h2>
-          <p class="login-subtitle">Keep your doctor visits, treatments, reports and notes organized and easy to understand.</p>
+          <h2 class="login-headline">Your Health Journey,<br><span class="headline-gradient">All in One Place.</span></h2>
+          <p class="login-subtitle">Keep doctor visits, lab reports, prescriptions and notes organized, transparent and easy to understand.</p>
         </div>
 
         <!-- 4 Key Feature Bullets -->
@@ -69,7 +86,7 @@
             </div>
             <div class="feature-text">
               <h4 class="feature-title">All Your Records</h4>
-              <p class="feature-desc">Visits, treatments, reports and notes</p>
+              <p class="feature-desc">Visits, treatments, reports and notes in one unified timeline</p>
             </div>
           </div>
 
@@ -82,7 +99,7 @@
             </div>
             <div class="feature-text">
               <h4 class="feature-title">Understand Easily</h4>
-              <p class="feature-desc">Simple explanations for medical terms</p>
+              <p class="feature-desc">Instant plain-language summaries for complex clinical terms</p>
             </div>
           </div>
 
@@ -97,7 +114,7 @@
             </div>
             <div class="feature-text">
               <h4 class="feature-title">Stay Informed</h4>
-              <p class="feature-desc">Track your health history in one place</p>
+              <p class="feature-desc">Interactive biomarker tracking with automatic normal ranges</p>
             </div>
           </div>
 
@@ -113,9 +130,33 @@
             </div>
             <div class="feature-text">
               <h4 class="feature-title">Better Care Together</h4>
-              <p class="feature-desc">Share with your family and care team</p>
+              <p class="feature-desc">Secure caregiver access with granular privacy permissions</p>
             </div>
           </div>
+        </div>
+
+        <!-- Trust & Security Banner -->
+        <div class="login-security-badge">
+          <svg class="security-shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+          <div class="security-badge-text">
+            <strong>HIPAA-Minded Architecture &amp; 256-Bit SSL</strong>
+            <span>Your medical records remain private and encrypted at rest.</span>
+          </div>
+        </div>
+
+        <!-- Clinician Endorsement Card -->
+        <div class="login-quote-card">
+          <div class="quote-avatar-group">
+            <img src="assets/doctor_avatar.jpg" alt="Dr. Sarah" class="quote-avatar">
+            <div class="quote-author">
+              <span class="quote-name">Dr. Sarah Jenkins, MD</span>
+              <span class="quote-role">Preventive Medicine Advisor</span>
+            </div>
+          </div>
+          <p class="quote-body">"Hygia helps patients arrive prepared, with questions articulated and past lab work in chronological clarity."</p>
         </div>
       </section>
 
@@ -123,20 +164,20 @@
       <section class="login-card-col">
         <div class="login-card-box">
           <div class="login-card-header">
-            <h3 class="login-card-title">Welcome Back</h3>
-            <p class="login-card-subtitle">Sign in to continue to Hygia</p>
+            <h3 class="login-card-title" id="cardTitle">Welcome Back</h3>
+            <p class="login-card-subtitle" id="cardSubtitle">Sign in to access your personal health records</p>
           </div>
 
           <!-- User Role Switcher -->
-          <div class="login-role-switcher" id="roleSwitcher">
-            <button type="button" class="role-tab active" data-role="patient" id="patientTab">
+          <div class="login-role-switcher" id="roleSwitcher" role="tablist">
+            <button type="button" class="role-tab active" data-role="patient" id="patientTab" role="tab" aria-selected="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
               <span>Patient Login</span>
             </button>
-            <button type="button" class="role-tab" data-role="family" id="familyTab">
+            <button type="button" class="role-tab" data-role="family" id="familyTab" role="tab" aria-selected="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
@@ -148,10 +189,10 @@
           </div>
 
           <!-- Sign-In Form -->
-          <form class="login-form" id="loginForm" onsubmit="event.preventDefault(); window.location.href='index.html';">
+          <form class="login-form" id="loginForm" novalidate>
             <!-- Email / Phone Field -->
             <div class="login-form-group">
-              <label for="loginEmail" class="form-label">Email or Phone Number</label>
+              <label for="loginEmail" class="form-label" id="loginEmailLabel">Email or Phone Number</label>
               <div class="input-with-icon">
                 <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -162,7 +203,7 @@
                   id="loginEmail" 
                   class="form-input" 
                   placeholder="Enter your email or phone number" 
-                  value="kavin.s@example.com"
+                  autocomplete="username"
                   required
                 >
               </div>
@@ -181,7 +222,7 @@
                   id="loginPassword" 
                   class="form-input" 
                   placeholder="Enter your password" 
-                  value="••••••••••••"
+                  autocomplete="current-password"
                   required
                 >
                 <button type="button" class="field-icon-right toggle-password-btn" id="togglePasswordBtn" aria-label="Toggle password visibility">
@@ -192,15 +233,22 @@
                   </svg>
                 </button>
               </div>
-              <div class="forgot-password-row">
-                <a href="#forgot" class="forgot-link">Forgot password?</a>
+
+              <div class="login-form-meta-row">
+                <label class="remember-me-checkbox" for="rememberMeCheckbox">
+                  <input type="checkbox" id="rememberMeCheckbox" checked>
+                  <span class="custom-checkbox"></span>
+                  <span class="checkbox-label-text">Remember me</span>
+                </label>
+                <a href="#forgot" class="forgot-link" id="forgotPasswordBtn">Forgot password?</a>
               </div>
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="login-submit-btn" id="signInSubmitBtn">
-              <span>Sign In</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <span class="btn-spinner" id="btnSpinner"></span>
+              <span class="btn-text" id="signInBtnText">Sign In as Patient</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -216,33 +264,179 @@
 
           <!-- Social Buttons -->
           <div class="social-login-grid">
-            <button type="button" class="social-btn" onclick="window.location.href='index.html'">
+            <button type="button" class="social-btn" id="googleLoginBtn">
               <svg class="social-icon" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
                 <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
                 <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
                 <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
               </svg>
-              <span>Sign in with Google</span>
+              <span>Google</span>
             </button>
-            <button type="button" class="social-btn" onclick="window.location.href='index.html'">
+            <button type="button" class="social-btn" id="appleLoginBtn">
               <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 1.01-2.87-.96.04-2.12.64-2.8 1.44-.59.69-1.12 1.76-1 2.81 1.08.08 2.18-.58 2.79-1.38z"/>
               </svg>
-              <span>Sign in with Apple</span>
+              <span>Apple</span>
             </button>
           </div>
 
           <!-- Bottom Prompt -->
           <div class="login-footer-row">
             <span>Don't have an account?</span>
-            <a href="#register" class="register-link">Create a new account</a>
+            <button type="button" class="register-link-btn" id="openRegisterModalBtn">Create a new account</button>
           </div>
         </div>
       </section>
     </main>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <!-- ======================================================================= -->
+  <!-- MODALS -->
+  <!-- ======================================================================= -->
+
+  <!-- 1. CREATE ACCOUNT MODAL -->
+  <div class="login-modal-backdrop" id="createAccountModal" role="dialog" aria-hidden="true" aria-labelledby="createAccountTitle">
+    <div class="login-modal-box">
+      <div class="login-modal-header">
+        <div>
+          <h3 class="login-modal-title" id="createAccountTitle">Join Hygia</h3>
+          <p class="login-modal-sub">Create your health record profile and connect to the copilot</p>
+        </div>
+        <button type="button" class="login-modal-close" id="closeRegisterModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <form id="registerForm" class="login-modal-form">
+        <div class="login-form-group">
+          <label for="regDisplayName" class="form-label">Full Name</label>
+          <div class="input-with-icon">
+            <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="regDisplayName" class="form-input" placeholder="e.g. Kavin Sharma" required>
+          </div>
+        </div>
+
+        <div class="login-form-group">
+          <label for="regRole" class="form-label">Account Role</label>
+          <select id="regRole" class="form-input form-select">
+            <option value="patient">Patient (Primary Record Owner)</option>
+            <option value="family">Family Member / Caregiver</option>
+          </select>
+        </div>
+
+        <div class="login-form-group">
+          <label for="regEmail" class="form-label">Email or Mobile Number</label>
+          <div class="input-with-icon">
+            <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input type="email" id="regEmail" class="form-input" placeholder="name@example.com" required>
+          </div>
+        </div>
+
+        <div class="login-form-group">
+          <label for="regPassword" class="form-label">Create Password</label>
+          <div class="input-with-icon">
+            <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="regPassword" class="form-input" placeholder="At least 8 characters" required>
+          </div>
+        </div>
+
+        <div class="login-modal-actions">
+          <button type="button" class="modal-secondary-btn" id="cancelRegisterBtn">Cancel</button>
+          <button type="submit" class="modal-primary-btn" id="submitRegisterBtn">
+            <span>Create Profile &amp; Continue</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. FORGOT PASSWORD MODAL -->
+  <div class="login-modal-backdrop" id="forgotPasswordModal" role="dialog" aria-hidden="true" aria-labelledby="forgotPasswordTitle">
+    <div class="login-modal-box">
+      <div class="login-modal-header">
+        <div>
+          <h3 class="login-modal-title" id="forgotPasswordTitle">Reset Password</h3>
+          <p class="login-modal-sub">We'll send a secure password reset link to your registered email</p>
+        </div>
+        <button type="button" class="login-modal-close" id="closeForgotModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <form id="forgotPasswordForm" class="login-modal-form">
+        <div class="login-form-group">
+          <label for="resetEmail" class="form-label">Registered Email or Phone</label>
+          <div class="input-with-icon">
+            <svg class="field-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input type="text" id="resetEmail" class="form-input" placeholder="Enter your registered email or phone" required>
+          </div>
+        </div>
+
+        <div class="login-modal-actions">
+          <button type="button" class="modal-secondary-btn" id="cancelForgotBtn">Back to Login</button>
+          <button type="submit" class="modal-primary-btn" id="sendResetLinkBtn">
+            <span>Send Reset Link</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. NEED HELP? MODAL -->
+  <div class="login-modal-backdrop" id="needHelpModal" role="dialog" aria-hidden="true" aria-labelledby="needHelpTitle">
+    <div class="login-modal-box login-modal-wide">
+      <div class="login-modal-header">
+        <div>
+          <h3 class="login-modal-title" id="needHelpTitle">Hygia Patient Assistance &amp; FAQs</h3>
+          <p class="login-modal-sub">Frequently asked questions and emergency guidance</p>
+        </div>
+        <button type="button" class="login-modal-close" id="closeNeedHelpModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4 class="faq-question">How does Hygia protect my personal health records?</h4>
+          <p class="faq-answer">Hygia uses 256-bit encryption for all uploaded PDFs, images and extracted biomarkers. Your records are never sold or shared with advertisers.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 class="faq-question">What is the difference between Patient and Family Member login?</h4>
+          <p class="faq-answer">Patient accounts are the primary owners of health records. Family accounts allow authorized caregivers to review records, track visits and view timelines with patient permission.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 class="faq-question">How do I create a new account?</h4>
+          <p class="faq-answer">Click <strong>Create a new account</strong> at the bottom of the sign-in card. Enter your full name, email or phone, and choose whether you are a primary patient or a family caregiver to immediately set up your portal.</p>
+        </div>
+      </div>
+
+      <div class="emergency-notice-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span><strong>Medical Disclaimer:</strong> Hygia is an AI health organizer, not an emergency medical provider. If you are experiencing an acute medical emergency, please call 911 or visit your nearest emergency room immediately.</span>
+      </div>
+
+      <div class="login-modal-actions">
+        <button type="button" class="modal-primary-btn" id="gotItHelpBtn">Got it, Back to Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION CONTAINER -->
+  <div class="login-toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="script.js?v=8"></script>
 </body>
 </html>
