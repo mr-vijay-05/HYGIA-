@@ -1,0 +1,237 @@
+{
+  "selectable_pdf_cold": {
+    "timings": {
+      "model_init_ms": 0.0,
+      "pdf_text_ms": 5.43820000893902,
+      "render_ms": 0.0,
+      "ocr_inference_ms": 0.0,
+      "postprocess_ms": 0.0,
+      "observation_extract_ms": 1.4491999900201336,
+      "total_ms": 7.923800003482029
+    },
+    "character_count": 719,
+    "observations_count": 9,
+    "pages_count": 1,
+    "used_ocr": false,
+    "observations": [
+      {
+        "name": "Hemoglobin",
+        "value": 14.2,
+        "unit": "g/dL"
+      },
+      {
+        "name": "Fasting Blood Glucose",
+        "value": 95.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Creatinine",
+        "value": 1.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Total Cholesterol",
+        "value": 185.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "HDL Cholesterol",
+        "value": 48.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 110.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Triglycerides",
+        "value": 135.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "WBC",
+        "value": 6.8,
+        "unit": "10^3/uL"
+      },
+      {
+        "name": "Platelet Count",
+        "value": 240.0,
+        "unit": "10^3/uL"
+      }
+    ]
+  },
+  "selectable_pdf_warm": {
+    "timings": {
+      "model_init_ms": 0.0,
+      "pdf_text_ms": 1.0493000008864328,
+      "render_ms": 0.0,
+      "ocr_inference_ms": 0.0,
+      "postprocess_ms": 0.0,
+      "observation_extract_ms": 0.3201000072294846,
+      "total_ms": 2.1026000031270087
+    },
+    "character_count": 719,
+    "observations_count": 9,
+    "pages_count": 1,
+    "used_ocr": false,
+    "observations": [
+      {
+        "name": "Hemoglobin",
+        "value": 14.2,
+        "unit": "g/dL"
+      },
+      {
+        "name": "Fasting Blood Glucose",
+        "value": 95.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Creatinine",
+        "value": 1.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Total Cholesterol",
+        "value": 185.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "HDL Cholesterol",
+        "value": 48.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 110.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Triglycerides",
+        "value": 135.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "WBC",
+        "value": 6.8,
+        "unit": "10^3/uL"
+      },
+      {
+        "name": "Platelet Count",
+        "value": 240.0,
+        "unit": "10^3/uL"
+      }
+    ]
+  },
+  "scanned_pdf_cold": {
+    "timings": {
+      "model_init_ms": 2662.370499994722,
+      "pdf_text_ms": 3.8007999974070117,
+      "render_ms": 31.68759999971371,
+      "ocr_inference_ms": 4285.173599986592,
+      "postprocess_ms": 0.022899999748915434,
+      "observation_extract_ms": 0.17260000458918512,
+      "total_ms": 6984.398600005079
+    },
+    "character_count": 182,
+    "observations_count": 4,
+    "pages_count": 1,
+    "used_ocr": true,
+    "observations": [
+      {
+        "name": "Hemoglobin",
+        "value": 13.8,
+        "unit": "g/dL"
+      },
+      {
+        "name": "Fasting Blood Glucose",
+        "value": 104.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Creatinine",
+        "value": 0.9,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Total Cholesterol",
+        "value": 192.0,
+        "unit": "mg/dL"
+      }
+    ]
+  },
+  "scanned_pdf_warm": {
+    "timings": {
+      "model_init_ms": 0.0,
+      "pdf_text_ms": 4.107100001419894,
+      "render_ms": 25.38809999532532,
+      "ocr_inference_ms": 3930.4492000082973,
+      "postprocess_ms": 0.01200000406242907,
+      "observation_extract_ms": 0.19299999985378236,
+      "total_ms": 3961.494400005904
+    },
+    "character_count": 182,
+    "observations_count": 4,
+    "pages_count": 1,
+    "used_ocr": true,
+    "observations": [
+      {
+        "name": "Hemoglobin",
+        "value": 13.8,
+        "unit": "g/dL"
+      },
+      {
+        "name": "Fasting Blood Glucose",
+        "value": 104.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Creatinine",
+        "value": 0.9,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Total Cholesterol",
+        "value": 192.0,
+        "unit": "mg/dL"
+      }
+    ]
+  },
+  "image_png_warm": {
+    "timings": {
+      "model_init_ms": 0.0,
+      "pdf_text_ms": 0.0,
+      "render_ms": 0.0,
+      "ocr_inference_ms": 3860.574300008011,
+      "postprocess_ms": 0.015700003132224083,
+      "observation_extract_ms": 0.18400000408291817,
+      "total_ms": 3860.8373000024585
+    },
+    "character_count": 182,
+    "observations_count": 4,
+    "pages_count": 1,
+    "used_ocr": true,
+    "observations": [
+      {
+        "name": "Hemoglobin",
+        "value": 13.8,
+        "unit": "g/dL"
+      },
+      {
+        "name": "Fasting Blood Glucose",
+        "value": 104.0,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Creatinine",
+        "value": 0.9,
+        "unit": "mg/dL"
+      },
+      {
+        "name": "Total Cholesterol",
+        "value": 192.0,
+        "unit": "mg/dL"
+      }
+    ]
+  }
+}

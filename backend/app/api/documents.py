@@ -1,14 +1,10 @@
-
+import logging
+import time
 from pathlib import Path
 from uuid import uuid4
-import fitz
-import pymupdf
-from functools import lru_cache
-from statistics import mean
-from app.models import Observation
-from app.services.observation_extractor import extract_observations
-from paddleocr import PaddleOCR
+
 import numpy as np
+import pymupdf
 from fastapi import (
     APIRouter,
     Depends,
@@ -19,9 +15,18 @@ from fastapi import (
     status,
 )
 from sqlalchemy.orm import Session
+
 from app.db.session import get_db
-from app.models import MedicalDocument, Patient
+from app.models import MedicalDocument, Observation, Patient
 from app.schemas import DocumentCreate, DocumentResponse
+from app.services.document_extractor import (
+    extract_document_pages,
+    get_ocr_engine as service_get_ocr_engine,
+    recognize_image_data,
+)
+from app.services.observation_extractor import extract_observations
+
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/documents", tags=["Documents"])
 UPLOAD_DIR = Path(__file__).resolve().parents[2] / "uploads"
 MAX_FILE_SIZE = 15 * 1024 * 1024
@@ -178,67 +183,16 @@ def extract_document_text(
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
             detail="Unsupported document type",
         )
-    pages = []
-    used_ocr = False
     try:
-        if extension == ".pdf":
-            with fitz.open(file_path) as pdf:
-                page_count = pdf.page_count
-                for page_index, page in enumerate(pdf):
-                    text = page.get_text("text").strip()
-                    extraction_method = "pdf_text"
-                    if not text:
-                        used_ocr = True
-                        pixmap = page.get_pixmap(
-                            matrix=fitz.Matrix(1.5, 1.5),
-                            alpha=False,
-                        )
-                        image_bytes = pixmap.tobytes("png")
-                        import tempfile
-                        with tempfile.NamedTemporaryFile(
-                            suffix=".png",
-                            delete=False,
-                        ) as temp_file:
-                            temp_file.write(image_bytes)
-                            temp_path = Path(temp_file.name)
-                        try:
-                            ocr_result = recognize_image(
-                                str(temp_path)
-                            )
-                        finally:
-                            temp_path.unlink(missing_ok=True)
-                        text = ocr_result["text"]
-                        extraction_method = "ocr"
-                        pages.append({
-                            "page_number": page_index + 1,
-                            "extraction_method": extraction_method,
-                            "extracted_text": text,
-                            "ocr_lines": ocr_result["lines"],
-                            "average_ocr_confidence": (
-                                ocr_result["average_confidence"]
-                            ),
-                        })
-                    else:
-                        pages.append({
-                            "page_number": page_index + 1,
-                            "extraction_method": extraction_method,
-                            "extracted_text": text,
-                            "ocr_lines": [],
-                            "average_ocr_confidence": None,
-                        })
-        else:
-            used_ocr = True
-            page_count = 1
-            ocr_result = recognize_image(str(file_path))
-            pages.append({
-                "page_number": 1,
-                "extraction_method": "ocr",
-                "extracted_text": ocr_result["text"],
-                "ocr_lines": ocr_result["lines"],
-                "average_ocr_confidence": (
-                    ocr_result["average_confidence"]
-                ),
-            })
+        extraction = extract_document_pages(
+            file_path=file_path,
+            document_id=document.id,
+            use_cache=True,
+        )
+        pages = extraction["pages"]
+        page_count = extraction["page_count"]
+        used_ocr = extraction["used_ocr"]
+        timings = extraction["timings"]
     except HTTPException:
         raise
     except Exception as exc:
@@ -249,6 +203,7 @@ def extract_document_text(
                 "Check the file and OCR configuration."
             ),
         ) from exc
+
     extracted_text = "\n\n".join(
         page["extracted_text"] for page in pages
         if page["extracted_text"]
@@ -264,7 +219,7 @@ def extract_document_text(
         "review_required": any(
             line["needs_review"]
             for page in pages
-            for line in page["ocr_lines"]
+            for line in page.get("ocr_lines", [])
         ),
         "message": (
             "Text extraction completed. OCR output should be "
@@ -272,49 +227,21 @@ def extract_document_text(
             if used_ocr
             else "PDF text extraction completed."
         ),
+        "timings": timings,
     }
-@lru_cache(maxsize=1)
+
+
 def get_ocr_engine():
-    return PaddleOCR(
-        lang="en",
-        text_detection_model_name="PP-OCRv5_mobile_det",
-        text_recognition_model_name="en_PP-OCRv5_mobile_rec",
-        enable_mkldnn=False,
-        use_doc_orientation_classify=False,
-        use_doc_unwarping=False,
-        use_textline_orientation=False,
-    )
+    """Compatibility helper delegating to shared service singleton."""
+    return service_get_ocr_engine()
+
+
 def recognize_image(image_path: str) -> dict:
-    results = get_ocr_engine().predict(input=image_path)
-    lines = []
-    confidences = []
-    for result in results:
-        texts = result.get("rec_texts", [])
-        scores = result.get("rec_scores", [])
-        for index, text in enumerate(texts):
-            text = str(text).strip()
-            if not text:
-                continue
-            score = (
-                float(scores[index])
-                if index < len(scores)
-                else None
-            )
-            lines.append({
-                "text": text,
-                "confidence": score,
-                "needs_review": score is None or score < 0.85,
-            })
-            if score is not None:
-                confidences.append(score)
-    return {
-        "lines": lines,
-        "text": "\n".join(line["text"] for line in lines),
-        "average_confidence": (
-            round(mean(confidences), 4)
-            if confidences else None
-        ),
-    }
+    """Compatibility helper delegating to recognize_image_data."""
+    result, _, _ = recognize_image_data(image_path)
+    return result
+
+
 @router.post("/{document_id}/observations/extract")
 def extract_and_save_observations(
     document_id: str,
@@ -333,44 +260,48 @@ def extract_and_save_observations(
             detail="Stored document file not found",
         )
     file_path = Path(document.file_path)
-    pages = []
+
+    existing = db.query(Observation).filter(
+        Observation.document_id == document.id
+    ).all()
+
+    # If document has already been processed and observations exist, reuse them
+    if document.processing_status == "processed" and existing:
+        logger.info("Reusing %d existing observations for document %s", len(existing), document.id)
+        return {
+            "document_id": document.id,
+            "candidates_found": len(existing),
+            "observations_saved": len(existing),
+            "duplicates_skipped": 0,
+            "review_status": "pending",
+            "observations": [
+                {
+                    "id": item.id,
+                    "name": item.name,
+                    "value_text": item.value_text,
+                    "value_numeric": item.value_numeric,
+                    "unit": item.unit,
+                    "reference_range": item.reference_range,
+                    "page_number": item.page_number,
+                    "evidence_text": item.evidence_text,
+                    "review_status": item.review_status,
+                }
+                for item in existing
+            ],
+        }
+
     try:
-        if file_path.suffix.lower() == ".pdf":
-            with fitz.open(file_path) as pdf:
-                for index, pdf_page in enumerate(pdf):
-                    page_text = pdf_page.get_text("text").strip()
+        extraction = extract_document_pages(
+            file_path=file_path,
+            document_id=document.id,
+            use_cache=True,
+        )
+        pages = extraction["pages"]
 
-                    if not page_text:
-                        pixmap = pdf_page.get_pixmap(
-                            matrix=fitz.Matrix(1.5, 1.5),
-                            alpha=False,
-                        )
-                        import tempfile
-                        with tempfile.NamedTemporaryFile(
-                            suffix=".png",
-                            delete=False,
-                        ) as temp_file:
-                            temp_file.write(pixmap.tobytes("png"))
-                            temp_path = Path(temp_file.name)
-                        try:
-                            page_text = recognize_image(str(temp_path))["text"]
-                        finally:
-                            temp_path.unlink(missing_ok=True)
-                    pages.append({
-                        "page_number": index + 1,
-                        "extracted_text": page_text,
-                    })
-        else:
-            ocr_result = recognize_image(str(file_path))
-            pages.append({
-                "page_number": 1,
-                "extracted_text": ocr_result["text"],
-            })
-
+        t_obs_start = time.perf_counter()
         candidates = extract_observations(pages)
-        existing = db.query(Observation).filter(
-            Observation.document_id == document.id
-        ).all()
+        obs_timing_ms = round((time.perf_counter() - t_obs_start) * 1000, 2)
+
         existing_keys = {
             (
                 item.name.lower(),
@@ -399,6 +330,7 @@ def extract_and_save_observations(
                 value_numeric=candidate.value_numeric,
                 unit=candidate.unit,
                 reference_range=candidate.reference_range,
+                code=getattr(candidate, "flag", None),
                 page_number=candidate.page_number,
                 evidence_text=candidate.evidence_text,
                 review_status="pending",
@@ -406,7 +338,19 @@ def extract_and_save_observations(
             db.add(observation)
             saved.append(observation)
             existing_keys.add(key)
+
+        document.processing_status = "processed"
         db.commit()
+
+        logger.info(
+            "Observations extracted for doc %s: candidates=%d, saved=%d, duplicates_skipped=%d, obs_time=%.2f ms",
+            document.id,
+            len(candidates),
+            len(saved),
+            skipped_duplicates,
+            obs_timing_ms,
+        )
+
         return {
             "document_id": document.id,
             "candidates_found": len(candidates),
@@ -421,12 +365,17 @@ def extract_and_save_observations(
                     "value_numeric": item.value_numeric,
                     "unit": item.unit,
                     "reference_range": item.reference_range,
+                    "flag": item.code,
                     "page_number": item.page_number,
                     "evidence_text": item.evidence_text,
                     "review_status": item.review_status,
                 }
                 for item in saved
             ],
+            "timings": {
+                **extraction["timings"],
+                "observation_extract_ms": obs_timing_ms,
+            },
         }
     except HTTPException:
         db.rollback()
