@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hygia - Book an Appointment</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=10">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <svg class="brand-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 28C10 24 9 18 15 12C20 7 28 6 32 6C32 10 31 18 26 23C21 28 15 28 12 28Z" fill="#F05A28"/>
+            <path d="M11 28C8 25 7 19 12 15C16 11 22 10 25 10C24 14 22 20 18 24C15 27 12 28 11 28Z" fill="#FB923C" fill-opacity="0.9"/>
+            <path d="M16 31C13 29 12 25 15 22C18 19 22 19 25 19C24 22 22 26 19 29C17.5 30.5 16.5 31 16 31Z" fill="#F97316"/>
+          </svg>
+          <div class="brand-text">
+            <h1 class="brand-title">Hygia</h1>
+            <span class="brand-tagline">Your Health, Clearly.</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="records.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>My Records</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="appointments.html" class="nav-link active">
+              <svg class="nav-icon active-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z" fill="#F05A28"/>
+              </svg>
+              <span>Appointments</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="timeline.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>Health Timeline</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="family.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Family</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="assistant.html" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>
+              </svg>
+              <span>AI Assistant</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#settings" class="nav-link">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- SIDEBAR PROMO CTA CARD -->
+      <div class="sidebar-promo-card">
+        <div class="promo-illustration">
+          <img src="assets/appointment_calendar.jpg" alt="Book Appointment Easily" class="promo-img">
+        </div>
+        <div class="promo-content">
+          <h4 class="promo-title">Book your next appointment easily</h4>
+          <p class="promo-desc">Get personalized doctor suggestions based on your health needs.</p>
+          <a href="#quick-book" class="promo-cta-btn" id="sidebarBookCta">
+            <span>Book Appointment</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APPOINTMENT PAGE CONTENT -->
+    <main class="main-content">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-header">
+        <div class="search-container">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="globalSearchInput" 
+            placeholder="Search doctors, hospitals, or specialities..."
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="header-actions">
+          <!-- Language Selector -->
+          <div class="header-lang-wrapper" id="langWrapper">
+            <button class="lang-selector-btn" id="langToggle" aria-label="Select Language">
+              <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="current-lang-text" id="currentLangText">English</span>
+              <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="lang-dropdown-menu" id="langDropdownMenu">
+              <button class="lang-option-btn active" data-lang="en">
+                <span class="lang-name">English</span>
+                <span class="lang-check">✓</span>
+              </button>
+              <button class="lang-option-btn" data-lang="ta">
+                <span class="lang-name">தமிழ் (Tamil)</span>
+                <span class="lang-check">✓</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Notification Bell -->
+          <button class="icon-button notification-btn" aria-label="Notifications">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-indicator"></span>
+          </button>
+
+          <!-- User Profile -->
+          <div class="user-profile">
+            <img src="assets/user_avatar.jpg" alt="Kavin S" class="avatar-img">
+            <div class="user-info">
+              <span class="user-name">Kavin S</span>
+              <span class="user-role">Personal Account</span>
+            </div>
+            <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- APPOINTMENT HERO BANNER -->
+      <section class="appointment-hero-banner">
+        <div class="appointment-hero-content">
+          <h2 class="appointment-hero-title">Book an Appointment</h2>
+          <p class="appointment-hero-subtitle">Get personalized doctor suggestions based on your health needs.</p>
+        </div>
+        <div class="appointment-hero-card-wrap">
+          <div class="appointment-floating-quote">
+            <p class="quote-text">The right care today for a healthier tomorrow</p>
+            <span class="quote-heart">🧡</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEARCH & FILTER CONTROLS BAR -->
+      <section class="appointment-filters-bar">
+        <!-- Search query pill box -->
+        <div class="filter-search-box">
+          <svg class="filter-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            class="filter-search-input" 
+            id="treatmentQueryInput" 
+            value="Allergy treatment (Immunotherapy)" 
+            placeholder="Search symptoms, treatments..."
+          >
+          <button type="button" class="filter-clear-btn" id="clearSearchQuery" aria-label="Clear search">✕</button>
+        </div>
+
+        <!-- Location Dropdown -->
+        <div class="filter-dropdown-wrap">
+          <button type="button" class="filter-dropdown-btn" id="locationFilterBtn">
+            <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span id="selectedLocationText">Salem</span>
+            <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="filter-dropdown-menu" id="locationMenu">
+            <div class="filter-option selected" data-value="Salem">Salem</div>
+            <div class="filter-option" data-value="Coimbatore">Coimbatore</div>
+            <div class="filter-option" data-value="Chennai">Chennai</div>
+            <div class="filter-option" data-value="Erode">Erode</div>
+          </div>
+        </div>
+
+        <!-- Radius Dropdown -->
+        <div class="filter-dropdown-wrap">
+          <button type="button" class="filter-dropdown-btn" id="radiusFilterBtn">
+            <span id="selectedRadiusText">Within 10 km</span>
+            <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="filter-dropdown-menu" id="radiusMenu">
+            <div class="filter-option" data-value="5">Within 5 km</div>
+            <div class="filter-option selected" data-value="10">Within 10 km</div>
+            <div class="filter-option" data-value="20">Within 20 km</div>
+            <div class="filter-option" data-value="50">Within 50 km</div>
+          </div>
+        </div>
+
+        <!-- Date Filter Dropdown -->
+        <div class="filter-dropdown-wrap">
+          <button type="button" class="filter-dropdown-btn" id="dateFilterBtn">
+            <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span id="selectedDateFilterText">Date</span>
+            <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="filter-dropdown-menu" id="dateMenu">
+            <div class="filter-option selected" data-value="all">All Available Dates</div>
+            <div class="filter-option" data-value="today">Today</div>
+            <div class="filter-option" data-value="tomorrow">Tomorrow</div>
+            <div class="filter-option" data-value="this-week">This Week</div>
+          </div>
+        </div>
+
+        <!-- Filters Extra Button -->
+        <div class="filter-dropdown-wrap">
+          <button type="button" class="filter-dropdown-btn filter-btn-last" id="moreFiltersBtn">
+            <svg class="filter-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            <span>Filters</span>
+            <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- TWO-COLUMN MAIN CONTENT GRID -->
+      <div class="appointment-layout-grid">
+        <!-- LEFT COLUMN: RECOMMENDED DOCTORS LIST -->
+        <section class="appointment-doctors-col">
+          <!-- Section Header -->
+          <div class="doctors-section-header">
+            <div class="doctors-header-left">
+              <h3 class="doctors-list-title">Recommended Doctors</h3>
+              <span class="health-records-badge">Based on your health records</span>
+            </div>
+            <div class="doctors-header-right">
+              <div class="sort-selector-wrap">
+                <span class="sort-label">Sort by :</span>
+                <select class="sort-select" id="doctorSortSelect">
+                  <option value="relevance">Relevance</option>
+                  <option value="rating">Rating: High to Low</option>
+                  <option value="distance">Distance: Nearest</option>
+                  <option value="experience">Experience: Most</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor Cards List -->
+          <div class="doctor-cards-list" id="doctorCardsList">
+            <!-- Doctor 1: Dr. Priya Raman (Selected by default) -->
+            <article class="doctor-card selected" data-doctor-id="priya-raman">
+              <div class="doctor-card-main">
+                <div class="doctor-avatar-wrap">
+                  <div class="doctor-avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="doctor-info-wrap">
+                  <div class="doctor-name-row">
+                    <h4 class="doctor-name">Dr. Priya Raman</h4>
+                    <span class="best-match-pill">Best Match</span>
+                  </div>
+                  <p class="doctor-specialty">Allergist & Immunologist</p>
+                  <p class="doctor-hospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>Salem Multispeciality Hospital</span>
+                  </p>
+                  <div class="doctor-meta-row">
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>12 years experience</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item rating-meta">
+                      <span class="star-icon">★</span>
+                      <strong>4.8</strong>
+                      <span class="reviews-count">(320 reviews)</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>2.4 km</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="doctor-card-action">
+                <button type="button" class="btn-card-book active-card-btn">
+                  <span>Book Appointment</span>
+                  <span class="chevron-arrow">›</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Doctor 2: Dr. Aravind Kumar -->
+            <article class="doctor-card" data-doctor-id="aravind-kumar">
+              <div class="doctor-card-main">
+                <div class="doctor-avatar-wrap">
+                  <div class="doctor-avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="doctor-info-wrap">
+                  <div class="doctor-name-row">
+                    <h4 class="doctor-name">Dr. Aravind Kumar</h4>
+                  </div>
+                  <p class="doctor-specialty">ENT Specialist (Allergy Care)</p>
+                  <p class="doctor-hospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>KMCH Salem</span>
+                  </p>
+                  <div class="doctor-meta-row">
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>10 years experience</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item rating-meta">
+                      <span class="star-icon">★</span>
+                      <strong>4.6</strong>
+                      <span class="reviews-count">(210 reviews)</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>4.1 km</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="doctor-card-action">
+                <button type="button" class="btn-card-book">
+                  <span>Book Appointment</span>
+                  <span class="chevron-arrow">›</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Doctor 3: Dr. Nithya S -->
+            <article class="doctor-card" data-doctor-id="nithya-s">
+              <div class="doctor-card-main">
+                <div class="doctor-avatar-wrap">
+                  <div class="doctor-avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="doctor-info-wrap">
+                  <div class="doctor-name-row">
+                    <h4 class="doctor-name">Dr. Nithya S</h4>
+                  </div>
+                  <p class="doctor-specialty">Pulmonologist (Allergy & Asthma)</p>
+                  <p class="doctor-hospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>Sri Ramakrishna Hospital, Salem</span>
+                  </p>
+                  <div class="doctor-meta-row">
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>15 years experience</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item rating-meta">
+                      <span class="star-icon">★</span>
+                      <strong>4.5</strong>
+                      <span class="reviews-count">(189 reviews)</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>5.8 km</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="doctor-card-action">
+                <button type="button" class="btn-card-book">
+                  <span>Book Appointment</span>
+                  <span class="chevron-arrow">›</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Doctor 4: Dr. Karthik Subramanian -->
+            <article class="doctor-card" data-doctor-id="karthik-subramanian">
+              <div class="doctor-card-main">
+                <div class="doctor-avatar-wrap">
+                  <div class="doctor-avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="doctor-info-wrap">
+                  <div class="doctor-name-row">
+                    <h4 class="doctor-name">Dr. Karthik Subramanian</h4>
+                  </div>
+                  <p class="doctor-specialty">General Physician (Allergy Treatment)</p>
+                  <p class="doctor-hospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>Salem Government Hospital</span>
+                  </p>
+                  <div class="doctor-meta-row">
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>8 years experience</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item rating-meta">
+                      <span class="star-icon">★</span>
+                      <strong>4.3</strong>
+                      <span class="reviews-count">(142 reviews)</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>3.1 km</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="doctor-card-action">
+                <button type="button" class="btn-card-book">
+                  <span>Book Appointment</span>
+                  <span class="chevron-arrow">›</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Doctor 5: Dr. Meena Lakshmi -->
+            <article class="doctor-card" data-doctor-id="meena-lakshmi">
+              <div class="doctor-card-main">
+                <div class="doctor-avatar-wrap">
+                  <div class="doctor-avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="doctor-info-wrap">
+                  <div class="doctor-name-row">
+                    <h4 class="doctor-name">Dr. Meena Lakshmi</h4>
+                  </div>
+                  <p class="doctor-specialty">Dermatologist (Allergy & Skin)</p>
+                  <p class="doctor-hospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>Apollo Clinic, Salem</span>
+                  </p>
+                  <div class="doctor-meta-row">
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>11 years experience</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item rating-meta">
+                      <span class="star-icon">★</span>
+                      <strong>4.4</strong>
+                      <span class="reviews-count">(178 reviews)</span>
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>6.2 km</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="doctor-card-action">
+                <button type="button" class="btn-card-book">
+                  <span>Book Appointment</span>
+                  <span class="chevron-arrow">›</span>
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- RIGHT COLUMN: DOCTOR BOOKING & DETAIL CARD -->
+        <aside class="appointment-detail-col">
+          <div class="doctor-booking-card" id="doctorBookingCard">
+            <!-- Card Header: Doctor Profile & Rating -->
+            <div class="booking-card-header">
+              <div class="booking-doctor-profile">
+                <div class="booking-doctor-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="booking-doctor-meta">
+                  <div class="doctor-verified-title">
+                    <h3 class="panel-doctor-name" id="panelDoctorName">Dr. Priya Raman</h3>
+                    <span class="verified-check-badge" title="Verified Specialist">✓</span>
+                  </div>
+                  <p class="panel-doctor-specialty" id="panelDoctorSpecialty">Allergist & Immunologist</p>
+                  <p class="panel-doctor-hospital" id="panelDoctorHospital">
+                    <svg class="hospital-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M9 3v18"></path>
+                      <path d="M15 3v18"></path>
+                      <path d="M3 9h18"></path>
+                      <path d="M3 15h18"></path>
+                    </svg>
+                    <span>Salem Multispeciality Hospital</span>
+                  </p>
+                </div>
+              </div>
+              <div class="booking-rating-box">
+                <div class="rating-value-row">
+                  <span class="star-icon">★</span>
+                  <span class="rating-number" id="panelDoctorRating">4.8</span>
+                </div>
+                <span class="rating-count" id="panelDoctorReviews">(320 reviews)</span>
+              </div>
+            </div>
+
+            <!-- 3 Highlights Badges Grid -->
+            <div class="doctor-info-badges">
+              <div class="info-badge-item">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="badge-text-wrap">
+                  <strong class="badge-highlight" id="panelDoctorExp">12 years</strong>
+                  <span class="badge-caption">experience</span>
+                </div>
+              </div>
+
+              <div class="info-badge-item">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path>
+                  <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path>
+                  <circle cx="20" cy="10" r="2"></circle>
+                </svg>
+                <div class="badge-text-wrap">
+                  <span class="badge-caption">Specializes in</span>
+                  <strong class="badge-highlight" id="panelDoctorFocus">Allergy Treatment, Immunotherapy</strong>
+                </div>
+              </div>
+
+              <div class="info-badge-item">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div class="badge-text-wrap">
+                  <strong class="badge-highlight" id="panelDoctorDist">2.4 km</strong>
+                  <span class="badge-caption">from you</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="doctor-detail-tabs">
+              <button type="button" class="tab-link active" data-tab="about">About</button>
+              <button type="button" class="tab-link" data-tab="services">Services</button>
+              <button type="button" class="tab-link" data-tab="reviews">Patient Reviews</button>
+              <button type="button" class="tab-link" data-tab="location">Location</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content-area" id="tabContentArea">
+              <p class="doctor-bio-text" id="panelDoctorBio">
+                Dr. Priya Raman specializes in the diagnosis and treatment of allergies, asthma, and immunological conditions. She has extensive experience in allergy immunotherapy and personalized treatment plans.
+              </p>
+            </div>
+
+            <!-- Select Appointment Date -->
+            <div class="date-picker-section">
+              <div class="date-picker-header">
+                <h4 class="date-picker-title">Select Appointment Date</h4>
+                <div class="month-selector-row">
+                  <button type="button" class="month-nav-btn" id="prevMonthBtn" aria-label="Previous month">‹</button>
+                  <span class="current-month-text" id="currentMonthDisplay">October 2026</span>
+                  <button type="button" class="month-nav-btn" id="nextMonthBtn" aria-label="Next month">›</button>
+                </div>
+              </div>
+
+              <!-- 7-Day Picker Row -->
+              <div class="days-strip-row" id="daysStripRow">
+                <button type="button" class="day-slot-btn" data-date="2026-10-11" data-day-name="Sunday" data-day-num="11">
+                  <span class="day-name">Sun</span>
+                  <span class="day-num">11</span>
+                </button>
+                <button type="button" class="day-slot-btn" data-date="2026-10-12" data-day-name="Monday" data-day-num="12">
+                  <span class="day-name">Mon</span>
+                  <span class="day-num">12</span>
+                </button>
+                <button type="button" class="day-slot-btn active" data-date="2026-10-13" data-day-name="Tuesday" data-day-num="13">
+                  <span class="day-name">Tue</span>
+                  <span class="day-num">13</span>
+                </button>
+                <button type="button" class="day-slot-btn" data-date="2026-10-14" data-day-name="Wednesday" data-day-num="14">
+                  <span class="day-name">Wed</span>
+                  <span class="day-num">14</span>
+                </button>
+                <button type="button" class="day-slot-btn" data-date="2026-10-15" data-day-name="Thursday" data-day-num="15">
+                  <span class="day-name">Thu</span>
+                  <span class="day-num">15</span>
+                </button>
+                <button type="button" class="day-slot-btn" data-date="2026-10-16" data-day-name="Friday" data-day-num="16">
+                  <span class="day-name">Fri</span>
+                  <span class="day-num">16</span>
+                </button>
+                <button type="button" class="day-slot-btn" data-date="2026-10-17" data-day-name="Saturday" data-day-num="17">
+                  <span class="day-name">Sat</span>
+                  <span class="day-num">17</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Available Time Slots -->
+            <div class="time-slots-section">
+              <h4 class="time-slots-title">Available Time Slots</h4>
+              <div class="time-slots-grid" id="timeSlotsGrid">
+                <button type="button" class="time-slot-btn active" data-slot="09:00 AM">09:00 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="09:30 AM">09:30 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="10:00 AM">10:00 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="10:30 AM">10:30 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="11:00 AM">11:00 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="11:30 AM">11:30 AM</button>
+                <button type="button" class="time-slot-btn" data-slot="02:00 PM">02:00 PM</button>
+                <button type="button" class="time-slot-btn" data-slot="02:30 PM">02:30 PM</button>
+                <button type="button" class="time-slot-btn" data-slot="03:00 PM">03:00 PM</button>
+                <button type="button" class="time-slot-btn" data-slot="03:30 PM">03:30 PM</button>
+                <button type="button" class="time-slot-btn" data-slot="04:00 PM">04:00 PM</button>
+                <button type="button" class="time-slot-btn" data-slot="04:30 PM">04:30 PM</button>
+              </div>
+            </div>
+
+            <!-- Primary CTA: Book Appointment -->
+            <div class="booking-submit-wrap">
+              <button type="button" class="btn-confirm-booking" id="btnConfirmBooking">
+                <svg class="btn-cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Book Appointment</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <!-- BOOKING CONFIRMATION MODAL -->
+  <div class="modal-backdrop" id="bookingConfirmModal" style="display: none;">
+    <div class="modal-box appointment-confirm-modal-box">
+      <div class="modal-header">
+        <div class="modal-header-meta">
+          <div class="confirm-success-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3>Appointment Confirmed!</h3>
+            <p>Your visit has been booked and synced to your timeline</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeConfirmModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="booking-ticket-card">
+        <div class="ticket-header">
+          <div class="ticket-doc-info">
+            <h4 id="ticketDoctorName">Dr. Priya Raman</h4>
+            <span id="ticketDoctorSpecialty">Allergist & Immunologist</span>
+            <p id="ticketHospital" class="ticket-hospital">Salem Multispeciality Hospital</p>
+          </div>
+          <div class="ticket-id-tag">
+            <span class="tag-label">Booking ID</span>
+            <strong class="tag-code" id="ticketBookingId">HYG-APT-8921</strong>
+          </div>
+        </div>
+
+        <div class="ticket-meta-grid">
+          <div class="ticket-meta-item">
+            <span class="meta-label">Date</span>
+            <strong class="meta-val" id="ticketDate">Tuesday, Oct 13, 2026</strong>
+          </div>
+          <div class="ticket-meta-item">
+            <span class="meta-label">Time Slot</span>
+            <strong class="meta-val" id="ticketTime">09:00 AM</strong>
+          </div>
+          <div class="ticket-meta-item">
+            <span class="meta-label">Patient</span>
+            <strong class="meta-val">Kavin S</strong>
+          </div>
+          <div class="ticket-meta-item">
+            <span class="meta-label">Consultation Type</span>
+            <strong class="meta-val">In-Person Consultation</strong>
+          </div>
+        </div>
+
+        <div class="ticket-alert-box">
+          <span class="alert-icon">💡</span>
+          <p>Please arrive 10 minutes prior to your scheduled slot. Your allergy diagnostic notes will be automatically shared with the doctor.</p>
+        </div>
+      </div>
+
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn-modal-secondary" id="btnAddToCalendar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span>Add to Calendar</span>
+        </button>
+        <a href="timeline.html" class="btn-modal-primary" id="btnViewInTimeline">
+          <span>View in Health Timeline</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=10"></script>
+</body>
+</html>
