@@ -1,4 +1,4 @@
-const API_BASE_URL = "/api/v1";
+const API_BASE_URL = "https://hygia-health-copilot.onrender.com";
 document.addEventListener('DOMContentLoaded', () => {
   const storedPatientId = localStorage.getItem('hygia_patient_id');
   if (storedPatientId) {
