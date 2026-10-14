@@ -223,10 +223,11 @@ def extract_document_pages(
     if extension == ".pdf":
         with pymupdf.open(file_path) as pdf:
             page_count = pdf.page_count
-            for page_index, page in enumerate(pdf):
+            for page_index in range(page_count):
+                page = pdf[page_index]
                 # 1. Digital text extraction first
                 t_pdf_start = time.perf_counter()
-                digital_text = page.get_text("text").strip()
+                digital_text = str(page.get_text("text")).strip()
                 timings["pdf_text_ms"] += (time.perf_counter() - t_pdf_start) * 1000
 
                 # 2. Check if digital text is sufficient

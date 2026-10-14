@@ -2717,6 +2717,7 @@ body {
 .headline-gradient {
   background: linear-gradient(135deg, #EA580C 0%, #F05A28 40%, #D94617 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -5417,6 +5418,7 @@ body {
   flex-wrap: wrap;
   margin-bottom: 24px;
 }
+.filter-search-box {
   display: flex;
   align-items: center;
   background: #FFFFFF;

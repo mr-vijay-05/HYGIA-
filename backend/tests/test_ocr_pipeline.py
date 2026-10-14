@@ -71,6 +71,7 @@ def test_ocr_pipeline_scanned_pdf_fallback():
     doc_id = upload_res.json()["id"]
 
     ext_res = client.get(f"/api/v1/documents/{doc_id}/extract")
+    print("EXTRACTION RESPONSE:", ext_res.status_code, ext_res.text)
     assert ext_res.status_code == 200
     ext_data = ext_res.json()
     assert ext_data["used_ocr"] is True

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
-from app.schemas.patient import PatientCreate, PatientResponse
-from app.schemas.document import DocumentCreate, DocumentResponse
+from ..schemas.patient import PatientCreate, PatientResponse
+from ..schemas.document import DocumentCreate, DocumentResponse
 class HealthResponse(BaseModel):
     status: str = Field(default="healthy")
     version: str = Field(...)

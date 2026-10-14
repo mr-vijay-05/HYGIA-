@@ -1,0 +1,288 @@
+warning: in the working copy of 'backend/app/api/__init__.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/app/db/init_db.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'backend/app/services/__init__.py', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/backend/app/api/__init__.py b/backend/app/api/__init__.py[m
+[1mindex 115e2ed..8400eff 100644[m
+[1m--- a/backend/app/api/__init__.py[m
+[1m+++ b/backend/app/api/__init__.py[m
+[36m@@ -1,9 +1,9 @@[m
+ from fastapi import APIRouter[m
+ [m
+[31m-from app.api.documents import router as documents_router[m
+[31m-from app.api.patients import router as patients_router[m
+[31m-from app.core.config import settings[m
+[31m-from app.schemas import HealthResponse[m
+[32m+[m[32mfrom .documents import router as documents_router[m
+[32m+[m[32mfrom .patients import router as patients_router[m
+[32m+[m[32mfrom ..core.config import settings[m
+[32m+[m[32mfrom ..schemas import HealthResponse[m
+ [m
+ api_router = APIRouter()[m
+ [m
+[1mdiff --git a/backend/app/api/documents.py b/backend/app/api/documents.py[m
+[1mindex 0d3bafa..8f54f21 100644[m
+[1m--- a/backend/app/api/documents.py[m
+[1m+++ b/backend/app/api/documents.py[m
+[36m@@ -16,15 +16,15 @@[m [mfrom fastapi import ([m
+ )[m
+ from sqlalchemy.orm import Session[m
+ [m
+[31m-from app.db.session import get_db[m
+[31m-from app.models import MedicalDocument, Observation, Patient[m
+[31m-from app.schemas import DocumentCreate, DocumentResponse[m
+[31m-from app.services.document_extractor import ([m
+[32m+[m[32mfrom ..db.session import get_db[m
+[32m+[m[32mfrom ..models import MedicalDocument, Observation, Patient[m
+[32m+[m[32mfrom ..schemas import DocumentCreate, DocumentResponse[m
+[32m+[m[32mfrom ..services.document_extractor import ([m
+     extract_document_pages,[m
+     get_ocr_engine as service_get_ocr_engine,[m
+     recognize_image_data,[m
+ )[m
+[31m-from app.services.observation_extractor import extract_observations[m
+[32m+[m[32mfrom ..services.observation_extractor import extract_observations[m
+ [m
+ logger = logging.getLogger(__name__)[m
+ router = APIRouter(prefix="/documents", tags=["Documents"])[m
+[1mdiff --git a/backend/app/api/patients.py b/backend/app/api/patients.py[m
+[1mindex ea96439..9267735 100644[m
+[1m--- a/backend/app/api/patients.py[m
+[1m+++ b/backend/app/api/patients.py[m
+[36m@@ -1,8 +1,8 @@[m
+ from fastapi import APIRouter, Depends, HTTPException, status[m
+ from sqlalchemy.orm import Session[m
+[31m-from app.db.session import get_db[m
+[31m-from app.models import Patient[m
+[31m-from app.schemas import PatientCreate, PatientResponse[m
+[32m+[m[32mfrom ..db.session import get_db[m
+[32m+[m[32mfrom ..models import Patient[m
+[32m+[m[32mfrom ..schemas import PatientCreate, PatientResponse[m
+ [m
+ router = APIRouter(prefix="/patients", tags=["Patients"])[m
+ @router.post([m
+[1mdiff --git a/backend/app/core/__init__.py b/backend/app/core/__init__.py[m
+[1mindex 9748313..41c073b 100644[m
+[1m--- a/backend/app/core/__init__.py[m
+[1m+++ b/backend/app/core/__init__.py[m
+[36m@@ -1,3 +1,3 @@[m
+[31m-from app.core.config import settings[m
+[32m+[m[32mfrom ..core.config import settings[m
+ [m
+ __all__ = ["settings"][m
+[1mdiff --git a/backend/app/db/__init__.py b/backend/app/db/__init__.py[m
+[1mindex 1bb7881..11abe82 100644[m
+[1m--- a/backend/app/db/__init__.py[m
+[1m+++ b/backend/app/db/__init__.py[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-from app.db.session import Base, engine, SessionLocal, get_db[m
+[31m-from app.db.init_db import init_db[m
+[32m+[m[32mfrom ..db.session import Base, engine, SessionLocal, get_db[m
+[32m+[m[32mfrom ..db.init_db import init_db[m
+ [m
+ __all__ = ["Base", "engine", "SessionLocal", "get_db", "init_db"][m
+\ No newline at end of file[m
+[1mdiff --git a/backend/app/db/init_db.py b/backend/app/db/init_db.py[m
+[1mindex a0687b9..5150016 100644[m
+[1m--- a/backend/app/db/init_db.py[m
+[1m+++ b/backend/app/db/init_db.py[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-﻿import app.models[m
+[31m-from app.db.session import Base, engine[m
+[32m+[m[32mfrom .. import models[m
+[32m+[m[32mfrom ..db.session import Base, engine[m
+ def init_db() -> None:[m
+     Base.metadata.create_all(bind=engine)[m
+[1mdiff --git a/backend/app/db/session.py b/backend/app/db/session.py[m
+[1mindex c1e390b..53c0e4f 100644[m
+[1m--- a/backend/app/db/session.py[m
+[1m+++ b/backend/app/db/session.py[m
+[36m@@ -1,7 +1,7 @@[m
+ from typing import Generator[m
+ from sqlalchemy import create_engine[m
+ from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session[m
+[31m-from app.core.config import settings[m
+[32m+[m[32mfrom ..core.config import settings[m
+ connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}[m
+ engine = create_engine([m
+     settings.DATABASE_URL,[m
+[1mdiff --git a/backend/app/main.py b/backend/app/main.py[m
+[1mindex 3372181..063a346 100644[m
+[1m--- a/backend/app/main.py[m
+[1m+++ b/backend/app/main.py[m
+[36m@@ -3,20 +3,16 @@[m [mfrom contextlib import asynccontextmanager[m
+ from fastapi import FastAPI[m
+ from fastapi.middleware.cors import CORSMiddleware[m
+ from fastapi.responses import JSONResponse, RedirectResponse[m
+[31m-from backend.app.api import api_router[m
+[31m-[m
+[31m-from app.api import api_router[m
+[31m-from app.core.config import settings[m
+[31m-from app.db.init_db import init_db[m
+[31m-from app.schemas import MessageResponse[m
+ [m
+[32m+[m[32mfrom .api import api_router[m
+[32m+[m[32mfrom .core.config import settings[m
+[32m+[m[32mfrom .db.init_db import init_db[m
+[32m+[m[32mfrom .schemas import MessageResponse[m
+ [m
+ @asynccontextmanager[m
+ async def lifespan(app: FastAPI):[m
+     init_db()[m
+     yield[m
+[31m-[m
+[31m-[m
+ app = FastAPI([m
+     title=settings.PROJECT_NAME,[m
+     version=settings.VERSION,[m
+[36m@@ -26,8 +22,6 @@[m [mapp = FastAPI([m
+     redoc_url="/redoc",[m
+     lifespan=lifespan,[m
+ )[m
+[31m-[m
+[31m-# CORS Middleware setup[m
+ origins = [[m
+     "http://localhost:5500",[m
+     "http://127.0.0.1:5500",[m
+[36m@@ -44,35 +38,23 @@[m [mapp.add_middleware([m
+     allow_methods=["*"],[m
+     allow_headers=["*"],[m
+ )[m
+[31m-[m
+[31m-# Register API routes[m
+ app.include_router(api_router, prefix=settings.API_V1_STR)[m
+[31m-[m
+[31m-[m
+ @app.get("/", response_model=MessageResponse, tags=["Root"])[m
+ def root() -> MessageResponse:[m
+     """Root endpoint welcoming clients to the HYGIA API."""[m
+     return MessageResponse(message=f"Welcome to {settings.PROJECT_NAME}")[m
+[31m-[m
+[31m-[m
+ @app.get("/health", tags=["Health"])[m
+ def health_check():[m
+     """Top-level health check endpoint."""[m
+     return {"status": "healthy", "version": settings.VERSION}[m
+[31m-[m
+[31m-[m
+ @app.get(f"{settings.API_V1_STR}/openapi.json", include_in_schema=False)[m
+ def api_v1_openapi():[m
+     """Compatibility endpoint serving the OpenAPI schema at /api/v1/openapi.json."""[m
+     return JSONResponse(app.openapi())[m
+[31m-[m
+[31m-[m
+ @app.get(f"{settings.API_V1_STR}/docs", include_in_schema=False)[m
+ def api_v1_docs():[m
+     """Redirect to /docs from /api/v1/docs."""[m
+     return RedirectResponse(url="/docs")[m
+[31m-[m
+[31m-[m
+ @app.get(f"{settings.API_V1_STR}/redoc", include_in_schema=False)[m
+ def api_v1_redoc():[m
+     """Redirect to /redoc from /api/v1/redoc."""[m
+[1mdiff --git a/backend/app/models/__init__.py b/backend/app/models/__init__.py[m
+[1mindex c0e8723..beca7f1 100644[m
+[1m--- a/backend/app/models/__init__.py[m
+[1m+++ b/backend/app/models/__init__.py[m
+[36m@@ -1,7 +1,7 @@[m
+[31m-from app.db.session import Base[m
+[31m-from app.models.patient import Patient[m
+[31m-from app.models.medical_document import MedicalDocument[m
+[31m-from app.models.observation import Observation[m
+[32m+[m[32mfrom ..db.session import Base[m
+[32m+[m[32mfrom ..models.patient import Patient[m
+[32m+[m[32mfrom ..models.medical_document import MedicalDocument[m
+[32m+[m[32mfrom ..models.observation import Observation[m
+ __all__ = [[m
+     "Base",[m
+     "Patient",[m
+[1mdiff --git a/backend/app/models/medical_document.py b/backend/app/models/medical_document.py[m
+[1mindex 84d19cc..fc44d76 100644[m
+[1m--- a/backend/app/models/medical_document.py[m
+[1m+++ b/backend/app/models/medical_document.py[m
+[36m@@ -9,10 +9,10 @@[m [mfrom sqlalchemy import ([m
+     String,[m
+ )[m
+ from sqlalchemy.orm import Mapped, mapped_column, relationship[m
+[31m-from app.db.session import Base[m
+[32m+[m[32mfrom ..db.session import Base[m
+ if TYPE_CHECKING:[m
+[31m-    from app.models.observation import Observation[m
+[31m-    from app.models.patient import Patient[m
+[32m+[m[32m    from ..models.observation import Observation[m
+[32m+[m[32m    from ..models.patient import Patient[m
+ def utc_now() -> datetime:[m
+     return datetime.now(timezone.utc)[m
+ class MedicalDocument(Base):[m
+[1mdiff --git a/backend/app/models/observation.py b/backend/app/models/observation.py[m
+[1mindex 3115b67..ff0b557 100644[m
+[1m--- a/backend/app/models/observation.py[m
+[1m+++ b/backend/app/models/observation.py[m
+[36m@@ -12,9 +12,9 @@[m [mfrom sqlalchemy import ([m
+     Text,[m
+ )[m
+ from sqlalchemy.orm import Mapped, mapped_column, relationship[m
+[31m-from app.db.session import Base[m
+[32m+[m[32mfrom ..db.session import Base[m
+ if TYPE_CHECKING:[m
+[31m-    from app.models.medical_document import MedicalDocument[m
+[32m+[m[32m    from ..models.medical_document import MedicalDocument[m
+ def utc_now() -> datetime:[m
+     return datetime.now(timezone.utc)[m
+ class Observation(Base):[m
+[1mdiff --git a/backend/app/models/patient.py b/backend/app/models/patient.py[m
+[1mindex 73a586c..696b5d3 100644[m
+[1m--- a/backend/app/models/patient.py[m
+[1m+++ b/backend/app/models/patient.py[m
+[36m@@ -4,9 +4,9 @@[m [mfrom datetime import datetime, timezone[m
+ from typing import TYPE_CHECKING[m
+ from sqlalchemy import DateTime, String[m
+ from sqlalchemy.orm import Mapped, mapped_column, relationship[m
+[31m-from app.db.session import Base[m
+[32m+[m[32mfrom ..db.session import Base[m
+ if TYPE_CHECKING:[m
+[31m-    from app.models.medical_document import MedicalDocument[m
+[32m+[m[32m    from ..models.medical_document import MedicalDocument[m
+ def utc_now() -> datetime:[m
+     return datetime.now(timezone.utc)[m
+ class Patient(Base):[m
+[1mdiff --git a/backend/app/schemas/__init__.py b/backend/app/schemas/__init__.py[m
+[1mindex c8b84a0..e36cfd5 100644[m
+[1m--- a/backend/app/schemas/__init__.py[m
+[1m+++ b/backend/app/schemas/__init__.py[m
+[36m@@ -1,6 +1,6 @@[m
+ from pydantic import BaseModel, Field[m
+[31m-from app.schemas.patient import PatientCreate, PatientResponse[m
+[31m-from app.schemas.document import DocumentCreate, DocumentResponse[m
+[32m+[m[32mfrom ..schemas.patient import PatientCreate, PatientResponse[m
+[32m+[m[32mfrom ..schemas.document import DocumentCreate, DocumentResponse[m
+ class HealthResponse(BaseModel):[m
+     status: str = Field(default="healthy")[m
+     version: str = Field(...)[m
+[1mdiff --git a/backend/app/services/__init__.py b/backend/app/services/__init__.py[m
+[1mindex e69de29..a2b3496 100644[m
+[1m--- a/backend/app/services/__init__.py[m
+[1m+++ b/backend/app/services/__init__.py[m
+[36m@@ -0,0 +1,4 @@[m
+[32m+[m[32mfrom ..services.document_extractor import extract_document_pages[m
+[32m+[m[32mfrom ..services.observation_extractor import extract_observations[m
+[32m+[m
+[32m+[m[32m__all__ = ["extract_document_pages", "extract_observations"][m
+\ No newline at end of file[m
+[1mdiff --git a/backend/app/services/document_extractor.py b/backend/app/services/document_extractor.py[m
+[1mindex 20af124..347046a 100644[m
+[1m--- a/backend/app/services/document_extractor.py[m
+[1m+++ b/backend/app/services/document_extractor.py[m
+[36m@@ -223,10 +223,11 @@[m [mdef extract_document_pages([m
+     if extension == ".pdf":[m
+         with pymupdf.open(file_path) as pdf:[m
+             page_count = pdf.page_count[m
+[31m-            for page_index, page in enumerate(pdf):[m
+[32m+[m[32m            for page_index in range(page_count):[m
+[32m+[m[32m                page = pdf[page_index][m
+                 # 1. Digital text extraction first[m
+                 t_pdf_start = time.perf_counter()[m
+[31m-                digital_text = page.get_text("text").strip()[m
+[32m+[m[32m                digital_text = str(page.get_text("text")).strip()[m
+                 timings["pdf_text_ms"] += (time.perf_counter() - t_pdf_start) * 1000[m
+ [m
+                 # 2. Check if digital text is sufficient[m

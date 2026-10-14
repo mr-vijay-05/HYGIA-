@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 
-from app.api.documents import router as documents_router
-from app.api.patients import router as patients_router
-from app.core.config import settings
-from app.schemas import HealthResponse
+from .documents import router as documents_router
+from .patients import router as patients_router
+from ..core.config import settings
+from ..schemas import HealthResponse
 
 api_router = APIRouter()
 

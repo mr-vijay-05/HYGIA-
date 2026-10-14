@@ -16,15 +16,15 @@ from fastapi import (
 )
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.models import MedicalDocument, Observation, Patient
-from app.schemas import DocumentCreate, DocumentResponse
-from app.services.document_extractor import (
+from ..db.session import get_db
+from ..models import MedicalDocument, Observation, Patient
+from ..schemas import DocumentCreate, DocumentResponse
+from ..services.document_extractor import (
     extract_document_pages,
     get_ocr_engine as service_get_ocr_engine,
     recognize_image_data,
 )
-from app.services.observation_extractor import extract_observations
+from ..services.observation_extractor import extract_observations
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/documents", tags=["Documents"])

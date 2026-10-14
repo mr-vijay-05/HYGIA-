@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from app.db.session import get_db
-from app.models import Patient
-from app.schemas import PatientCreate, PatientResponse
+from ..db.session import get_db
+from ..models import Patient
+from ..schemas import PatientCreate, PatientResponse
 
 router = APIRouter(prefix="/patients", tags=["Patients"])
 @router.post(

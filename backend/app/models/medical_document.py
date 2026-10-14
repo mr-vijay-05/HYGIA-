@@ -9,10 +9,10 @@ from sqlalchemy import (
     String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.db.session import Base
+from ..db.session import Base
 if TYPE_CHECKING:
-    from app.models.observation import Observation
-    from app.models.patient import Patient
+    from ..models.observation import Observation
+    from ..models.patient import Patient
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 class MedicalDocument(Base):

@@ -1,20 +1,10 @@
-/**
- * HYGIA - UNIFIED CLIENT CONTROLLER
- * Supports Home (index.html), My Records (records.html), and Health Timeline (timeline.html)
- */
-
-const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
-
+const API_BASE_URL = "/api/v1";
 document.addEventListener('DOMContentLoaded', () => {
-  // ---------------------------------------------------------------------------
-  // 0. Global Session & Active Patient Synchronization
-  // ---------------------------------------------------------------------------
   const storedPatientId = localStorage.getItem('hygia_patient_id');
   if (storedPatientId) {
     window.HYGIA_PATIENT_ID = storedPatientId;
   }
 
-  // Synchronize stored user with profile header
   const storedUserJson = localStorage.getItem('hygia_user');
   if (storedUserJson) {
     try {
@@ -42,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Clear session on Sign Out links
   const signOutLinks = document.querySelectorAll('a[href="login.html"]');
   signOutLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -51,11 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       delete window.HYGIA_PATIENT_ID;
     });
   });
-
-  // ---------------------------------------------------------------------------
-  // 1. Dropdowns (Notifications & User Profile)
-  // ---------------------------------------------------------------------------
-  const notifToggle = document.getElementById('notifToggle');
+ const notifToggle = document.getElementById('notifToggle');
   const notifDropdown = document.getElementById('notifDropdown');
   const userProfileBtn = document.getElementById('userProfileBtn');
   const profileDropdown = document.getElementById('profileDropdown');
@@ -65,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentLangLabel = document.getElementById('currentLangLabel');
   const langItems = document.querySelectorAll('.lang-item');
 
-  // Language Dropdown
   if (langToggle && langDropdown && langWrapper) {
     langToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -86,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Notifications Dropdown
   if (notifToggle && notifDropdown) {
     notifToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -97,8 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     notifDropdown.addEventListener('click', (e) => e.stopPropagation());
   }
 
-  // User Profile Dropdown
-  if (userProfileBtn && profileDropdown) {
+   if (userProfileBtn && profileDropdown) {
     userProfileBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       profileDropdown.classList.toggle('active');
@@ -114,9 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (langWrapper) langWrapper.classList.remove('active');
   });
 
-  // ---------------------------------------------------------------------------
-  // 2. Global Search Live Filter
-  // ---------------------------------------------------------------------------
   const searchInput = document.getElementById('globalSearchInput');
   const timelineFeedRows = document.querySelectorAll('.timeline-feed-row, .timeline-row');
 
@@ -134,9 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 3. Filter Pills for Records Page
-  // ---------------------------------------------------------------------------
   const filterPills = document.querySelectorAll('.filter-pill');
   if (filterPills.length > 0) {
     filterPills.forEach(pill => {
@@ -157,9 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 4. Timeline Event Selection & Inspector on Health Timeline Page
-  // ---------------------------------------------------------------------------
   const selIcon = document.getElementById('selIcon');
   const selTitle = document.getElementById('selTitle');
   const selSubtitle = document.getElementById('selSubtitle');
@@ -291,9 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ---------------------------------------------------------------------------
-  // 5. Add Health Event Modal
-  // ---------------------------------------------------------------------------
   const btnAddHealthEvent = document.getElementById('btnAddHealthEvent');
   const addEventModal = document.getElementById('addEventModal');
   const closeAddEventModal = document.getElementById('closeAddEventModal');
@@ -373,11 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // 6. DASHBOARD QUICK ACTIONS & MODAL CONTROLLERS
-  // ---------------------------------------------------------------------------
-
-  // Unified Toast Notifier
   function showDashboardToast(message, type = 'success') {
     const container = document.getElementById('dashboardToastContainer') || document.getElementById('toastContainer');
     if (!container) {
@@ -395,7 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4000);
   }
 
-  // Active Patient ID Resolver (Verifies against database and avoids stale IDs)
   async function verifyPatientExists(patientId) {
     if (!patientId) return false;
     try {
@@ -407,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function ensureActivePatientId() {
-    // 1. Verify window-cached ID if present
     if (window.HYGIA_PATIENT_ID) {
       const valid = await verifyPatientExists(window.HYGIA_PATIENT_ID);
       if (valid) return window.HYGIA_PATIENT_ID;
@@ -415,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('hygia_patient_id');
     }
 
-    // 2. Verify stored ID in localStorage
     const stored = localStorage.getItem('hygia_patient_id');
     if (stored) {
       const valid = await verifyPatientExists(stored);
@@ -436,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
       }
 
-      // 3. Query existing patients from backend
       const res = await fetch(`${API_BASE_URL}/patients`);
       if (res.ok) {
         const patients = await res.json();
@@ -451,7 +412,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // 4. Create patient if none found in database
       const createRes = await fetch(`${API_BASE_URL}/patients`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -470,7 +430,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  // Prepend new live event to Dashboard / Records / Timeline
   function prependTimelineItem({ title, category, meta, note, badgeText, badgeType, observations }) {
     const timelineList = document.getElementById('timelineList');
     if (!timelineList) return;
@@ -545,9 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ===========================================================================
-  // TILE 1: UPLOAD RECORDS MODAL LOGIC & MULTI-STAGE ANALYSIS PIPELINE
-  // ===========================================================================
   const uploadModal = document.getElementById('uploadModal');
   const closeUploadModal = document.getElementById('closeUploadModal');
   const cancelUploadBtn = document.getElementById('cancelUploadBtn');
@@ -561,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ALLOWED_UPLOAD_EXTS = ['.pdf', '.jpg', '.jpeg', '.png'];
   const ALLOWED_UPLOAD_MIMES = ['application/pdf', 'image/jpeg', 'image/png'];
-  const MAX_UPLOAD_SIZE_BYTES = 15 * 1024 * 1024; // 15 MB
+  const MAX_UPLOAD_SIZE_BYTES = 15 * 1024 * 1024;
 
   let selectedUploadFiles = [];
   let isUploadInProgress = false;
@@ -2827,7 +2783,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAppointmentsPage();
 });
 
-fetch("http://127.0.0.1:8000/openapi.json")
+fetch("/openapi.json")
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);

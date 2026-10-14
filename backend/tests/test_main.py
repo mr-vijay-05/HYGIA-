@@ -1,10 +1,12 @@
 from fastapi.testclient import TestClient
 from app.main import app
 client = TestClient(app)
+
 def test_root_endpoint():
     response = client.get("/")
     assert response.status_code == 200
-    assert "Welcome to HYGIA API" in response.json()["message"]
+    assert "text/html" in response.headers["content-type"]
+    assert "Hygia - Your Health, Clearly." in response.text
 def test_health_endpoint():
     response = client.get("/health")
     assert response.status_code == 200

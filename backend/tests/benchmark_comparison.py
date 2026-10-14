@@ -36,7 +36,7 @@ from app.services import document_extractor
 from app.services.observation_extractor import extract_observations
 
 
-def run_optimized_pipeline(file_path: Path, document_id: str = None, use_cache: bool = True):
+def run_optimized_pipeline(file_path: Path, document_id: str | None = None, use_cache: bool = True):
     t_start = time.perf_counter()
 
     extraction = document_extractor.extract_document_pages(

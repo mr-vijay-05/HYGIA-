@@ -57,9 +57,10 @@ def run_baseline_extraction(file_path: Path, engine=None):
 
     if ext == ".pdf":
         with pymupdf.open(file_path) as doc:
-            for page_index, page in enumerate(doc):
+            for page_index in range(len(doc)):
+                page = doc[page_index]
                 t_pdf0 = time.perf_counter()
-                text = page.get_text("text").strip()
+                text = str(page.get_text("text")).strip()
                 timings["pdf_text_ms"] += (time.perf_counter() - t_pdf0) * 1000
 
                 if not text:
