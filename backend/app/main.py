@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
 
 from .api import api_router
+from .api.auth import router as auth_router
 from .core.config import settings
 from .db.init_db import init_db
 from .schemas import MessageResponse
@@ -44,6 +45,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(api_router)
+app.include_router(auth_router, prefix="/auth")
 @app.get("/health", tags=["Health"])
 def health_check():
     """Top-level health check endpoint."""

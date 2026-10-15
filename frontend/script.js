@@ -1,43 +1,167 @@
-const API_BASE_URL = "https://hygia-health-copilot.onrender.com";
+const API_BASE_URL = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+  ? (window.location.port === '8000' ? '' : 'http://127.0.0.1:8000')
+  : 'https://hygia-health-copilot.onrender.com';
+
+/**
+ * Perform authenticated fetch request with Bearer token.
+ * Automatically handles 401 Unauthorized responses by clearing credentials and returning to login.
+ */
+async function authenticatedFetch(url, options = {}) {
+  const token = localStorage.getItem('hygia_session_token');
+  const headers = new Headers(options.headers || {});
+  if (token && !headers.has('Authorization')) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+  const mergedOptions = { ...options, headers };
+  const response = await fetch(url, mergedOptions);
+  if (response.status === 401) {
+    console.warn('Unauthorized or session expired on server. Returning to login.');
+    localStorage.removeItem('hygia_session_token');
+    localStorage.removeItem('hygia_user');
+    localStorage.removeItem('hygia_patient_id');
+    delete window.HYGIA_PATIENT_ID;
+    const isLoginPage = window.location.pathname.endsWith('login.html');
+    if (!isLoginPage) {
+      window.location.replace('login.html');
+    }
+  }
+  return response;
+}
+
+function updateDOMUserProfile(user) {
+  if (!user) return;
+  const userNameEls = document.querySelectorAll('.user-name, .hero-greeting-name');
+  userNameEls.forEach(el => {
+    const rawName = user.name || user.display_name || 'User';
+    if (el.classList.contains('hero-greeting-name')) {
+      el.innerHTML = `${rawName.split(' ')[0]} <span class="wave-emoji">👋</span>`;
+    } else {
+      el.textContent = rawName;
+    }
+  });
+
+  const userRoleEl = document.querySelector('.user-role');
+  if (userRoleEl) {
+    userRoleEl.textContent = user.role === 'family' ? 'Family Caregiver' : 'Personal Account';
+  }
+
+  if (user.avatar) {
+    const avatarImgs = document.querySelectorAll('.user-avatar-img');
+    avatarImgs.forEach(img => { img.src = user.avatar; });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const isLoginPage = window.location.pathname.endsWith('login.html');
+  const sessionToken = localStorage.getItem('hygia_session_token');
+
+  // Verify and enforce authentication session
+  if (isLoginPage) {
+    if (sessionToken) {
+      fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+        headers: { 'Authorization': `Bearer ${sessionToken}` }
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json().then(data => {
+            if (data && data.user) {
+              window.location.replace(data.user.role === 'family' ? 'family.html' : 'index.html');
+            }
+          });
+        } else {
+          localStorage.removeItem('hygia_session_token');
+          localStorage.removeItem('hygia_user');
+          localStorage.removeItem('hygia_patient_id');
+          delete window.HYGIA_PATIENT_ID;
+        }
+      })
+      .catch(err => {
+        console.warn('Login session verification note:', err);
+      });
+    }
+  } else {
+    // Protected Dashboard Route: strictly requires valid server session
+    if (!sessionToken) {
+      localStorage.removeItem('hygia_user');
+      localStorage.removeItem('hygia_patient_id');
+      delete window.HYGIA_PATIENT_ID;
+      window.location.replace('login.html');
+      return;
+    }
+
+    // Verify session token against server
+    fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+      headers: { 'Authorization': `Bearer ${sessionToken}` }
+    })
+    .then(async res => {
+      if (!res.ok) {
+        console.warn('Session is expired or invalid on backend. Redirecting to login.');
+        localStorage.removeItem('hygia_session_token');
+        localStorage.removeItem('hygia_user');
+        localStorage.removeItem('hygia_patient_id');
+        delete window.HYGIA_PATIENT_ID;
+        window.location.replace('login.html');
+      } else {
+        const data = await res.json();
+        if (data && data.user) {
+          const verifiedUser = {
+            id: data.user.id,
+            name: data.user.display_name,
+            email: data.user.email,
+            role: data.user.role,
+            patient_id: data.user.patient_id,
+            avatar: data.user.role === 'family' ? 'assets/priya_avatar.jpg' : 'assets/user_avatar.jpg',
+            loggedInAt: new Date().toISOString()
+          };
+          localStorage.setItem('hygia_user', JSON.stringify(verifiedUser));
+          if (data.user.patient_id) {
+            localStorage.setItem('hygia_patient_id', data.user.patient_id);
+            window.HYGIA_PATIENT_ID = data.user.patient_id;
+          }
+          updateDOMUserProfile(verifiedUser);
+        }
+      }
+    })
+    .catch(err => {
+      console.warn('Backend session verification note:', err);
+    });
+  }
+
+  // Populate cached user UI while server verification completes
+  const storedUserJson = localStorage.getItem('hygia_user');
+  if (storedUserJson) {
+    try {
+      const user = JSON.parse(storedUserJson);
+      updateDOMUserProfile(user);
+    } catch (e) {}
+  }
+
   const storedPatientId = localStorage.getItem('hygia_patient_id');
   if (storedPatientId) {
     window.HYGIA_PATIENT_ID = storedPatientId;
   }
 
-  const storedUserJson = localStorage.getItem('hygia_user');
-  if (storedUserJson) {
-    try {
-      const user = JSON.parse(storedUserJson);
-      const userNameEls = document.querySelectorAll('.user-name, .hero-greeting-name');
-      userNameEls.forEach(el => {
-        if (el.classList.contains('hero-greeting-name')) {
-          el.innerHTML = `${user.name.split(' ')[0]} <span class="wave-emoji">👋</span>`;
-        } else {
-          el.textContent = user.name;
-        }
-      });
-
-      const userRoleEl = document.querySelector('.user-role');
-      if (userRoleEl) {
-        userRoleEl.textContent = user.role === 'family' ? 'Family Caregiver' : 'Personal Account';
-      }
-
-      if (user.avatar) {
-        const avatarImgs = document.querySelectorAll('.user-avatar-img');
-        avatarImgs.forEach(img => { img.src = user.avatar; });
-      }
-    } catch (e) {
-      console.warn('Could not parse stored user profile:', e);
-    }
-  }
-
-  const signOutLinks = document.querySelectorAll('a[href="login.html"]');
+  // Handle Logout securely across all sign out buttons / links
+  const signOutLinks = document.querySelectorAll('a[href="login.html"], .sign-out-link, #signOutBtn, #logoutBtn');
   signOutLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const currentToken = localStorage.getItem('hygia_session_token');
+      if (currentToken) {
+        try {
+          await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${currentToken}` }
+          });
+        } catch (err) {
+          console.warn('Logout notification error:', err);
+        }
+      }
+      localStorage.removeItem('hygia_session_token');
       localStorage.removeItem('hygia_user');
       localStorage.removeItem('hygia_patient_id');
       delete window.HYGIA_PATIENT_ID;
+      window.location.replace('login.html');
     });
   });
  const notifToggle = document.getElementById('notifToggle');
@@ -363,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function verifyPatientExists(patientId) {
     if (!patientId) return false;
     try {
-      const res = await fetch(`${API_BASE_URL}/patients/${patientId}`);
+      const res = await authenticatedFetch(`${API_BASE_URL}/patients/${patientId}`);
       return res.ok;
     } catch (e) {
       return false;
@@ -394,11 +518,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (storedUserJson) {
         try {
           const parsed = JSON.parse(storedUserJson);
+          if (parsed.patient_id) {
+            const valid = await verifyPatientExists(parsed.patient_id);
+            if (valid) {
+              window.HYGIA_PATIENT_ID = parsed.patient_id;
+              localStorage.setItem('hygia_patient_id', parsed.patient_id);
+              return parsed.patient_id;
+            }
+          }
           if (parsed.name) currentUserName = parsed.name;
         } catch (e) {}
       }
 
-      const res = await fetch(`${API_BASE_URL}/patients`);
+      const res = await authenticatedFetch(`${API_BASE_URL}/patients`);
       if (res.ok) {
         const patients = await res.json();
         if (Array.isArray(patients) && patients.length > 0) {
@@ -412,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      const createRes = await fetch(`${API_BASE_URL}/patients`, {
+      const createRes = await authenticatedFetch(`${API_BASE_URL}/patients`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ display_name: currentUserName })
@@ -727,7 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let uploadRes;
           let docData;
           try {
-            uploadRes = await fetch(`${API_BASE_URL}/documents/upload`, {
+            uploadRes = await authenticatedFetch(`${API_BASE_URL}/documents/upload`, {
               method: 'POST',
               body: formData
             });
@@ -758,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let extractResult = null;
 
           try {
-            const extRes = await fetch(`${API_BASE_URL}/documents/${documentId}/extract`);
+            const extRes = await authenticatedFetch(`${API_BASE_URL}/documents/${documentId}/extract`);
             if (extRes.ok) {
               extractResult = await extRes.json();
               textExtractionSucceeded = true;
@@ -777,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (textExtractionSucceeded) {
             confirmUploadBtn.textContent = `${progressPrefix}Preparing observations for review...`;
             try {
-              const obsRes = await fetch(`${API_BASE_URL}/documents/${documentId}/observations/extract`, {
+              const obsRes = await authenticatedFetch(`${API_BASE_URL}/documents/${documentId}/observations/extract`, {
                 method: 'POST'
               });
               if (obsRes.ok) {
@@ -1080,7 +1212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('patient_id', patientId);
         formData.append('file', scannedFile);
 
-        const res = await fetch(`${API_BASE_URL}/documents/upload`, {
+        const res = await authenticatedFetch(`${API_BASE_URL}/documents/upload`, {
           method: 'POST',
           body: formData
         });
@@ -1098,7 +1230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let textExtracted = false;
         let extractData = null;
         try {
-          const extRes = await fetch(`${API_BASE_URL}/documents/${documentId}/extract`);
+          const extRes = await authenticatedFetch(`${API_BASE_URL}/documents/${documentId}/extract`);
           if (extRes.ok) {
             extractData = await extRes.json();
             textExtracted = true;
@@ -1113,7 +1245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (textExtracted) {
           btnConfirmCameraScan.textContent = 'Preparing observations for review...';
           try {
-            const obsRes = await fetch(`${API_BASE_URL}/documents/${documentId}/observations/extract`, {
+            const obsRes = await authenticatedFetch(`${API_BASE_URL}/documents/${documentId}/observations/extract`, {
               method: 'POST'
             });
             if (obsRes.ok) {
@@ -1359,7 +1491,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         let createdPatient = null;
         try {
-          const res = await fetch(`${API_BASE_URL}/patients`, {
+          const res = await authenticatedFetch(`${API_BASE_URL}/patients`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ display_name: `${name} (${relation})` })
@@ -1629,13 +1761,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const registeredUsers = JSON.parse(localStorage.getItem('hygia_registered_users') || '[]');
-        const existingAccount = registeredUsers.find(
-          u => u.email && u.email.toLowerCase() === emailVal.toLowerCase()
-        );
+        const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: emailVal,
+            password: passVal
+          })
+        });
 
-        if (existingAccount && existingAccount.password && existingAccount.password !== passVal) {
-          showToast('Incorrect password. Please try again.', 'error');
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          const errorMsg = errData.detail || 'Invalid email or password. Please try again.';
+          showToast(errorMsg, 'error');
           if (loginPassword) {
             loginPassword.focus();
             loginPassword.select();
@@ -1647,100 +1787,66 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        // Determine user display name from account or email
-        let displayName = '';
-        if (existingAccount && existingAccount.name) {
-          displayName = existingAccount.name;
-        } else if (emailVal.includes('@')) {
-          const userPart = emailVal.split('@')[0];
-          displayName = userPart
-            .replace(/[._\-+]/g, ' ')
-            .split(' ')
-            .filter(Boolean)
-            .map(s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
-            .join(' ');
-        } else {
-          displayName = emailVal;
-        }
+        const authData = await response.json();
+        const user = authData.user;
+        const token = authData.token;
 
-        let patientId = existingAccount ? existingAccount.patient_id : null;
-
-        // Verify or create patient in backend API
-        try {
-          if (!patientId) {
-            const listRes = await fetch(`${API_BASE_URL}/patients`);
-            if (listRes.ok) {
-              const patients = await listRes.json();
-              const existing = patients.find(
-                p => p.display_name && p.display_name.toLowerCase() === displayName.toLowerCase()
-              );
-              if (existing) {
-                patientId = existing.id;
-              }
-            }
-          }
-
-          if (!patientId) {
-            const createRes = await fetch(`${API_BASE_URL}/patients`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ display_name: displayName })
-            });
-            if (createRes.ok) {
-              const newPatient = await createRes.json();
-              patientId = newPatient.id;
-            }
-          }
-        } catch (apiErr) {
-          console.warn('Backend API note:', apiErr);
-        }
-
-        // Save / update in registered registry
-        if (!existingAccount) {
-          registeredUsers.push({
-            name: displayName,
-            email: emailVal,
-            password: passVal,
-            role: activeRole,
-            patient_id: patientId,
-            registeredAt: new Date().toISOString()
-          });
-          localStorage.setItem('hygia_registered_users', JSON.stringify(registeredUsers));
-        }
-
+        // Store secure session credentials
+        localStorage.setItem('hygia_session_token', token);
         const userSession = {
-          name: displayName,
-          email: emailVal,
-          role: activeRole,
-          patient_id: patientId,
-          avatar: activeRole === 'family' ? 'assets/priya_avatar.jpg' : 'assets/user_avatar.jpg',
+          id: user.id,
+          name: user.display_name,
+          email: user.email,
+          role: user.role || activeRole,
+          patient_id: user.patient_id,
+          avatar: (user.role || activeRole) === 'family' ? 'assets/priya_avatar.jpg' : 'assets/user_avatar.jpg',
           loggedInAt: new Date().toISOString()
         };
-
         localStorage.setItem('hygia_user', JSON.stringify(userSession));
-        if (patientId) {
-          localStorage.setItem('hygia_patient_id', patientId);
-          window.HYGIA_PATIENT_ID = patientId;
+
+        if (user.patient_id) {
+          localStorage.setItem('hygia_patient_id', user.patient_id);
+          window.HYGIA_PATIENT_ID = user.patient_id;
         }
 
-        showToast(`Welcome back, ${displayName}! Redirecting...`, 'success');
+        showToast(`Welcome back, ${user.display_name}! Redirecting...`, 'success');
 
         setTimeout(() => {
-          if (activeRole === 'family') {
+          if ((user.role || activeRole) === 'family') {
             window.location.href = 'family.html';
           } else {
             window.location.href = 'index.html';
           }
-        }, 600);
+        }, 500);
 
       } catch (err) {
-        console.error('Login error:', err);
-        showToast('Login encountered a problem. Please try again.', 'error');
+        console.error('Login request error:', err);
+        showToast('Login failed. Please check network connection.', 'error');
         if (signInSubmitBtn) {
           signInSubmitBtn.classList.remove('loading');
           signInSubmitBtn.disabled = false;
         }
       }
+    });
+  }
+
+  // Demo account quick-fill buttons
+  const demoPatientBtn = document.getElementById('demoPatientBtn');
+  const demoFamilyBtn = document.getElementById('demoFamilyBtn');
+  if (demoPatientBtn) {
+    demoPatientBtn.addEventListener('click', () => {
+      setRole('patient');
+      if (loginEmail) loginEmail.value = 'kavin@hygia.com';
+      if (loginPassword) loginPassword.value = 'demo123';
+      showToast('Loaded demo patient: kavin@hygia.com', 'info');
+    });
+  }
+  if (demoFamilyBtn) {
+    demoFamilyBtn.addEventListener('click', () => {
+      setRole('family');
+      if (loginEmail) loginEmail.value = 'priya@hygia.com';
+      if (loginPassword) loginPassword.value = 'demo123';
+      showToast('Loaded demo caregiver: priya@hygia.com', 'info');
     });
   }
 
@@ -1823,63 +1929,61 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        let newPatientId = null;
-        try {
-          const res = await fetch(`${API_BASE_URL}/patients`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ display_name: name })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            newPatientId = data.id;
+        const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            password: pass,
+            display_name: name,
+            role: role
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          const errorMsg = errData.detail || 'Registration failed. Please check your details.';
+          showToast(errorMsg, 'error');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create Profile & Continue';
           }
-        } catch (apiErr) {
-          console.warn('Backend API note:', apiErr);
+          return;
         }
 
-        const registeredUsers = JSON.parse(localStorage.getItem('hygia_registered_users') || '[]');
-        const existingIdx = registeredUsers.findIndex(u => u.email && u.email.toLowerCase() === email.toLowerCase());
-        const userRecord = {
-          name,
-          email,
-          password: pass,
-          role,
-          patient_id: newPatientId,
-          registeredAt: new Date().toISOString()
-        };
+        const authData = await response.json();
+        const user = authData.user;
+        const token = authData.token;
 
-        if (existingIdx >= 0) {
-          registeredUsers[existingIdx] = userRecord;
-        } else {
-          registeredUsers.push(userRecord);
-        }
-        localStorage.setItem('hygia_registered_users', JSON.stringify(registeredUsers));
-
+        localStorage.setItem('hygia_session_token', token);
         const userSession = {
-          name: name,
-          email: email,
-          role: role,
-          patient_id: newPatientId,
-          avatar: role === 'family' ? 'assets/priya_avatar.jpg' : 'assets/user_avatar.jpg',
+          id: user.id,
+          name: user.display_name,
+          email: user.email,
+          role: user.role,
+          patient_id: user.patient_id,
+          avatar: user.role === 'family' ? 'assets/priya_avatar.jpg' : 'assets/user_avatar.jpg',
           loggedInAt: new Date().toISOString()
         };
-
         localStorage.setItem('hygia_user', JSON.stringify(userSession));
-        if (newPatientId) {
-          localStorage.setItem('hygia_patient_id', newPatientId);
-          window.HYGIA_PATIENT_ID = newPatientId;
+
+        if (user.patient_id) {
+          localStorage.setItem('hygia_patient_id', user.patient_id);
+          window.HYGIA_PATIENT_ID = user.patient_id;
         }
 
-        showToast(`Profile created for ${name}! Entering portal...`, 'success');
+        showToast(`Profile created for ${user.display_name}! Entering portal...`, 'success');
         closeLoginModal(createAccountModal);
 
         setTimeout(() => {
-          window.location.href = role === 'family' ? 'family.html' : 'index.html';
-        }, 700);
+          window.location.href = user.role === 'family' ? 'family.html' : 'index.html';
+        }, 600);
 
       } catch (err) {
-        showToast('Registration error. Please try again.', 'error');
+        console.error('Registration network error:', err);
+        showToast('Registration error. Please check backend connection.', 'error');
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Create Profile & Continue';

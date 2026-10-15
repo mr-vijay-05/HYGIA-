@@ -17,8 +17,9 @@ from fastapi import (
 from sqlalchemy.orm import Session
 
 from ..db.session import get_db
-from ..models import MedicalDocument, Observation, Patient
+from ..models import MedicalDocument, Observation, Patient, User
 from ..schemas import DocumentCreate, DocumentResponse
+from .deps import get_current_user
 from ..services.document_extractor import (
     extract_document_pages,
     get_ocr_engine as service_get_ocr_engine,
@@ -43,6 +44,7 @@ ALLOWED_TYPES = {
 )
 def register_document(
     payload: DocumentCreate,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> MedicalDocument:
     patient = db.get(Patient, payload.patient_id)
@@ -68,6 +70,7 @@ def register_document(
 async def upload_document(
     patient_id: str = Form(...),
     file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> MedicalDocument:
     patient = db.get(Patient, patient_id)
@@ -146,6 +149,7 @@ async def upload_document(
 @router.get("/{document_id}", response_model=DocumentResponse)
 def get_document(
     document_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> MedicalDocument:
     document = db.get(MedicalDocument, document_id)
@@ -158,6 +162,7 @@ def get_document(
 @router.get("/{document_id}/extract")
 def extract_document_text(
     document_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     document = db.get(MedicalDocument, document_id)
@@ -245,6 +250,7 @@ def recognize_image(image_path: str) -> dict:
 @router.post("/{document_id}/observations/extract")
 def extract_and_save_observations(
     document_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """Extract candidate lab observations and save them for review."""
