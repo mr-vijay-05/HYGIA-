@@ -110,7 +110,7 @@ def test_document_upload_validation_errors(auth_headers):
     )
     assert res_oversized.status_code == 413
 def test_cors_preflight():
-    for origin in ["http://localhost:5500", "http://127.0.0.1:5500"]:
+    for origin in ["http://localhost:5500", "http://127.0.0.1:5500", "https://hygia-copliot.vercel.app"]:
         res = client.options(
             "/api/v1/documents/upload",
             headers={

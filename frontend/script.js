@@ -1,19 +1,46 @@
-const API_BASE_URL = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
-  ? (window.location.port === '8000' ? '' : 'http://127.0.0.1:8000')
-  : 'https://hygia-health-copilot.onrender.com';
+const PROD_API_BASE = "https://hygia-health-copilot.onrender.com";
+const LOCAL_API_BASE = "http://127.0.0.1:8000";
+
+let API_BASE_URL = (function() {
+  if (typeof window === 'undefined') return PROD_API_BASE;
+  if (window.location.port === '8000') return '';
+  return PROD_API_BASE;
+})();
+
+/**
+ * Execute a fetch request with automatic dual-backend failover.
+ * If a local server is specified but unreachable (net::ERR_CONNECTION_REFUSED),
+ * it seamlessly and instantly falls back to the production Render backend.
+ */
+async function fetchWithFallback(endpointPath, options = {}) {
+  const isFullUrl = endpointPath.startsWith('http://') || endpointPath.startsWith('https://');
+  let targetUrl = isFullUrl ? endpointPath : `${API_BASE_URL}${endpointPath}`;
+
+  try {
+    return await fetch(targetUrl, options);
+  } catch (err) {
+    if (!targetUrl.startsWith(PROD_API_BASE)) {
+      console.warn(`Local backend at ${targetUrl} not responding. Seamlessly failing over to Render production: ${PROD_API_BASE}`);
+      API_BASE_URL = PROD_API_BASE;
+      const fallbackUrl = isFullUrl ? endpointPath.replace(/https?:\/\/[^/]+/, PROD_API_BASE) : `${PROD_API_BASE}${endpointPath}`;
+      return await fetch(fallbackUrl, options);
+    }
+    throw err;
+  }
+}
 
 /**
  * Perform authenticated fetch request with Bearer token.
  * Automatically handles 401 Unauthorized responses by clearing credentials and returning to login.
  */
-async function authenticatedFetch(url, options = {}) {
+async function authenticatedFetch(endpointPath, options = {}) {
   const token = localStorage.getItem('hygia_session_token');
   const headers = new Headers(options.headers || {});
   if (token && !headers.has('Authorization')) {
     headers.set('Authorization', `Bearer ${token}`);
   }
   const mergedOptions = { ...options, headers };
-  const response = await fetch(url, mergedOptions);
+  const response = await fetchWithFallback(endpointPath, mergedOptions);
   if (response.status === 401) {
     console.warn('Unauthorized or session expired on server. Returning to login.');
     localStorage.removeItem('hygia_session_token');
@@ -58,9 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verify and enforce authentication session
   if (isLoginPage) {
     if (sessionToken) {
-      fetch(`${API_BASE_URL}/api/v1/auth/me`, {
-        headers: { 'Authorization': `Bearer ${sessionToken}` }
-      })
+      authenticatedFetch('/api/v1/auth/me')
       .then(res => {
         if (res.ok) {
           return res.json().then(data => {
@@ -90,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Verify session token against server
-    fetch(`${API_BASE_URL}/api/v1/auth/me`, {
-      headers: { 'Authorization': `Bearer ${sessionToken}` }
-    })
+    authenticatedFetch('/api/v1/auth/me')
     .then(async res => {
       if (!res.ok) {
         console.warn('Session is expired or invalid on backend. Redirecting to login.');
@@ -149,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentToken = localStorage.getItem('hygia_session_token');
       if (currentToken) {
         try {
-          await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
+          await fetchWithFallback('/api/v1/auth/logout', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${currentToken}` }
           });
@@ -1635,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusText = document.getElementById('statusText');
 
   if (apiStatusPill) {
-    fetch(`${API_BASE_URL}/health`)
+    fetchWithFallback('/health')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'healthy') {
@@ -1664,6 +1687,10 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(message);
       return;
     }
+    // Dismiss any existing toast of same message to prevent vertical stacking
+    const existingToasts = toastContainer.querySelectorAll('.login-toast');
+    existingToasts.forEach(t => t.remove());
+
     const toast = document.createElement('div');
     toast.className = `login-toast toast-${type}`;
     const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
@@ -1761,7 +1788,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+        const response = await fetchWithFallback('/api/v1/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1929,7 +1956,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
+        const response = await fetchWithFallback('/api/v1/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
