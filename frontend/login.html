@@ -16,11 +16,8 @@
   <div class="login-layout-wrapper">
     <div class="login-bg-scene" style="background-image: url('assets/login_bg.jpg');"></div>
     <div class="login-bg-overlay"></div>
-
     <header class="login-top-bar">
       <div class="login-top-right">
-
-
         <a href="#need-help" class="need-help-link" id="needHelpBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"></circle>
@@ -31,7 +28,6 @@
         </a>
       </div>
     </header>
-
     <main class="login-container">
       <section class="login-brand-col">
         <div class="login-brand-header">
@@ -48,14 +44,12 @@
           </a>
         </div>
       </section>
-
       <section class="login-card-col">
         <div class="login-card-box">
           <div class="login-card-header">
             <h3 class="login-card-title" id="cardTitle">Welcome Back</h3>
             <p class="login-card-subtitle" id="cardSubtitle">Sign in to access your personal health records</p>
           </div>
-
           <div class="login-role-switcher" id="roleSwitcher" role="tablist">
             <button type="button" class="role-tab active" data-role="patient" id="patientTab" role="tab" aria-selected="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,7 +68,6 @@
               <span>Family Member</span>
             </button>
           </div>
-
           <form class="login-form" id="loginForm" novalidate>
             <div class="login-form-group">
               <label for="loginEmail" class="form-label" id="loginEmailLabel">Email or Phone Number</label>
@@ -93,7 +86,6 @@
                 >
               </div>
             </div>
-
             <div class="login-form-group">
               <label for="loginPassword" class="form-label">Password</label>
               <div class="input-with-icon has-right-icon">
@@ -117,7 +109,6 @@
                   </svg>
                 </button>
               </div>
-
               <div class="login-form-meta-row">
                 <label class="remember-me-checkbox" for="rememberMeCheckbox">
                   <input type="checkbox" id="rememberMeCheckbox" checked>
@@ -127,7 +118,6 @@
                 <a href="#forgot" class="forgot-link" id="forgotPasswordBtn">Forgot password?</a>
               </div>
             </div>
-
             <button type="submit" class="login-submit-btn" id="signInSubmitBtn">
               <span class="btn-spinner" id="btnSpinner"></span>
               <span class="btn-text" id="signInBtnText">Sign In as Patient</span>
@@ -137,13 +127,11 @@
               </svg>
             </button>
           </form>
-
           <div class="login-divider">
             <span class="divider-line"></span>
             <span class="divider-text">or continue with</span>
             <span class="divider-line"></span>
           </div>
-        
           <div class="social-login-grid">
             <button type="button" class="social-btn" id="googleLoginBtn">
               <svg class="social-icon" viewBox="0 0 24 24">
@@ -161,7 +149,6 @@
               <span>Apple</span>
             </button>
           </div>
-
           <div class="login-footer-row">
             <span>Don't have an account?</span>
             <button type="button" class="register-link-btn" id="openRegisterModalBtn">Create a new account</button>
@@ -170,7 +157,6 @@
       </section>
     </main>
   </div>
-
   <div class="login-modal-backdrop" id="createAccountModal" role="dialog" aria-hidden="true" aria-labelledby="createAccountTitle">
     <div class="login-modal-box">
       <div class="login-modal-header">
@@ -180,7 +166,6 @@
         </div>
         <button type="button" class="login-modal-close" id="closeRegisterModal" aria-label="Close modal">&times;</button>
       </div>
-
       <form id="registerForm" class="login-modal-form">
         <div class="login-form-group">
           <label for="regDisplayName" class="form-label">Full Name</label>
@@ -192,7 +177,6 @@
             <input type="text" id="regDisplayName" class="form-input" placeholder="e.g. Kavin Sharma" required>
           </div>
         </div>
-
         <div class="login-form-group">
           <label for="regRole" class="form-label">Account Role</label>
           <select id="regRole" class="form-input form-select">
@@ -200,7 +184,6 @@
             <option value="family">Family Member / Caregiver</option>
           </select>
         </div>
-
         <div class="login-form-group">
           <label for="regEmail" class="form-label">Email or Mobile Number</label>
           <div class="input-with-icon">
@@ -211,7 +194,6 @@
             <input type="email" id="regEmail" class="form-input" placeholder="name@example.com" required>
           </div>
         </div>
-
         <div class="login-form-group">
           <label for="regPassword" class="form-label">Create Password</label>
           <div class="input-with-icon">
@@ -222,7 +204,6 @@
             <input type="password" id="regPassword" class="form-input" placeholder="At least 8 characters" required>
           </div>
         </div>
-
         <div class="login-modal-actions">
           <button type="button" class="modal-secondary-btn" id="cancelRegisterBtn">Cancel</button>
           <button type="submit" class="modal-primary-btn" id="submitRegisterBtn">
@@ -232,7 +213,6 @@
       </form>
     </div>
   </div>
-
   <div class="login-modal-backdrop" id="forgotPasswordModal" role="dialog" aria-hidden="true" aria-labelledby="forgotPasswordTitle">
     <div class="login-modal-box">
       <div class="login-modal-header">
@@ -242,7 +222,6 @@
         </div>
         <button type="button" class="login-modal-close" id="closeForgotModal" aria-label="Close modal">&times;</button>
       </div>
-
       <form id="forgotPasswordForm" class="login-modal-form">
         <div class="login-form-group">
           <label for="resetEmail" class="form-label">Registered Email or Phone</label>
@@ -254,7 +233,6 @@
             <input type="text" id="resetEmail" class="form-input" placeholder="Enter your registered email or phone" required>
           </div>
         </div>
-
         <div class="login-modal-actions">
           <button type="button" class="modal-secondary-btn" id="cancelForgotBtn">Back to Login</button>
           <button type="submit" class="modal-primary-btn" id="sendResetLinkBtn">
@@ -264,7 +242,6 @@
       </form>
     </div>
   </div>
-
   <div class="login-modal-backdrop" id="needHelpModal" role="dialog" aria-hidden="true" aria-labelledby="needHelpTitle">
     <div class="login-modal-box login-modal-wide">
       <div class="login-modal-header">
@@ -274,24 +251,20 @@
         </div>
         <button type="button" class="login-modal-close" id="closeNeedHelpModal" aria-label="Close modal">&times;</button>
       </div>
-
       <div class="faq-list">
         <div class="faq-item">
           <h4 class="faq-question">How does Hygia protect my personal health records?</h4>
           <p class="faq-answer">Hygia uses 256-bit encryption for all uploaded PDFs, images and extracted biomarkers. Your records are never sold or shared with advertisers.</p>
         </div>
-
         <div class="faq-item">
           <h4 class="faq-question">What is the difference between Patient and Family Member login?</h4>
           <p class="faq-answer">Patient accounts are the primary owners of health records. Family accounts allow authorized caregivers to review records, track visits and view timelines with patient permission.</p>
         </div>
-
         <div class="faq-item">
           <h4 class="faq-question">How do I create a new account?</h4>
           <p class="faq-answer">Click <strong>Create a new account</strong> at the bottom of the sign-in card. Enter your full name, email or phone, and choose whether you are a primary patient or a family caregiver to immediately set up your portal.</p>
         </div>
       </div>
-
       <div class="emergency-notice-banner">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
@@ -300,13 +273,11 @@
         </svg>
         <span><strong>Medical Disclaimer:</strong> Hygia is an AI health organizer, not an emergency medical provider. If you are experiencing an acute medical emergency, please call 911 or visit your nearest emergency room immediately.</span>
       </div>
-
       <div class="login-modal-actions">
         <button type="button" class="modal-primary-btn" id="gotItHelpBtn">Got it, Back to Sign In</button>
       </div>
     </div>
   </div>
-
   <div class="login-toast-container" id="toastContainer" aria-live="polite"></div>
 
   <script src="script.js?v=10"></script>
